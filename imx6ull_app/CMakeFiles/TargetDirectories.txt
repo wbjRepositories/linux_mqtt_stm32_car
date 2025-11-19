@@ -1,3 +1,0 @@
-/mnt/hgfs/ubunt_share/imx6ull_app/CMakeFiles/mqttClient.dir
-/mnt/hgfs/ubunt_share/imx6ull_app/CMakeFiles/edit_cache.dir
-/mnt/hgfs/ubunt_share/imx6ull_app/CMakeFiles/rebuild_cache.dir

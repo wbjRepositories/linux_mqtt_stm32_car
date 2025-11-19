@@ -28,7 +28,7 @@
 #define SHM_NAME "/lvgl_mqtt_shm"			//共享内存名字
 #define SEM_NAME "/lvgl_mqtt_sem"			//信号量名字
 #define BUFF1_SIZE LV_HOR_RES_MAX * 10		//buff1字节数
-
+#define CAR_MAX_SPEED   128
 
 typedef struct {
     int tracking_id;		//手指id
@@ -237,6 +237,7 @@ void mqtt_shm_init(void)
     }
 
     car_status = (car_status_t *)mmap(NULL, sizeof(car_status_t), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+    car_status->speed_max = CAR_MAX_SPEED;
     if(car_status == MAP_FAILED)
     {
         shm_unlink(SHM_NAME);
