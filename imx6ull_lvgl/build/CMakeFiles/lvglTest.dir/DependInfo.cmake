@@ -8,21 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/GC9A01.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ILI9341.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/R61581.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SHARP_MIP.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SSD1963.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ST7565.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/UC1610.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/drm.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c" "CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/AD_touch.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/FT5406EE8.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/XPT2046.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/libinput.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o.d"
-  "/home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/xkb.c" "CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o" "gcc" "CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/core/lv_disp.c" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_disp.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_disp.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/core/lv_event.c" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_event.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_event.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/core/lv_group.c" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_group.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/core/lv_group.c.o.d"

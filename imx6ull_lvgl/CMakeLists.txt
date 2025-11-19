@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(project1)
 
-
+set(EXECUTABLE_OUTPUT_PATH ../bin)
 # 配置 ARM 交叉编译
 set(CMAKE_SYSTEM_NAME Linux) #设置目标系统名字
 set(CMAKE_SYSTEM_PROCESSOR arm) #设置目标处理器架构

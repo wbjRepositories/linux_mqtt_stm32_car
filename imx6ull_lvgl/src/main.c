@@ -254,7 +254,7 @@ void mqtt_sem_init(void)
 {
     if((mqtt_sem = sem_open(SEM_NAME, O_CREAT | O_RDWR, 0644, 0)) == SEM_FAILED)
     {
-        munmap(car_status, BUFF1_SIZE);
+        munmap(car_status, sizeof(car_status_t));
         shm_unlink(SHM_NAME);
         perror("sem_open err");
         exit(1);
@@ -266,7 +266,7 @@ void mqtt_sem_init(void)
 */
 void sig_handler(int sig)
 {
-    munmap(car_status, BUFF1_SIZE);
+    munmap(car_status, sizeof(car_status_t));
     shm_unlink(SHM_NAME);
     printf("接受到%d函数\n", sig);
     exit(sig);

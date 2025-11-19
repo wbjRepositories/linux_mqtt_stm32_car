@@ -2771,122 +2771,10 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.s"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_textarea.c -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.s
 
-CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/GC9A01.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/GC9A01.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/GC9A01.c > CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/GC9A01.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ILI9341.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ILI9341.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ILI9341.c > CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ILI9341.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/R61581.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/R61581.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/R61581.c > CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/R61581.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SHARP_MIP.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SHARP_MIP.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SHARP_MIP.c > CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SHARP_MIP.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SSD1963.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_198) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SSD1963.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SSD1963.c > CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/SSD1963.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ST7565.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_199) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ST7565.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ST7565.c > CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/ST7565.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/UC1610.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_200) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/UC1610.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/UC1610.c > CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/UC1610.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/drm.c
-CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_201) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/drm.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/drm.c > CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/drm.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.s
-
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_202) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c
 
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.i: cmake_force
@@ -2897,52 +2785,10 @@ CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.s"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c -o CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.s
 
-CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/AD_touch.c
-CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_203) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/AD_touch.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/AD_touch.c > CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/AD_touch.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/FT5406EE8.c
-CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_204) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/FT5406EE8.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/FT5406EE8.c > CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/FT5406EE8.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/XPT2046.c
-CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_205) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/XPT2046.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/XPT2046.c > CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/XPT2046.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.s
-
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_206) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c
 
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.i: cmake_force
@@ -2952,34 +2798,6 @@ CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.i: cmake_force
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.s"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/libinput.c
-CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_207) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/libinput.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/libinput.c > CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/libinput.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.s
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o: CMakeFiles/lvglTest.dir/flags.make
-CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/xkb.c
-CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_208) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/xkb.c
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.i"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/xkb.c > CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.i
-
-CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.s"
-	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/xkb.c -o CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.s
 
 # Object files for target lvglTest
 lvglTest_OBJECTS = \
@@ -3176,240 +2994,214 @@ lvglTest_OBJECTS = \
 "CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o" \
 "CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o" \
-"CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o"
+"CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"
 
 # External object files for target lvglTest
 lvglTest_EXTERNAL_OBJECTS =
 
-lvglTest: CMakeFiles/lvglTest.dir/src/main.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_disp.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_event.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_group.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_indev.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_indev_scroll.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_class.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_draw.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_pos.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_scroll.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_style.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_style_gen.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_tree.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_refr.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_theme.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/arm2d/lv_gpu_arm2d.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_arc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_img.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_label.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_layer.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_line.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_mask.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_rect.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_transform.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_triangle.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_buf.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_cache.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_decoder.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_draw_pxp.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_draw_pxp_blend.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_gpu_nxp_pxp.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_gpu_nxp_pxp_osa.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_arc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_blend.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_line.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_rect.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_vglite_buf.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_vglite_utils.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/renesas/lv_gpu_d2_draw_label.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/renesas/lv_gpu_d2_ra6m3.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_arc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_bg.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_composite.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_img.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_label.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_layer.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_line.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_mask.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_polygon.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_rect.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_stack_blur.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_texture_cache.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_utils.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/stm32_dma2d/lv_gpu_stm32_dma2d.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_arc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_blend.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_dither.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_gradient.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_img.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_layer.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_letter.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_line.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_polygon.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_rect.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_transform.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/swm341_dma2d/lv_gpu_swm341_dma2d.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/layouts/flex/lv_flex.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/layouts/grid/lv_grid.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/bmp/lv_bmp.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/freetype/lv_freetype.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_fatfs.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_littlefs.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_posix.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_stdio.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_win32.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/gif/gifdec.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/gif/lv_gif.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/png/lodepng.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/png/lv_png.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/qrcode/lv_qrcode.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/qrcode/qrcodegen.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/rlottie/lv_rlottie.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/sjpg/lv_sjpg.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/sjpg/tjpgd.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/tiny_ttf/lv_tiny_ttf.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/lv_extra.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/fragment/lv_fragment.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/fragment/lv_fragment_manager.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/gridnav/lv_gridnav.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/ime/lv_ime_pinyin.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/imgfont/lv_imgfont.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/monkey/lv_monkey.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/msg/lv_msg.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/snapshot/lv_snapshot.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/basic/lv_theme_basic.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/default/lv_theme_default.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/mono/lv_theme_mono.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/animimg/lv_animimg.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar_header_arrow.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar_header_dropdown.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/chart/lv_chart.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/colorwheel/lv_colorwheel.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/imgbtn/lv_imgbtn.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/keyboard/lv_keyboard.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/led/lv_led.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/list/lv_list.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/menu/lv_menu.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/meter/lv_meter.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/msgbox/lv_msgbox.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/span/lv_span.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/spinbox/lv_spinbox.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/spinner/lv_spinner.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tabview/lv_tabview.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/GC9A01.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/ILI9341.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/R61581.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/SHARP_MIP.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/SSD1963.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/ST7565.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/UC1610.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/drm.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/AD_touch.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/FT5406EE8.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/XPT2046.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/libinput.c.o
-lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/xkb.c.o
-lvglTest: CMakeFiles/lvglTest.dir/build.make
-lvglTest: CMakeFiles/lvglTest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_209) "Linking C executable lvglTest"
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/src/main.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_disp.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_event.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_group.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_indev.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_indev_scroll.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_class.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_draw.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_pos.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_scroll.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_style.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_style_gen.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_obj_tree.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_refr.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/core/lv_theme.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/arm2d/lv_gpu_arm2d.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_arc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_img.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_label.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_layer.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_line.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_mask.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_rect.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_transform.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_draw_triangle.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_buf.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_cache.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/lv_img_decoder.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_draw_pxp.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_draw_pxp_blend.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_gpu_nxp_pxp.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/pxp/lv_gpu_nxp_pxp_osa.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_arc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_blend.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_line.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_draw_vglite_rect.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_vglite_buf.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/nxp/vglite/lv_vglite_utils.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/renesas/lv_gpu_d2_draw_label.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/renesas/lv_gpu_d2_ra6m3.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_arc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_bg.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_composite.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_img.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_label.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_layer.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_line.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_mask.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_polygon.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_rect.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_stack_blur.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_texture_cache.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sdl/lv_draw_sdl_utils.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/stm32_dma2d/lv_gpu_stm32_dma2d.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_arc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_blend.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_dither.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_gradient.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_img.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_layer.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_letter.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_line.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_polygon.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_rect.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/sw/lv_draw_sw_transform.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/draw/swm341_dma2d/lv_gpu_swm341_dma2d.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/layouts/flex/lv_flex.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/layouts/grid/lv_grid.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/bmp/lv_bmp.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/freetype/lv_freetype.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_fatfs.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_littlefs.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_posix.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_stdio.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/fsdrv/lv_fs_win32.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/gif/gifdec.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/gif/lv_gif.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/png/lodepng.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/png/lv_png.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/qrcode/lv_qrcode.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/qrcode/qrcodegen.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/rlottie/lv_rlottie.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/sjpg/lv_sjpg.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/sjpg/tjpgd.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/libs/tiny_ttf/lv_tiny_ttf.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/lv_extra.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/fragment/lv_fragment.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/fragment/lv_fragment_manager.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/gridnav/lv_gridnav.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/ime/lv_ime_pinyin.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/imgfont/lv_imgfont.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/monkey/lv_monkey.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/msg/lv_msg.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/others/snapshot/lv_snapshot.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/basic/lv_theme_basic.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/default/lv_theme_default.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/themes/mono/lv_theme_mono.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/animimg/lv_animimg.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar_header_arrow.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/calendar/lv_calendar_header_dropdown.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/chart/lv_chart.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/colorwheel/lv_colorwheel.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/imgbtn/lv_imgbtn.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/keyboard/lv_keyboard.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/led/lv_led.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/list/lv_list.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/menu/lv_menu.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/meter/lv_meter.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/msgbox/lv_msgbox.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/span/lv_span.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/spinbox/lv_spinbox.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/spinner/lv_spinner.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tabview/lv_tabview.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/build.make
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Linking C executable /home/book/MyCode/imx6ull_lvgl/bin/lvglTest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lvglTest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/lvglTest.dir/build: lvglTest
+CMakeFiles/lvglTest.dir/build: /home/book/MyCode/imx6ull_lvgl/bin/lvglTest
 .PHONY : CMakeFiles/lvglTest.dir/build
 
 CMakeFiles/lvglTest.dir/clean:
