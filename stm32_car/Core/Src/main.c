@@ -25,6 +25,8 @@
 #include "usart.h"
 #include "gpio.h"
 #include "task_mqtt.h"
+#include "encoder.h"
+#include "OLED.h"
 #include <stdio.h>
 
 #include "FreeRTOS.h"
@@ -56,14 +58,13 @@ int main(void)
 
   MX_GPIO_Init();
   MX_ADC1_Init();
-  MX_I2C1_Init();
   MX_SPI2_Init();
   MX_TIM1_Init();
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART2_UART_Init();
 	USART3_UART_Init();
-	
+	OLED_Init();
 	printf("app runing\n");
 	
 	mqtt_ok = xSemaphoreCreateBinary();
