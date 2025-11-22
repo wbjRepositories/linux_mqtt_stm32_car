@@ -5,7 +5,8 @@ typedef struct
 {
     signed char current_speed;		//当前速度
     char speed_max;					//最大速度
-    char direction;					//运动方向（左右）
+    signed char direction;			//运动方向（左右）
+    char dirct_speed;               //小车转向速度
 }car_status_t;						//小车的运动状态
 
 

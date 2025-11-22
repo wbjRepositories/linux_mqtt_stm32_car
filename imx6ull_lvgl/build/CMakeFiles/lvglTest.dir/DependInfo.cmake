@@ -132,6 +132,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/extra/widgets/tileview/lv_tileview.c" "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/extra/widgets/win/lv_win.c" "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font.c" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o.d"
+  "/home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_fmt_txt.c" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o.d"
   "/home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_loader.c" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o" "gcc" "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o.d"

@@ -249,6 +249,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o.d"
   "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o"
   "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o.d"
+  "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o"
+  "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o.d"
   "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o"
   "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o.d"
   "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o"

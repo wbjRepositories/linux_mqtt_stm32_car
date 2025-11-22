@@ -3105,6 +3105,30 @@ lvgl/src/font/lv_font.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lvglTest.dir/build.make CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.s
 .PHONY : lvgl/src/font/lv_font.c.s
 
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.o: lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.o
+
+# target to build an object file
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lvglTest.dir/build.make CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o
+
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.i: lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.i
+
+# target to preprocess a source file
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lvglTest.dir/build.make CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i
+
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.s: lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.s
+
+# target to generate assembly for a file
+lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lvglTest.dir/build.make CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s
+.PHONY : lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s
+
 lvgl/src/font/lv_font_dejavu_16_persian_hebrew.o: lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o
 .PHONY : lvgl/src/font/lv_font_dejavu_16_persian_hebrew.o
 
@@ -5190,6 +5214,9 @@ help:
 	@echo "... lvgl/src/font/lv_font.o"
 	@echo "... lvgl/src/font/lv_font.i"
 	@echo "... lvgl/src/font/lv_font.s"
+	@echo "... lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.o"
+	@echo "... lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.i"
+	@echo "... lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.s"
 	@echo "... lvgl/src/font/lv_font_dejavu_16_persian_hebrew.o"
 	@echo "... lvgl/src/font/lv_font_dejavu_16_persian_hebrew.i"
 	@echo "... lvgl/src/font/lv_font_dejavu_16_persian_hebrew.s"

@@ -1791,10 +1791,24 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.s"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font.c -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.s
 
+CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o: CMakeFiles/lvglTest.dir/flags.make
+CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c
+CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_124) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o"
+	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c
+
+CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i"
+	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c > CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.i
+
+CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s"
+	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.s
+
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_124) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_125) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.i: cmake_force
@@ -1808,7 +1822,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.s: cmak
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_fmt_txt.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_125) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_126) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_fmt_txt.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.i: cmake_force
@@ -1822,7 +1836,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_loader.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_126) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_127) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_loader.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.i: cmake_force
@@ -1836,7 +1850,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_10.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_127) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_128) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_10.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.i: cmake_force
@@ -1850,7 +1864,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_10.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_12.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_128) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_129) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_12.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.i: cmake_force
@@ -1864,7 +1878,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_12_subpx.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_129) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_130) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_12_subpx.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.i: cmake_force
@@ -1878,7 +1892,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_12_subpx.c.s: cmake_for
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_14.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_130) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_131) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_14.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.i: cmake_force
@@ -1892,7 +1906,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_14.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_16.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_131) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_132) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_16.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.i: cmake_force
@@ -1906,7 +1920,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_16.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_18.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_132) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_18.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.i: cmake_force
@@ -1920,7 +1934,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_18.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_20.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_133) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_20.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.i: cmake_force
@@ -1934,7 +1948,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_20.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_22.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_134) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_22.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.i: cmake_force
@@ -1948,7 +1962,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_22.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_24.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_135) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_24.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.i: cmake_force
@@ -1962,7 +1976,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_24.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_26.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_136) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_26.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.i: cmake_force
@@ -1976,7 +1990,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_26.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_28.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_137) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_28.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.i: cmake_force
@@ -1990,7 +2004,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_28_compressed.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_138) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_28_compressed.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.i: cmake_force
@@ -2004,7 +2018,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_28_compressed.c.s: cmak
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_30.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_139) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_30.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.i: cmake_force
@@ -2018,7 +2032,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_30.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_32.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_140) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_141) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_32.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.i: cmake_force
@@ -2032,7 +2046,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_32.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_34.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_141) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_142) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_34.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.i: cmake_force
@@ -2046,7 +2060,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_34.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_36.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_142) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_143) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_36.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.i: cmake_force
@@ -2060,7 +2074,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_36.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_38.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_143) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_144) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_38.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.i: cmake_force
@@ -2074,7 +2088,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_38.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_40.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_144) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_145) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_40.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.i: cmake_force
@@ -2088,7 +2102,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_40.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_42.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_145) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_146) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_42.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.i: cmake_force
@@ -2102,7 +2116,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_42.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_44.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_146) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_147) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_44.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.i: cmake_force
@@ -2116,7 +2130,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_44.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_46.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_147) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_148) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_46.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.i: cmake_force
@@ -2130,7 +2144,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_46.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_48.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_148) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_149) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_48.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.i: cmake_force
@@ -2144,7 +2158,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_48.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_8.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_149) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_150) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_montserrat_8.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.i: cmake_force
@@ -2158,7 +2172,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_montserrat_8.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_simsun_16_cjk.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_150) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_151) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_simsun_16_cjk.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.i: cmake_force
@@ -2172,7 +2186,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_simsun_16_cjk.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_unscii_16.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_151) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_152) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_unscii_16.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.i: cmake_force
@@ -2186,7 +2200,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_16.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_unscii_8.c
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_152) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_153) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/font/lv_font_unscii_8.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.i: cmake_force
@@ -2200,7 +2214,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_unscii_8.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_disp.c
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_153) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_154) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_disp.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.i: cmake_force
@@ -2214,7 +2228,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_disp.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_indev.c
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_154) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_155) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_indev.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.i: cmake_force
@@ -2228,7 +2242,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_indev.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_tick.c
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_155) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_156) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/hal/lv_hal_tick.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.i: cmake_force
@@ -2242,7 +2256,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/hal/lv_hal_tick.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_anim.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_156) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_157) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_anim.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.i: cmake_force
@@ -2256,7 +2270,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_anim_timeline.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_157) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_158) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_anim_timeline.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.i: cmake_force
@@ -2270,7 +2284,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_anim_timeline.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_area.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_158) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_159) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_area.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.i: cmake_force
@@ -2284,7 +2298,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_area.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_async.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_159) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_160) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_async.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.i: cmake_force
@@ -2298,7 +2312,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_async.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_bidi.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_160) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_161) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_bidi.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.i: cmake_force
@@ -2312,7 +2326,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_bidi.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_color.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_161) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_162) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_color.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.i: cmake_force
@@ -2326,7 +2340,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_color.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_fs.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_162) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_163) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_fs.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.i: cmake_force
@@ -2340,7 +2354,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_fs.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_gc.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_163) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_164) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_gc.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.i: cmake_force
@@ -2354,7 +2368,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_gc.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_ll.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_164) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_165) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_ll.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.i: cmake_force
@@ -2368,7 +2382,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_ll.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_log.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_165) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_166) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_log.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.i: cmake_force
@@ -2382,7 +2396,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_lru.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_166) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_167) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_lru.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.i: cmake_force
@@ -2396,7 +2410,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_lru.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_math.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_167) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_168) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_math.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.i: cmake_force
@@ -2410,7 +2424,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_math.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_mem.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_168) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_169) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_mem.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.i: cmake_force
@@ -2424,7 +2438,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_mem.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_printf.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_169) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_170) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_printf.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.i: cmake_force
@@ -2438,7 +2452,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_printf.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_style.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_170) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_171) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_style.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.i: cmake_force
@@ -2452,7 +2466,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_style_gen.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_171) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_172) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_style_gen.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.i: cmake_force
@@ -2466,7 +2480,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_style_gen.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_templ.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_172) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_templ.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.i: cmake_force
@@ -2480,7 +2494,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_templ.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_timer.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_timer.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.i: cmake_force
@@ -2494,7 +2508,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_timer.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_tlsf.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_tlsf.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.i: cmake_force
@@ -2508,7 +2522,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_tlsf.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_txt.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_txt.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.i: cmake_force
@@ -2522,7 +2536,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_txt_ap.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_txt_ap.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.i: cmake_force
@@ -2536,7 +2550,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_txt_ap.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_utils.c
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/misc/lv_utils.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.i: cmake_force
@@ -2550,7 +2564,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_utils.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_arc.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_arc.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.i: cmake_force
@@ -2564,7 +2578,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_arc.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_bar.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_bar.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.i: cmake_force
@@ -2578,7 +2592,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_bar.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_btn.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_btn.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.i: cmake_force
@@ -2592,7 +2606,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btn.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_btnmatrix.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_btnmatrix.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.i: cmake_force
@@ -2606,7 +2620,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_btnmatrix.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_canvas.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_canvas.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.i: cmake_force
@@ -2620,7 +2634,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_canvas.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_checkbox.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_checkbox.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.i: cmake_force
@@ -2634,7 +2648,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_checkbox.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_dropdown.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_dropdown.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.i: cmake_force
@@ -2648,7 +2662,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_dropdown.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_img.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_img.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.i: cmake_force
@@ -2662,7 +2676,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_img.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_label.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_label.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.i: cmake_force
@@ -2676,7 +2690,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_label.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_line.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_line.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.i: cmake_force
@@ -2690,7 +2704,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_line.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_objx_templ.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_objx_templ.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.i: cmake_force
@@ -2704,7 +2718,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_objx_templ.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_roller.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_roller.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.i: cmake_force
@@ -2718,7 +2732,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_roller.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_slider.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_slider.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.i: cmake_force
@@ -2732,7 +2746,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_slider.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_switch.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_switch.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.i: cmake_force
@@ -2746,7 +2760,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_switch.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_table.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_table.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.i: cmake_force
@@ -2760,7 +2774,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_table.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o: /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_textarea.c
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o -MF CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o.d -o CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.o -c /home/book/MyCode/imx6ull_lvgl/lvgl/src/widgets/lv_textarea.c
 
 CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.i: cmake_force
@@ -2774,7 +2788,7 @@ CMakeFiles/lvglTest.dir/lvgl/src/widgets/lv_textarea.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/display/fbdev.c
 
 CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.i: cmake_force
@@ -2788,7 +2802,7 @@ CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.s: cmake_force
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: CMakeFiles/lvglTest.dir/flags.make
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o: CMakeFiles/lvglTest.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"
 	/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o -MF CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o.d -o CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o -c /home/book/MyCode/imx6ull_lvgl/lv_drivers/indev/evdev.c
 
 CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.i: cmake_force
@@ -2924,6 +2938,7 @@ lvglTest_OBJECTS = \
 "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o" \
+"CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o" \
 "CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o" \
@@ -3123,6 +3138,7 @@ lvglTest_EXTERNAL_OBJECTS =
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/tileview/lv_tileview.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/extra/widgets/win/lv_win.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font.c.o
+/home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_SiYuanHeiTi_Bold_20.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_dejavu_16_persian_hebrew.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_fmt_txt.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lvgl/src/font/lv_font_loader.c.o
@@ -3197,7 +3213,7 @@ lvglTest_EXTERNAL_OBJECTS =
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/build.make
 /home/book/MyCode/imx6ull_lvgl/bin/lvglTest: CMakeFiles/lvglTest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Linking C executable /home/book/MyCode/imx6ull_lvgl/bin/lvglTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/book/MyCode/imx6ull_lvgl/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Linking C executable /home/book/MyCode/imx6ull_lvgl/bin/lvglTest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lvglTest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
