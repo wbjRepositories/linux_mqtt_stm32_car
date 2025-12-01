@@ -1,0 +1,3 @@
+/home/book/MyCode/imx6ull_daemon/CMakeFiles/monitorDaemon.dir
+/home/book/MyCode/imx6ull_daemon/CMakeFiles/edit_cache.dir
+/home/book/MyCode/imx6ull_daemon/CMakeFiles/rebuild_cache.dir

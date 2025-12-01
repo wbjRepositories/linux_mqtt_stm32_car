@@ -1,0 +1,1 @@
+/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/book/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 CMakeFiles/camera.dir/camera.c.o -o camera  -lrt 
