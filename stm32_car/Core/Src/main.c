@@ -25,9 +25,11 @@
 #include "usart.h"
 #include "gpio.h"
 #include "task_mqtt.h"
-#include "encoder.h"
+#include "task_oled.h"
+#include "task_misc.h"
 #include "OLED.h"
 #include <stdio.h>
+#include <string.h>
 
 #include "FreeRTOS.h"
 #include "task.h"
@@ -43,10 +45,15 @@ void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackTy
 static StaticTask_t xIdleTaskTCBBuffer;
 static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
 static TaskHandle_t Mqtt_Task_Handle = NULL;
-
-
+TaskHandle_t OLED_Task_Handle = NULL;
+static TaskHandle_t Misc_Task_Handle = NULL;
 
 SemaphoreHandle_t mqtt_ok;
+SemaphoreHandle_t mqtt_resond;
+
+QueueHandle_t Queue_car_recv = NULL;
+QueueHandle_t Queue_car_send = NULL;
+
 
 
 int main(void)
@@ -64,11 +71,56 @@ int main(void)
   MX_TIM3_Init();
   MX_USART2_UART_Init();
 	USART3_UART_Init();
-	OLED_Init();
 	printf("app runing\n");
+
+	
+	Queue_car_recv = xQueueCreate(2, sizeof(car_status_t));
+	if(Queue_car_recv == 0)
+	{
+		Error_Handler();
+	}
+	Queue_car_send = xQueueCreate(2, sizeof(car_status_t));
+	if(Queue_car_send == 0)
+	{
+		Error_Handler();
+	}
+	
+	
+	
+	/*	超声波雷达测距。配合舵机可以扫射前方一定角度的障碍物距离。
+	while(1)
+	{
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
+		HAL_Delay(1);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
+		
+		HAL_Delay(100);
+		//printf("%d\n", __HAL_TIM_GetCompare(&htim3, TIM_CHANNEL_3));
+	}
+	
+	//对射传感器计数，可测小车移动速度
+	while(1)
+	{
+		printf("counter:%d\n", __HAL_TIM_GetCounter(&htim2));
+		HAL_Delay(100);
+	}*/
+	
+	
 	
 	mqtt_ok = xSemaphoreCreateBinary();
-	if(xTaskCreate((TaskFunction_t)Task_Mqtt, "Task_Mqtt", 512, NULL, 3, &Mqtt_Task_Handle) != pdPASS)
+	mqtt_resond = xSemaphoreCreateBinary();
+	if(xTaskCreate((TaskFunction_t)Task_Mqtt, "Task_Mqtt", 256, NULL, 3, &Mqtt_Task_Handle) != pdPASS)
+	{
+		Error_Handler();
+	}
+	printf("free heap: %d\n", xPortGetFreeHeapSize());
+	if(xTaskCreate((TaskFunction_t)Task_OLED, "Task_OLED", 256, NULL, 3, &OLED_Task_Handle) != pdPASS)
+	{
+		Error_Handler();
+	} 
+	
+	if(xTaskCreate((TaskFunction_t)Task_Misc, "Task_Misc", 256, NULL, 3, &Misc_Task_Handle) != pdPASS)
 	{
 		Error_Handler();
 	}
@@ -158,18 +210,7 @@ void SystemClock_Config(void)
   * @param  htim : TIM handle
   * @retval None
   */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  /* USER CODE BEGIN Callback 0 */
 
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM4) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
 
 /**
   * @brief  This function is executed in case of error occurrence.

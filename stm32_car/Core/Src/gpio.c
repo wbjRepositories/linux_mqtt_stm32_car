@@ -20,25 +20,12 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "gpio.h"
+#include "FreeRTOS.h"
+#include "queue.h"
 
-/* USER CODE BEGIN 0 */
+uint32_t last_exti10_tick = 0;   // 记录上次触发时间
+extern TaskHandle_t OLED_Task_Handle;
 
-/* USER CODE END 0 */
-
-/*----------------------------------------------------------------------------*/
-/* Configure GPIO                                                             */
-/*----------------------------------------------------------------------------*/
-/* USER CODE BEGIN 1 */
-
-/* USER CODE END 1 */
-
-/** Configure pins as
-        * Analog
-        * Input
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
 void MX_GPIO_Init(void)
 {
 
@@ -81,19 +68,34 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA10 */
   GPIO_InitStruct.Pin = GPIO_PIN_10;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
+   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 
   /*Configure GPIO pin : PA12 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
-/* USER CODE BEGIN 2 */
 
-/* USER CODE END 2 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin == GPIO_PIN_10)
+    {
+				uint32_t now = HAL_GetTick();   // 当前毫秒
+
+        if (now - last_exti10_tick < 20)   // 消抖时间：20ms
+        {
+            return;    // 忽略抖动
+        }
+        last_exti10_tick = now;
+				BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+        vTaskNotifyGiveFromISR(OLED_Task_Handle, &xHigherPriorityTaskWoken);
+    }
+}

@@ -22,25 +22,12 @@
 #include "stm32f1xx_it.h"
 #include "FreeRTOS.h"
 #include "semphr.h"
-#include "jsmn.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-#define UART_RX_BUF_SIZE 256
+#include "task_mqtt.h"
 
 extern TIM_HandleTypeDef htim4;
+extern TIM_HandleTypeDef htim3;
 extern UART_HandleTypeDef huart3;
-extern SemaphoreHandle_t mqtt_ok;
-
-uint8_t UART_dma_rx_buff[UART_RX_BUF_SIZE];    // DMA接收缓冲区
-uint8_t UART_FrameBuf[UART_RX_BUF_SIZE];      // 提取后的帧数据
-uint16_t UART_FrameLen = 0;
-car_status_t car_status;
-uint8_t json_buf[256];
-
-void UART_IdleCallback(UART_HandleTypeDef *huart);
-
+extern DMA_HandleTypeDef hdma_huart3_rx;
 
 /******************************************************************************/
 /*           Cortex-M3 Processor Interruption and Exception Handlers          */
@@ -133,6 +120,11 @@ void DebugMon_Handler(void)
   /* USER CODE END DebugMonitor_IRQn 1 */
 }
 
+void TIM3_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&htim3);
+}
+
 /******************************************************************************/
 /* STM32F1xx Peripheral Interrupt Handlers                                    */
 /* Add here the Interrupt Handlers for the used peripherals.                  */
@@ -165,115 +157,13 @@ void USART3_IRQHandler(void)
     }
 }
 
-static int jsoneq(const char *json, jsmntok_t *tok, const char *s)
+void EXTI15_10_IRQHandler(void)
 {
-    if (tok->type == JSMN_STRING &&
-        (int)strlen(s) == (tok->end - tok->start) &&
-        strncmp(json + tok->start, s, tok->end - tok->start) == 0)
-    {
-        return 0; // match
-    }
-    return -1;
+	 HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
 }
 
-
-int json_to_car_status(const char *json, car_status_t *status)
+void DMA1_Channel3_IRQHandler(void)
 {
-    jsmn_parser parser;
-    jsmntok_t tokens[32];  // 足够解析你的 JSON
-    int ret, i;
-
-    jsmn_init(&parser);
-    ret = jsmn_parse(&parser, json, strlen(json), tokens, 32);
-
-    if (ret < 0)
-        return -1; // JSON 格式错误
-
-    if (ret < 1 || tokens[0].type != JSMN_OBJECT)
-        return -2; // 根节点不是对象
-
-    for (i = 1; i < ret; i++)
-    {
-        if (jsoneq(json, &tokens[i], "current_speed") == 0)
-        {
-            status->current_speed = atoi(json + tokens[i + 1].start);
-            i++;
-        }
-        else if (jsoneq(json, &tokens[i], "speed_max") == 0)
-        {
-            status->speed_max = atoi(json + tokens[i + 1].start);
-            i++;
-        }
-        else if (jsoneq(json, &tokens[i], "direction") == 0)
-        {
-            status->direction = atoi(json + tokens[i + 1].start);
-            i++;
-        }
-    }
-
-    return 0; // success
+    HAL_DMA_IRQHandler(&hdma_huart3_rx);
 }
-
-
-void UART_FrameReceived(uint8_t *data, uint16_t len)
-{
-		BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-		
-		printf("mqtt data:%s\n", data);
-		if(strstr((char *)data, "OK") != NULL)
-		{
-			xSemaphoreGiveFromISR(mqtt_ok, &xHigherPriorityTaskWoken);
-		}
-		else if(strstr((char *)data, "WIFI GOT IP") != NULL)
-		{
-			xSemaphoreGiveFromISR(mqtt_ok, &xHigherPriorityTaskWoken);
-		}
-		else if(strstr((char *)data, "ERROR") != NULL)
-		{
-			printf("mqtt err\n");
-		}
-		else if(strstr((char *)data, "MQTTSUBRECV") != NULL)
-		{
-			printf("mqtt receive!!!\n");
-			
-			char *json_start = strchr((char *)data, '{');   // 查找 JSON 起点
-			char *json_end   = strrchr((char *)data, '}');  // 查找 JSON 终点
-
-			if(json_start && json_end)
-			{
-					int json_len = json_end - json_start + 1;
-					memcpy(json_buf, json_start, json_len);
-					json_buf[json_len] = '\0';   // 加字符串结束符
-			}
-
-			
-			json_to_car_status((char *)json_buf, &car_status);
-			printf("car_status.current_speed = %d\n", car_status.current_speed);
-			printf("car_status.direction = %d\n", car_status.direction);
-			printf("car_status.speed_max = %d\n", car_status.speed_max);
-		}
-		memset(UART_FrameBuf, 0, UART_RX_BUF_SIZE);
-		
-}
-
-
-void UART_IdleCallback(UART_HandleTypeDef *huart)
-{
-    // 停止DMA
-    HAL_UART_DMAStop(huart);
-
-    // 获取当前接收的字节数
-    UART_FrameLen = UART_RX_BUF_SIZE - __HAL_DMA_GET_COUNTER(huart->hdmarx);
-
-    // 复制数据到FrameBuf
-    memcpy(UART_FrameBuf, UART_dma_rx_buff, UART_FrameLen);
-
-    // 重新开启DMA接收
-    HAL_UART_Receive_DMA(huart, UART_dma_rx_buff, UART_RX_BUF_SIZE);
-
-    // 处理帧数据
-    UART_FrameReceived(UART_FrameBuf, UART_FrameLen);
-}
-
-
 

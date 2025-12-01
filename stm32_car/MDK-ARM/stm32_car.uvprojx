@@ -314,7 +314,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -400,11 +400,6 @@
               <FilePath>../Core/Src/main.c</FilePath>
             </File>
             <File>
-              <FileName>task_mqtt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\task_mqtt.c</FilePath>
-            </File>
-            <File>
               <FileName>encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\encoder.c</FilePath>
@@ -423,6 +418,26 @@
               <FileName>OLED_Data.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\OLED_Data.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_mqtt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\task_mqtt.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\task_oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\task_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>task_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\task_misc.h</FilePath>
             </File>
           </Files>
         </Group>

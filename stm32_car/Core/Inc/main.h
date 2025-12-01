@@ -32,8 +32,9 @@ extern "C" {
 typedef struct
 {
     int8_t current_speed;		//当前速度
-    uint8_t speed_max;					//最大速度
-    uint8_t direction;					//运动方向（左右）
+    uint8_t speed_max;			//最大速度
+    int8_t direction;				//运动方向（左右）
+    uint8_t dirct_speed;    //小车转向速度
 }car_status_t;						//小车的运动状态
 
 
