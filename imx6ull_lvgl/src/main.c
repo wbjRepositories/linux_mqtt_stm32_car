@@ -31,7 +31,7 @@
 #define SHM_FRM_NAME     "/shm_frm"         //camera共享内存名字
 #define SEM_RECV_NAME "/lvgl_mqtt_sem_recv"			//接收信号量名字
 #define SEM_SUB_NAME "/lvgl_mqtt_sem_sub"			//发布信号量名字
-#define BUFF1_SIZE LV_HOR_RES_MAX * 10		//buff1字节数
+#define BUFF_SIZE LV_HOR_RES_MAX * LV_VER_RES_MAX		//buff字节数
 #define CAR_MAX_SPEED   64     //默认最大行进速度
 #define CAM_W  640      //摄像头像素宽
 #define CAM_H  480      //摄像头像素高
@@ -44,6 +44,14 @@ typedef struct {
     bool pressed;			//是否按下
 } touch_point_t;			//触摸点状态
 
+struct camera_frm_struct
+{
+    pthread_mutex_t camera_frm_mutex;
+    pthread_cond_t camera_frm_cond;
+    int new_frame_ready; // 0表示空闲，1表示数据已准备好 没有标志位会死锁
+    uint32_t frm[];
+};
+struct camera_frm_struct *camera_frm;
 
 static touch_point_t points[MAX_FINGERS];	//记录当前的多个触摸点状态
 static int ts_fd = -1;				//屏幕事件句柄
@@ -61,7 +69,6 @@ static lv_obj_t * page_camera;           //摄像头页面
 static sem_t *mqtt_sem_recv;		//用来同步mqtt消息进程的信号量
 static sem_t *mqtt_sem_sub;			//用来同步mqtt消息进程的信号量
 static int shm_fd;					//共享内存文件句柄
-static uint8_t *camera_frame = NULL;    //摄像头像素缓冲，大小等于摄像头一帧
 static lv_img_dsc_t cam_img_dsc;        //摄像头像素描述
 static lv_obj_t *cam_img_obj;           //摄像头对象
 static pid_t camera = -1;
@@ -143,7 +150,7 @@ void lv_indev_init(void)
     indev_drv.type = LV_INDEV_TYPE_POINTER;
     indev_drv.read_cb = my_touch_read_cb;
     indev_drv.user_data = (void *)(intptr_t)0;
-    lv_indev_t * indev = lv_indev_drv_register(&indev_drv);
+    lv_indev_drv_register(&indev_drv);
     printf("LVGL indev registered for slot %d\n", 0);
 
     static lv_indev_drv_t indev_drv1;
@@ -151,7 +158,7 @@ void lv_indev_init(void)
     indev_drv1.type = LV_INDEV_TYPE_POINTER;
     indev_drv1.read_cb = my_touch_read_cb;
     indev_drv1.user_data = (void *)(intptr_t)1;
-    lv_indev_t * indev1 = lv_indev_drv_register(&indev_drv1);
+    lv_indev_drv_register(&indev_drv1);
     printf("LVGL indev registered for slot %d\n", 1);
 }
 
@@ -278,8 +285,6 @@ static int32_t my_cross_product(const lv_point_t * p, lv_point_t * p1, lv_point_
 
 // 作用：利用上面的数学计算，判断点 p 是否在三角形 v1-v2-v3 里面
 bool is_point_in_triangle(const lv_point_t * p, lv_point_t * v1, lv_point_t * v2, lv_point_t * v3) {
-    bool has_neg, has_pos;
-    
     // 调用上面的辅助函数计算三次
     int32_t d1 = my_cross_product(p, v1, v2);
     int32_t d2 = my_cross_product(p, v2, v3);
@@ -427,6 +432,7 @@ static void dropdown_set_cb(lv_event_t * e)
                         perror("kill failed");
                     }
                 }
+                fprintf(stdout, "camera_lvgl runing!\n");
                 char *argv[] = {"/root/camera", NULL};
                 execvp("/root/camera", argv);
                 perror("execvp camera err");
@@ -572,6 +578,7 @@ static void *mqtt_recv_thread(void *data)
         lv_label_set_text(dirct_speed_slider_label, buf);
         lv_obj_align_to(dirct_speed_slider_label, dirct_speed_slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
     }
+    return NULL;
 }
 
 /*
@@ -579,9 +586,10 @@ static void *mqtt_recv_thread(void *data)
 */
 void lv_disp_init(void)
 {
-    static lv_color_t buf1[BUFF1_SIZE];
+    static lv_color_t buf1[BUFF_SIZE];
+    static lv_color_t buf2[BUFF_SIZE];
     static lv_disp_draw_buf_t disp_buf;
-    lv_disp_draw_buf_init(&disp_buf, buf1, NULL, BUFF1_SIZE);
+    lv_disp_draw_buf_init(&disp_buf, buf1, buf2, BUFF_SIZE);
 
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
@@ -589,6 +597,7 @@ void lv_disp_init(void)
     disp_drv.draw_buf = &disp_buf;
     disp_drv.hor_res = LV_HOR_RES_MAX;
     disp_drv.ver_res = LV_VER_RES_MAX;
+    disp_drv.full_refresh = 1; 
     lv_disp_drv_register(&disp_drv);
 }
 
@@ -655,6 +664,7 @@ void sig_handler(int sig)
  */
 int camera_lvgl_init(lv_obj_t *parent)
 {
+    fprintf(stdout, "camera_lvgl_init runing!\n");
     int shm_frm_fd;
     if((shm_frm_fd = shm_open(SHM_FRM_NAME, O_RDWR | O_CREAT, 0644)) < 0)
     {
@@ -662,12 +672,12 @@ int camera_lvgl_init(lv_obj_t *parent)
         strerror(errno);
         return -1;
     }
-    if(ftruncate(shm_frm_fd, CAM_W * CAM_H * 4) < 0)
+    if(ftruncate(shm_frm_fd, sizeof(struct camera_frm_struct) + CAM_W * CAM_H * 4) < 0)
     {
         perror("lvgl:ftruncate err");
         return -1;
     }
-    if((camera_frame = mmap(NULL, CAM_W * CAM_H * 4, PROT_READ | PROT_WRITE, MAP_SHARED, shm_frm_fd, 0)) == MAP_FAILED)
+    if((camera_frm = mmap(NULL, sizeof(struct camera_frm_struct) + CAM_W * CAM_H * 4, PROT_READ | PROT_WRITE, MAP_SHARED, shm_frm_fd, 0)) == MAP_FAILED)
     {
         perror("lvgl:mmap err");
         return -1;
@@ -678,11 +688,12 @@ int camera_lvgl_init(lv_obj_t *parent)
     cam_img_dsc.header.h = CAM_H;
     cam_img_dsc.header.cf = LV_IMG_CF_TRUE_COLOR_ALPHA; /* 32bit with alpha */
     cam_img_dsc.data_size = CAM_W * CAM_H * 4;
-    cam_img_dsc.data = camera_frame; /* 指向你不断更新的缓冲 */
+    cam_img_dsc.data = (uint8_t *)camera_frm->frm; /* 指向不断更新的缓冲 */
 
     cam_img_obj = lv_img_create(parent);
     lv_img_set_src(cam_img_obj, &cam_img_dsc);
     lv_obj_align(cam_img_obj, LV_ALIGN_CENTER, 0, 0);
+    return 0;
 }
 
 int main(void)
@@ -796,10 +807,21 @@ int main(void)
 
     while(1) {
         lv_timer_handler();	//处理lvgl任务
-        if (!lv_obj_has_flag(page_camera, LV_OBJ_FLAG_HIDDEN))
+        if (!lv_obj_has_flag(page_camera, LV_OBJ_FLAG_HIDDEN)) 
         {
+            if(pthread_mutex_trylock(&camera_frm->camera_frm_mutex) == 0)
+            {
+                //printf("camera_frm->new_frame_ready:%d\n",camera_frm->new_frame_ready);
+
+                if (camera_frm->new_frame_ready == 1)
+                {
+                    lv_obj_invalidate(cam_img_obj);
+                    camera_frm->new_frame_ready = 0;
+                    pthread_cond_signal(&camera_frm->camera_frm_cond);//向条件变量发送信号
+                }
+                pthread_mutex_unlock(&camera_frm->camera_frm_mutex);
+            }
             //重绘
-            lv_obj_invalidate(cam_img_obj);
         }
         usleep(5000);
     }

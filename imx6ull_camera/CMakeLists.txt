@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(camera)
 
+# 显式追加编译参数 (强制加上 -O0 和 -g，双重保险)
+set(CMAKE_BUILD_TYPE "Debug")
+set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -g -ggdb -Wall")
+
 # 配置 ARM 交叉编译
 set(CMAKE_SYSTEM_NAME Linux) #设置目标系统名字
 set(CMAKE_SYSTEM_PROCESSOR arm) #设置目标处理器架构
@@ -18,4 +22,4 @@ set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
 add_executable(camera camera.c)
 
-target_link_libraries(camera PRIVATE rt)
+target_link_libraries(camera PRIVATE rt jpeg pthread)

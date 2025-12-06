@@ -15,7 +15,7 @@
 #include <ctype.h>
 #include <time.h>
 
-#define PID_FILE "/tmp/monitor_daemon.pid"   // 示例 PID 文件，生产环境改为 /var/run/... 
+#define PID_FILE "/tmp/monitor_daemon.pid"   // PID 文件
 #define CHECK_INTERVAL_SEC 10                // 检查间隔（秒），可按需改 
 #define RESTART_MAX_TRIES 3                  // 单次故障最大重启尝试次数 
 #define SERVICE_NAME_MAX 128
@@ -72,9 +72,9 @@ void remove_pidfile(const char *pidfile) {
 // 信号处理函数 
 void handle_signal(int sig) {
     if (sig == SIGTERM || sig == SIGINT) {
-        g_running = 0;  // 优雅退出 
+        g_running = 0;  //退出 
     } else if (sig == SIGHUP) {
-        g_reload = 1;   // 触发重新加载
+        g_reload = 1;   //重新加载
     } else if (sig == SIGCHLD) {
         // 子进程终止：回收，避免僵尸进程 
         while (waitpid(-1, NULL, WNOHANG) > 0) {
@@ -194,7 +194,6 @@ pid_t start_service_cmd(const service_t *s) {
     }
     if (pid == 0) {
         // 子进程：执行 shell 启动命令 
-        // 注意：这里不做守护化，假设被启动的程序自行处理或由此进程监控 
         //execl("/bin/sh", "sh", "-c", cmd, (char *)NULL);
         execl(s->start_cmd, s->name, NULL);
         // 若 execl 返回，发生错误 

@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = 
 
-C_FLAGS = -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7
+C_FLAGS = -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7  -O0 -g -ggdb -Wall
 
