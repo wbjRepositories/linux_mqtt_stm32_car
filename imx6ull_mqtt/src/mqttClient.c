@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include <errno.h>
 
-#define MQTT_SERVER_URI     "192.168.1.10"      //mqtt服务器地址
+#define MQTT_SERVER_URI     "192.168.1.6"      //mqtt服务器地址
 #define CLIENT_ID           "imx6ull_id"        //mqtt设备id
 #define KEEP_ALIVE_INTERVAL 60                  //心跳请求时间
 #define CLEAN_SESSION       false                   //是否清除会话
@@ -25,14 +25,12 @@
 #define MQTT_TOPIC_NAME_PUB     "mqtt/control"      //发送消息主题 
 #define MQTT_TOPIC_NAME_RCV     "mqtt/report"       //接收消息主题
 #define SHM_NAME                "/lvgl_mqtt_shm"			    //共享内存名字
-#define SEM_RECV_NAME           "/lvgl_mqtt_sem_recv"			//接收信号量名字
 #define SEM_SUB_NAME            "/lvgl_mqtt_sem_sub"			//发布信号量名字
 #define MQTT_RETAINED       1                       //是否保留消息
 #define MQTT_QOS            0                       //消息qos等级
 
 static car_status_t *car_status;    //小车状态
 static int shm_fd;                  //car_status共享内存句柄
-static sem_t *mqtt_sem_recv;		//用来同步mqtt消息进程的信号量
 static sem_t *mqtt_sem_sub;			//用来同步mqtt消息进程的信号量
 char json_buf[256];                 //用来存放json
 
@@ -120,8 +118,6 @@ static int msgArrived(void* context, char* topicName, int topicLen, MQTTClient_m
     // printf("msg:speed_max=%d\n",car_status->speed_max);
     // printf("topicName:%s\n", topicName);
 
-    sem_post(mqtt_sem_recv);
-
     //必须释放
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
@@ -154,13 +150,11 @@ int main(void)
     close(shm_fd);
 
     // 创建信号量
-   if(((mqtt_sem_sub = sem_open(SEM_SUB_NAME, O_RDWR)) == SEM_FAILED) 
-        || ((mqtt_sem_recv = sem_open(SEM_RECV_NAME, O_RDWR)) == SEM_FAILED))
+   if((mqtt_sem_sub = sem_open(SEM_SUB_NAME, O_RDWR)) == SEM_FAILED)
     {
         munmap(car_status, sizeof(car_status_t));
         shm_unlink(SHM_NAME);
         sem_unlink(SEM_SUB_NAME);
-        sem_unlink(SEM_RECV_NAME);
         fprintf(stderr, "mqttClient : sem_open %s err,errno=%d(%s)\n",SEM_SUB_NAME, errno,strerror(errno));
         exit(1);
     }

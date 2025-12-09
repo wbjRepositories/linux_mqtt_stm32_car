@@ -3,7 +3,7 @@ project(camera)
 
 # 显式追加编译参数 (强制加上 -O0 和 -g，双重保险)
 set(CMAKE_BUILD_TYPE "Debug")
-set(CMAKE_C_FLAGS_DEBUG "$ENV{CFLAGS} -O0 -g -ggdb -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g -ggdb -fno-omit-frame-pointer -funwind-tables")
 
 # 配置 ARM 交叉编译
 set(CMAKE_SYSTEM_NAME Linux) #设置目标系统名字

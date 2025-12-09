@@ -29,7 +29,6 @@
 #define LV_VER_RES_MAX 600		//屏幕垂直像素数量
 #define SHM_NAME "/lvgl_mqtt_shm"			//mqtt共享内存名字
 #define SHM_FRM_NAME     "/shm_frm"         //camera共享内存名字
-#define SEM_RECV_NAME "/lvgl_mqtt_sem_recv"			//接收信号量名字
 #define SEM_SUB_NAME "/lvgl_mqtt_sem_sub"			//发布信号量名字
 #define BUFF_SIZE LV_HOR_RES_MAX * LV_VER_RES_MAX		//buff字节数
 #define CAR_MAX_SPEED   64     //默认最大行进速度
@@ -66,7 +65,6 @@ static lv_obj_t * dirct_speed_slider;       //转向速度滑动条
 static lv_obj_t * dirct_speed_slider_label;       //转向速度滑动条标签
 static lv_obj_t * page_main;             //主页面
 static lv_obj_t * page_camera;           //摄像头页面
-static sem_t *mqtt_sem_recv;		//用来同步mqtt消息进程的信号量
 static sem_t *mqtt_sem_sub;			//用来同步mqtt消息进程的信号量
 static int shm_fd;					//共享内存文件句柄
 static lv_img_dsc_t cam_img_dsc;        //摄像头像素描述
@@ -432,7 +430,8 @@ static void dropdown_set_cb(lv_event_t * e)
                         perror("kill failed");
                     }
                 }
-                fprintf(stdout, "camera_lvgl runing!\n");
+                //setsid();
+                
                 char *argv[] = {"/root/camera", NULL};
                 execvp("/root/camera", argv);
                 perror("execvp camera err");
@@ -561,25 +560,21 @@ static void *tick_thread(void *data)
 }
 
 /**
- *  接收mqtt消息线程
+ * 
  */
-static void *mqtt_recv_thread(void *data)
+void mqtt_recv_cb(struct _lv_timer_t *timer)
 {
-    while(1)
-    {
-        char buf[8];
-        sem_wait(mqtt_sem_recv);
-        lv_snprintf(buf, sizeof(buf), "%d%%", car_status->speed_max * 100 / 127);
-        lv_slider_set_value(speed_slider, car_status->speed_max * 100 / 127, LV_ANIM_OFF);
-        lv_label_set_text(speed_slider_label, buf);
-        lv_obj_align_to(speed_slider_label, speed_slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
+    char buf[8];
+    lv_snprintf(buf, sizeof(buf), "%d%%", car_status->speed_max * 100 / 127);
+    lv_slider_set_value(speed_slider, car_status->speed_max * 100 / 127, LV_ANIM_OFF);
+    lv_label_set_text(speed_slider_label, buf);
+    lv_obj_align_to(speed_slider_label, speed_slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
 
-        lv_snprintf(buf, sizeof(buf), "%d%%", car_status->dirct_speed * 100 / 127);
-        lv_label_set_text(dirct_speed_slider_label, buf);
-        lv_obj_align_to(dirct_speed_slider_label, dirct_speed_slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
-    }
-    return NULL;
+    lv_snprintf(buf, sizeof(buf), "%d%%", car_status->dirct_speed * 100 / 127);
+    lv_label_set_text(dirct_speed_slider_label, buf);
+    lv_obj_align_to(dirct_speed_slider_label, dirct_speed_slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
 }
+
 
 /*
 *	屏幕初始化函数
@@ -634,13 +629,11 @@ void mqtt_shm_init(void)
 */
 void mqtt_sem_init(void)
 {
-    if(((mqtt_sem_sub = sem_open(SEM_SUB_NAME, O_CREAT | O_RDWR, 0644, 0)) == SEM_FAILED) 
-        || ((mqtt_sem_recv = sem_open(SEM_RECV_NAME, O_CREAT | O_RDWR, 0644, 0)) == SEM_FAILED))
+    if((mqtt_sem_sub = sem_open(SEM_SUB_NAME, O_CREAT | O_RDWR, 0644, 0)) == SEM_FAILED) 
     {
         munmap(car_status, sizeof(car_status_t));
         shm_unlink(SHM_NAME);
         sem_unlink(SEM_SUB_NAME);
-        sem_unlink(SEM_RECV_NAME);
         perror("sem_open err");
         exit(1);
     }
@@ -654,7 +647,6 @@ void sig_handler(int sig)
     munmap(car_status, sizeof(car_status_t));
     shm_unlink(SHM_NAME);
     sem_unlink(SEM_SUB_NAME);
-    sem_unlink(SEM_RECV_NAME);
     printf("接受到%d函数\n", sig);
     exit(sig);
 }
@@ -716,9 +708,8 @@ int main(void)
     pthread_t tid;
     pthread_create(&tid, NULL, tick_thread, NULL);
 
-    //mqtt接收线程
-    pthread_t mqtt_recv_id;
-    pthread_create(&mqtt_recv_id, NULL, mqtt_recv_thread, NULL);
+    //mqtt接收定时器
+    lv_timer_create(mqtt_recv_cb, 100, NULL);
 
 	//创建前进、后退、左转、右转按钮
     page_main = lv_obj_create(lv_scr_act());

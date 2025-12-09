@@ -214,7 +214,6 @@ int xioctl(int fd, int request, void *arg)
 int main(void)
 {
     fprintf(stdout, "camera runing!\n");
-    //sleep(60);
 
     camera_fd = open("/dev/video1", O_RDWR); // 或者你使用的具体打开函数
         
