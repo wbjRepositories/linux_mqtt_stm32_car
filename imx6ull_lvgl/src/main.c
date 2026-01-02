@@ -32,8 +32,8 @@
 #define SEM_SUB_NAME "/lvgl_mqtt_sem_sub"			//发布信号量名字
 #define BUFF_SIZE LV_HOR_RES_MAX * LV_VER_RES_MAX		//buff字节数
 #define CAR_MAX_SPEED   64     //默认最大行进速度
-#define CAM_W  640      //摄像头像素宽
-#define CAM_H  480      //摄像头像素高
+#define CAM_W  320//640      //摄像头像素宽
+#define CAM_H  240//480      //摄像头像素高
 
 
 typedef struct {

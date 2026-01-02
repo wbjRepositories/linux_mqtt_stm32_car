@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/camera.dir/camera.c.o"
-  "CMakeFiles/camera.dir/camera.c.o.d"
+  "CMakeFiles/camera.dir/camera_ffmpeg.c.o"
+  "CMakeFiles/camera.dir/camera_ffmpeg.c.o.d"
   "camera"
   "camera.pdb"
 )

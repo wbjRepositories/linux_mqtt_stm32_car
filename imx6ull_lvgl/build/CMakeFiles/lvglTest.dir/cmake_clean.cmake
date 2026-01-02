@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/book/MyCode/imx6ull_lvgl/bin/lvglTest"
-  "/home/book/MyCode/imx6ull_lvgl/bin/lvglTest.pdb"
+  "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/bin/lvglTest"
+  "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/bin/lvglTest.pdb"
   "CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o"
   "CMakeFiles/lvglTest.dir/lv_drivers/display/fbdev.c.o.d"
   "CMakeFiles/lvglTest.dir/lv_drivers/indev/evdev.c.o"

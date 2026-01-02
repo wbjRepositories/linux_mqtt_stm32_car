@@ -374,12 +374,12 @@ int main(void)
 
     // 1. 初始化互斥锁属性
     pthread_mutexattr_init(&mutex_attr);
-    // 【关键】：设置为进程间共享
+    // 设置为进程间共享
     pthread_mutexattr_setpshared(&mutex_attr, PTHREAD_PROCESS_SHARED);
     
     // 2. 初始化条件变量属性
     pthread_condattr_init(&cond_attr);
-    // 【关键】：设置为进程间共享
+    // 设置为进程间共享
     pthread_condattr_setpshared(&cond_attr, PTHREAD_PROCESS_SHARED);
     pthread_mutex_init(&camera_frm->camera_frm_mutex, &mutex_attr);
     pthread_cond_init(&camera_frm->camera_frm_cond, &cond_attr);
