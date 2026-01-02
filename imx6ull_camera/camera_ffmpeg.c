@@ -231,8 +231,22 @@ void *audio_sample(void *argv)
     return NULL;
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
+    //参数校验
+    if (argc < 2)
+    {
+        perror("The number of parameters must not be less than 2.");
+        return 0;
+    }
+    char *cmd = argv[1];
+    if (strcmp(cmd, "camera") != 0 && strcmp(cmd, "playback") != 0 && strcmp(cmd, "camera_p2p") != 0 && strcmp(cmd, "camera(c/s)") != 0)
+    {
+        perror("Incompatible parameters！");
+        return 0;
+    }
+    
+    
     avdevice_register_all();
 
     av_log_set_level(AV_LOG_INFO);
@@ -255,7 +269,7 @@ int main(void)
 
     //选择麦克风输入格式
     input_format = av_find_input_format("alsa");
-    //设置摄像头参数
+    //设置麦克风参数
     av_dict_free(&input_dic);
     ret = av_dict_set(&input_dic, "sample_rate", "8000", 0);
     ret = av_dict_set(&input_dic, "thread_queue_size", "4096", 0);

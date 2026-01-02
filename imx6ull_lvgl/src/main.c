@@ -72,6 +72,26 @@ static lv_obj_t *cam_img_obj;           //摄像头对象
 static pid_t camera = -1;
 static pid_t camera_p2p = -1;
 static pid_t camera_cs = -1;
+static pid_t playback = -1;
+
+//杀死摄像头进程
+void kill_camera(pid_t *pid)
+{
+    if(*pid > 0){
+        if (kill(*pid, SIGTERM) == 0) {
+            printf("Camera terminated : %d\n", *pid);
+            *pid = -1;
+        } else {
+            perror("kill failed");
+        }
+    }
+}
+void run_camera(char *s)
+{
+    char *argv[] = {"/root/camera", s, NULL};
+    execvp("/root/camera", argv);
+    perror("execvp camera err");
+}
 
 /*
 *	检测屏幕所有触摸事件并记录位置信息
@@ -402,7 +422,8 @@ static void dropdown_set_cb(lv_event_t * e)
         lv_dropdown_get_selected_str(obj, buf, sizeof(buf));
         if(strcmp(buf, "camera") == 0)
         {
-            camera = fork();
+            if (camera <= 0)
+                camera = fork();
             if(camera < 0)
             {
                 perror("fork err");
@@ -410,31 +431,10 @@ static void dropdown_set_cb(lv_event_t * e)
             else if(camera == 0)
             {
                 //杀死其他摄像头进程
-                if(camera_p2p > 0)
-                {
-                    if (kill(camera_p2p, SIGTERM) == 0) 
-                    {
-                        printf("Camera terminated\n");
-                        camera_p2p = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                if(camera_cs > 0)
-                {
-                    if (kill(camera_cs, SIGTERM) == 0) 
-                    {
-                        printf("Camera terminated\n");
-                        camera_cs = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                //setsid();
-                
-                char *argv[] = {"/root/camera", NULL};
-                execvp("/root/camera", argv);
-                perror("execvp camera err");
+                kill_camera(&camera_p2p);
+                kill_camera(&camera_cs);
+                kill_camera(&playback);
+                run_camera("camera");
             }
             else
             {
@@ -453,25 +453,13 @@ static void dropdown_set_cb(lv_event_t * e)
             else if(camera_p2p == 0)
             {
                 //杀死其他摄像头进程
-                if(camera > 0){
-                    if (kill(camera, SIGTERM) == 0) {
-                        printf("Camera terminated\n");
-                        camera = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                if(camera_cs > 0){
-                    if (kill(camera_cs, SIGTERM) == 0) {
-                        printf("Camera terminated\n");
-                        camera_cs = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-input_format", "mjpeg", "-i", "/dev/video1", "-c:v", "copy" ,"-f" ,"mjpeg" ,"udp://192.168.1.10:5000", NULL};
-                execvp("ffmpeg", argv);
-                perror("execvp ffmpeg err");
+                kill_camera(&camera);
+                kill_camera(&camera_cs);
+                kill_camera(&playback);
+                run_camera("camera_p2p");
+                // char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-input_format", "mjpeg", "-i", "/dev/video1", "-c:v", "copy" ,"-f" ,"mjpeg" ,"udp://192.168.1.10:5000", NULL};
+                // execvp("ffmpeg", argv);
+                // perror("execvp ffmpeg err");
             }
             else
             {
@@ -490,26 +478,13 @@ static void dropdown_set_cb(lv_event_t * e)
             else if(camera_cs == 0)
             {
                 //杀死其他摄像头进程
-                if(camera > 0){
-                    if (kill(camera, SIGTERM) == 0) {
-                        printf("Camera terminated\n");
-                        camera = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                
-                if(camera_p2p > 0){
-                     if (kill(camera_p2p, SIGTERM) == 0) {
-                        printf("Camera terminated\n");
-                        camera_p2p = -1;
-                    } else {
-                        perror("kill failed");
-                    }
-                }
-                char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-video_size", "640x480", "-framerate", "15", "-i", "/dev/video1", "-q", "10" ,"-f" ,"flv" ,"rtmp://192.168.1.19/live/myCamera", NULL};
-                execvp("ffmpeg", argv);
-                perror("execvp ffmpeg err");
+                kill_camera(&camera);
+                kill_camera(&camera_p2p);
+                kill_camera(&playback);
+                run_camera("camera(c/s)");
+                // char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-video_size", "640x480", "-framerate", "15", "-i", "/dev/video1", "-q", "10" ,"-f" ,"flv" ,"rtmp://192.168.1.19/live/myCamera", NULL};
+                // execvp("ffmpeg", argv);
+                // perror("execvp ffmpeg err");
 
             }
             else
@@ -519,28 +494,50 @@ static void dropdown_set_cb(lv_event_t * e)
                 lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
             }
         }
-        else if(strcmp(buf, "main") == 0)
+        else if(strcmp(buf, "controller") == 0)
         {
             //杀死其他摄像头进程
-            if(camera > 0){
-                if (kill(camera, SIGTERM) == 0) {
-                    printf("Camera terminated\n");
-                    camera = -1;
-                } else {
-                    perror("kill failed");
-                }
-            }
-            if(camera_p2p > 0){
-                if (kill(camera_p2p, SIGTERM) == 0) {
-                    printf("Camera terminated\n");
-                    camera_p2p = -1;
-                } else {
-                    perror("kill failed");
-                }
-            }
+            kill_camera(&camera);
+            kill_camera(&camera_p2p);
+            kill_camera(&camera_cs);
+            kill_camera(&playback);
             //隐藏其他页面显示本页面
             lv_obj_clear_flag(page_main, LV_OBJ_FLAG_HIDDEN);
             lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
+        }
+        else if(strcmp(buf, "recording") == 0)
+        {
+            if (camera <= 0)
+                camera = fork();
+            if(camera < 0)
+            {
+                perror("fork err");
+            }
+            else if(camera == 0)
+            {
+                //杀死其他摄像头进程
+                kill_camera(&playback);
+                kill_camera(&camera_p2p);
+                kill_camera(&camera_cs);
+                run_camera("camera");
+            }
+        }
+        else if(strcmp(buf, "playback") == 0)
+        {
+            if (playback <= 0)
+                playback = fork();
+            if(playback < 0)
+            {
+                perror("fork err");
+            }
+            else if(playback == 0)
+            {
+                //杀死其他摄像头进程
+                kill_camera(&camera);
+                kill_camera(&camera_p2p);
+                kill_camera(&camera_cs);
+                run_camera("playback");
+            }
         }
     }
 }
@@ -787,11 +784,18 @@ int main(void)
 
     //创建摄像头图像对象
     page_camera = lv_obj_create(lv_scr_act());
-    lv_obj_t * dd = lv_dropdown_create(lv_scr_act());
-    lv_dropdown_set_options(dd, "main\n" "camera\n" "camera(p2p)\n" "camera(c/s)");
-    lv_obj_align(dd, LV_ALIGN_TOP_LEFT, 0, 20);
-    lv_obj_add_event_cb(dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
+    //创建下拉框，用来切换摄像头模式和小车控制器模式
+    lv_obj_t * mode_dd = lv_dropdown_create(lv_scr_act());
+    lv_dropdown_set_options(mode_dd, "controller\n" "camera\n" "camera(p2p)\n" "camera(c/s)");
+    lv_obj_align(mode_dd, LV_ALIGN_TOP_LEFT, 0, 20);
+    lv_obj_add_event_cb(mode_dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
     lv_obj_set_size(page_camera, lv_pct(100), lv_pct(100));
+    //创建下拉框，用来切换回放，还是录制
+    lv_obj_t * video_dd = lv_dropdown_create(page_camera);
+    lv_dropdown_set_options(video_dd, "recording\n" "playback");
+    lv_obj_align(video_dd, LV_ALIGN_TOP_RIGHT, 0, 20);
+    lv_obj_add_event_cb(video_dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
+
     if(camera_lvgl_init(page_camera) < 0)
         return -1;
     lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
