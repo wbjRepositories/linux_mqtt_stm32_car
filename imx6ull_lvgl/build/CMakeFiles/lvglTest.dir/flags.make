@@ -4,7 +4,7 @@
 # compile C with /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lv_drivers -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/include
+C_INCLUDES = -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lv_drivers -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/extra/libs/ffmpeg -I/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/include
 
-C_FLAGS = -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7  -O0 -g -ggdb -Wall
+C_FLAGS =  -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -Wall -O0 -g -ggdb
 

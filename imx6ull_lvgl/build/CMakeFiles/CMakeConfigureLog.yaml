@@ -19,513 +19,7 @@ events:
     message: |
       Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
       Compiler: /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc 
-      Build flags: -march=armv7ve;-mfpu=neon;-mfloat-abi=hard;-mcpu=cortex-a7
-      Id flags:  
-      
-      The output was:
-      0
-      
-      
-      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
-      
-      The C compiler identification is GNU, found in:
-        /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/3.28.3/CompilerIdC/a.out
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-      Compiler: /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++ 
-      Build flags: -march=armv7ve;-mfpu=neon;-mfloat-abi=hard;-mcpu=cortex-a7
-      Id flags:  
-      
-      The output was:
-      0
-      
-      
-      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
-      
-      The CXX compiler identification is GNU, found in:
-        /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/3.28.3/CompilerIdCXX/a.out
-      
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    checks:
-      - "Detecting C compiler ABI info"
-    directories:
-      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go"
-      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go"
-    cmakeVariables:
-      CMAKE_C_FLAGS: "-march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7"
-      CMAKE_C_FLAGS_DEBUG: " -O0 -g -ggdb -Wall"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/"
-    buildResult:
-      variable: "CMAKE_C_ABI_COMPILED"
-      cached: true
-      stdout: |
-        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go'
-        
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d9520/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_d9520.dir/build.make CMakeFiles/cmTC_d9520.dir/build
-        gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go'
-        Building C object CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o
-        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
-        Using built-in specs.
-        COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real
-        Target: arm-buildroot-linux-gnueabihf
-        Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
-        Thread model: posix
-        gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccaZcZYF.s
-        GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
-        	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
-        
-        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include"
-        ignoring nonexistent directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/local/include"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include"
-        #include "..." search starts here:
-        #include <...> search starts here:
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include
-        End of search list.
-        GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
-        	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
-        
-        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        Compiler executable checksum: 301aab3cef35fbf26473394454f2f527
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o /tmp/ccaZcZYF.s
-        GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32
-        COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
-        LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        Linking C executable cmTC_d9520
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9520.dir/link.txt --verbose=1
-        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7   -v CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -o cmTC_d9520 
-        Using built-in specs.
-        COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real
-        COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper
-        Target: arm-buildroot-linux-gnueabihf
-        Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
-        Thread model: posix
-        gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
-        LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_d9520' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJRsh0u.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_d9520 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_d9520' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        gmake[1]: Leaving directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go'
-        
-      exitCode: 0
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Parsed C implicit include dir info: rv=done
-        found start of include info
-        found start of implicit include info
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        end of search list found
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        implicit include dirs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Parsed C implicit link information:
-        link line regex: [^( *|.*[/\\])(arm-buildroot-linux-gnueabihf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go']
-        ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_d9520/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_d9520.dir/build.make CMakeFiles/cmTC_d9520.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-rx01Go']
-        ignore line: [Building C object CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
-        ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real]
-        ignore line: [Target: arm-buildroot-linux-gnueabihf]
-        ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
-        ignore line: [Thread model: posix]
-        ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccaZcZYF.s]
-        ignore line: [GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
-        ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
-        ignore line: []
-        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include"]
-        ignore line: [ignoring nonexistent directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/local/include"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include"]
-        ignore line: [#include "..." search starts here:]
-        ignore line: [#include <...> search starts here:]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        ignore line: [End of search list.]
-        ignore line: [GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
-        ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
-        ignore line: []
-        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [Compiler executable checksum: 301aab3cef35fbf26473394454f2f527]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o /tmp/ccaZcZYF.s]
-        ignore line: [GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32]
-        ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
-        ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [Linking C executable cmTC_d9520]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9520.dir/link.txt --verbose=1]
-        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7   -v CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -o cmTC_d9520 ]
-        ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real]
-        ignore line: [COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper]
-        ignore line: [Target: arm-buildroot-linux-gnueabihf]
-        ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
-        ignore line: [Thread model: posix]
-        ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
-        ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_d9520' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccJRsh0u.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_d9520 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2] ==> ignore
-          arg [-plugin] ==> ignore
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so] ==> ignore
-          arg [-plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccJRsh0u.res] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-          arg [-plugin-opt=-pass-through=-lc] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/] ==> ignore
-          arg [--eh-frame-hdr] ==> ignore
-          arg [-dynamic-linker] ==> ignore
-          arg [/lib/ld-linux-armhf.so.3] ==> ignore
-          arg [-X] ==> ignore
-          arg [-m] ==> ignore
-          arg [armelf_linux_eabi] ==> ignore
-          arg [-o] ==> ignore
-          arg [cmTC_d9520] ==> ignore
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_d9520.dir/CMakeCCompilerABI.c.o] ==> ignore
-          arg [-lgcc] ==> lib [gcc]
-          arg [--as-needed] ==> ignore
-          arg [-lgcc_s] ==> lib [gcc_s]
-          arg [--no-as-needed] ==> ignore
-          arg [-lc] ==> lib [c]
-          arg [-lgcc] ==> lib [gcc]
-          arg [--as-needed] ==> ignore
-          arg [-lgcc_s] ==> lib [gcc_s]
-          arg [--no-as-needed] ==> ignore
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-        collapse obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
-        collapse obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/lib]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
-        implicit objs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-        implicit dirs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/lib;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-        implicit fwks: []
-      
-      
-  -
-    kind: "try_compile-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    checks:
-      - "Detecting CXX compiler ABI info"
-    directories:
-      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo"
-      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo"
-    cmakeVariables:
-      CMAKE_CXX_FLAGS: "-march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7"
-      CMAKE_CXX_FLAGS_DEBUG: "-g"
-      CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/"
-    buildResult:
-      variable: "CMAKE_CXX_ABI_COMPILED"
-      cached: true
-      stdout: |
-        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo'
-        
-        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_85af7/fast
-        /usr/bin/gmake  -f CMakeFiles/cmTC_85af7.dir/build.make CMakeFiles/cmTC_85af7.dir/build
-        gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo'
-        Building CXX object CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o
-        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
-        Using built-in specs.
-        COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++.br_real
-        Target: arm-buildroot-linux-gnueabihf
-        Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
-        Thread model: posix
-        gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccsFEqio.s
-        GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
-        	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
-        
-        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include"
-        ignoring nonexistent directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/local/include"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed"
-        ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include"
-        #include "..." search starts here:
-        #include <...> search starts here:
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include
-        End of search list.
-        GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
-        	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
-        
-        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-        Compiler executable checksum: b50adb8b082f2ddde96a6a81ec7e39fe
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccsFEqio.s
-        GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32
-        COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
-        LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        Linking CXX executable cmTC_85af7
-        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_85af7.dir/link.txt --verbose=1
-        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7   -v CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_85af7 
-        Using built-in specs.
-        COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++.br_real
-        COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper
-        Target: arm-buildroot-linux-gnueabihf
-        Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
-        Thread model: posix
-        gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
-        LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_85af7' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRjgaV8.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_85af7 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_85af7' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        gmake[1]: Leaving directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo'
-        
-      exitCode: 0
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Parsed CXX implicit include dir info: rv=done
-        found start of include info
-        found start of implicit include info
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include]
-          add: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        end of search list found
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include]
-        collapse include dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        implicit include dirs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/include;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-      
-      
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:159 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Parsed CXX implicit link information:
-        link line regex: [^( *|.*[/\\])(arm-buildroot-linux-gnueabihf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo']
-        ignore line: []
-        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_85af7/fast]
-        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_85af7.dir/build.make CMakeFiles/cmTC_85af7.dir/build]
-        ignore line: [gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-DFAjFo']
-        ignore line: [Building CXX object CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
-        ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++.br_real]
-        ignore line: [Target: arm-buildroot-linux-gnueabihf]
-        ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
-        ignore line: [Thread model: posix]
-        ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccsFEqio.s]
-        ignore line: [GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
-        ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
-        ignore line: []
-        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include"]
-        ignore line: [ignoring nonexistent directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/local/include"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed"]
-        ignore line: [ignoring duplicate directory "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/../../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include"]
-        ignore line: [#include "..." search starts here:]
-        ignore line: [#include <...> search starts here:]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/arm-buildroot-linux-gnueabihf]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include/c++/7.5.0/backward]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include-fixed]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/include]
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include]
-        ignore line: [End of search list.]
-        ignore line: [GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
-        ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
-        ignore line: []
-        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
-        ignore line: [Compiler executable checksum: b50adb8b082f2ddde96a6a81ec7e39fe]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccsFEqio.s]
-        ignore line: [GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32]
-        ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
-        ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [Linking CXX executable cmTC_85af7]
-        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_85af7.dir/link.txt --verbose=1]
-        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7   -v CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_85af7 ]
-        ignore line: [Using built-in specs.]
-        ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-c++.br_real]
-        ignore line: [COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper]
-        ignore line: [Target: arm-buildroot-linux-gnueabihf]
-        ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
-        ignore line: [Thread model: posix]
-        ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
-        ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_85af7' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccRjgaV8.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_85af7 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2] ==> ignore
-          arg [-plugin] ==> ignore
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so] ==> ignore
-          arg [-plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccRjgaV8.res] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-          arg [-plugin-opt=-pass-through=-lc] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/] ==> ignore
-          arg [--eh-frame-hdr] ==> ignore
-          arg [-dynamic-linker] ==> ignore
-          arg [/lib/ld-linux-armhf.so.3] ==> ignore
-          arg [-X] ==> ignore
-          arg [-m] ==> ignore
-          arg [armelf_linux_eabi] ==> ignore
-          arg [-o] ==> ignore
-          arg [cmTC_85af7] ==> ignore
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
-          arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_85af7.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
-          arg [-lstdc++] ==> lib [stdc++]
-          arg [-lm] ==> lib [m]
-          arg [-lgcc_s] ==> lib [gcc_s]
-          arg [-lgcc] ==> lib [gcc]
-          arg [-lc] ==> lib [c]
-          arg [-lgcc_s] ==> lib [gcc_s]
-          arg [-lgcc] ==> lib [gcc]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o]
-          arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-        collapse obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
-        collapse obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/lib]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
-        collapse library dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
-        implicit objs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
-        implicit dirs: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/lib;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib;/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-        implicit fwks: []
-      
-      
-...
-
----
-events:
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:228 (message)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      The target system is: Linux -  - arm
-      The host system is: Linux - 6.6.87.2-microsoft-standard-WSL2 - x86_64
-  -
-    kind: "message-v1"
-    backtrace:
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
-      - "/usr/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
-      - "CMakeLists.txt:24 (project)"
-    message: |
-      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-      Compiler: /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc 
-      Build flags: -march=armv7ve;-mfpu=neon;-mfloat-abi=hard;-mcpu=cortex-a7
+      Build flags: 
       Id flags:  
       
       The output was:
@@ -547,7 +41,7 @@ events:
     message: |
       Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
       Compiler: /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ 
-      Build flags: -march=armv7ve;-mfpu=neon;-mfloat-abi=hard;-mcpu=cortex-a7
+      Build flags: 
       Id flags:  
       
       The output was:
@@ -568,29 +62,32 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-ovmb3d"
-      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-ovmb3d"
+      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m"
+      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m"
     cmakeVariables:
-      CMAKE_C_FLAGS: "-march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7"
-      CMAKE_C_FLAGS_DEBUG: " -O0 -g -ggdb -Wall"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/"
+      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot"
     buildResult:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-ovmb3d'
+        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m'
         
-        Run Build Command(s): /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/ninja -v cmTC_5b973
-        [1/2] /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c2674/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_c2674.dir/build.make CMakeFiles/cmTC_c2674.dir/build
+        gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m'
+        Building C object CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o
+        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot   -v -o CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c
         Using built-in specs.
         COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real
         Target: arm-buildroot-linux-gnueabihf
         Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
         Thread model: posix
         gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc5zFyMC.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccDmjhmM.s
         GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
         	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
         
@@ -611,13 +108,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: 301aab3cef35fbf26473394454f2f527
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o /tmp/cc5zFyMC.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -meabi=5 -o CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o /tmp/ccDmjhmM.s
         GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32
         COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
         LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        [2/2] : && /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -v CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -o cmTC_5b973   && :
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        Linking C executable cmTC_c2674
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c2674.dir/link.txt --verbose=1
+        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot  -v CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -o cmTC_c2674 
         Using built-in specs.
         COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real
         COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper
@@ -627,9 +126,10 @@ events:
         gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
         COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
         LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_5b973' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccTrhimk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_5b973 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_5b973' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c2674' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccI2Av8C.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_c2674 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c2674' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        gmake[1]: Leaving directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m'
         
       exitCode: 0
   -
@@ -663,18 +163,21 @@ events:
     message: |
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(arm-buildroot-linux-gnueabihf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-ovmb3d']
+        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/ninja -v cmTC_5b973]
-        ignore line: [[1/2] /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_c2674/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_c2674.dir/build.make CMakeFiles/cmTC_c2674.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-QKPK5m']
+        ignore line: [Building C object CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot   -v -o CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real]
         ignore line: [Target: arm-buildroot-linux-gnueabihf]
         ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc5zFyMC.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1 -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot /usr/share/cmake-3.28/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -version -o /tmp/ccDmjhmM.s]
         ignore line: [GNU C11 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
         ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
         ignore line: []
@@ -695,13 +198,15 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: 301aab3cef35fbf26473394454f2f527]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o /tmp/cc5zFyMC.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -meabi=5 -o CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o /tmp/ccDmjhmM.s]
         ignore line: [GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32]
         ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
         ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o' '-c' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [[2/2] : && /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -v CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -o cmTC_5b973   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o' '-c' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [Linking C executable cmTC_c2674]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c2674.dir/link.txt --verbose=1]
+        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot  -v CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -o cmTC_c2674 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc.br_real]
         ignore line: [COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper]
@@ -711,19 +216,19 @@ events:
         ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
         ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
         ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_5b973' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccTrhimk.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_5b973 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_c2674' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccI2Av8C.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_c2674 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccTrhimk.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccI2Av8C.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
-          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/] ==> ignore
+          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot] ==> ignore
           arg [--eh-frame-hdr] ==> ignore
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld-linux-armhf.so.3] ==> ignore
@@ -731,7 +236,7 @@ events:
           arg [-m] ==> ignore
           arg [armelf_linux_eabi] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_5b973] ==> ignore
+          arg [cmTC_c2674] ==> ignore
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
@@ -740,7 +245,7 @@ events:
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib]
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_5b973.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_c2674.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lgcc] ==> lib [gcc]
           arg [--as-needed] ==> ignore
           arg [-lgcc_s] ==> lib [gcc_s]
@@ -774,29 +279,32 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-oWOqIk"
-      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-oWOqIk"
+      source: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa"
+      binary: "/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa"
     cmakeVariables:
-      CMAKE_CXX_FLAGS: "-march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7"
+      CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
       CMAKE_EXE_LINKER_FLAGS: ""
-      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/"
+      CMAKE_SYSROOT: "/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot"
     buildResult:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-oWOqIk'
+        Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa'
         
-        Run Build Command(s): /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/ninja -v cmTC_8bb00
-        [1/2] /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_66241/fast
+        /usr/bin/gmake  -f CMakeFiles/cmTC_66241.dir/build.make CMakeFiles/cmTC_66241.dir/build
+        gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa'
+        Building CXX object CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o
+        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot   -v -o CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp
         Using built-in specs.
         COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++.br_real
         Target: arm-buildroot-linux-gnueabihf
         Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp
         Thread model: posix
         gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccT8oVev.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccflaWz5.s
         GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)
         	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22-GMP
         
@@ -823,13 +331,15 @@ events:
         
         GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
         Compiler executable checksum: b50adb8b082f2ddde96a6a81ec7e39fe
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccT8oVev.s
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -meabi=5 -o CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccflaWz5.s
         GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32
         COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
         LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-        [2/2] : && /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -v CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_8bb00   && :
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        Linking CXX executable cmTC_66241
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66241.dir/link.txt --verbose=1
+        /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot  -v CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_66241 
         Using built-in specs.
         COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++.br_real
         COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper
@@ -839,9 +349,10 @@ events:
         gcc version 7.5.0 (Buildroot 2020.02-gee85cab) 
         COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/
         LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_8bb00' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
-         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwhELQd.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_8bb00 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
-        COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_8bb00' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_66241' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+         /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc2rMX1W.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_66241 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_66241' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu'
+        gmake[1]: Leaving directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa'
         
       exitCode: 0
   -
@@ -881,18 +392,21 @@ events:
     message: |
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(arm-buildroot-linux-gnueabihf-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
-        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-oWOqIk']
+        ignore line: [Change Dir: '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa']
         ignore line: []
-        ignore line: [Run Build Command(s): /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/ninja -v cmTC_8bb00]
-        ignore line: [[1/2] /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/   -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7    -v -o CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/bin/cmake -E env VERBOSE=1 /usr/bin/gmake -f Makefile cmTC_66241/fast]
+        ignore line: [/usr/bin/gmake  -f CMakeFiles/cmTC_66241.dir/build.make CMakeFiles/cmTC_66241.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/build/CMakeFiles/CMakeScratch/TryCompile-N93tCa']
+        ignore line: [Building CXX object CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot   -v -o CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++.br_real]
         ignore line: [Target: arm-buildroot-linux-gnueabihf]
         ignore line: [Configured with: ./configure --prefix=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --sysconfdir=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/etc --enable-static --target=arm-buildroot-linux-gnueabihf --with-sysroot=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/sysroot --enable-__cxa_atexit --with-gnu-ld --disable-libssp --disable-multilib --disable-decimal-float --with-gmp=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpc=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-mpfr=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-pkgversion='Buildroot 2020.02-gee85cab' --with-bugurl=http://bugs.buildroot.net/ --disable-libquadmath --enable-tls --enable-plugins --enable-lto --enable-threads --with-isl=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host --with-abi=aapcs-linux --with-cpu=cortex-a7 --with-fpu=neon-vfpv4 --with-float=hard --with-mode=arm --enable-languages=c,c++,fortran --with-build-time-tools=/home/book/100ask_imx6ull-sdk/Buildroot_2020.02.x/output/host/arm-buildroot-linux-gnueabihf/bin --enable-shared --enable-libgomp]
         ignore line: [Thread model: posix]
         ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccT8oVev.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/cc1plus -quiet -v -iprefix /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/ -isysroot /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot -D_GNU_SOURCE /usr/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -mabi=aapcs-linux -marm -mtls-dialect=gnu -auxbase-strip CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -version -o /tmp/ccflaWz5.s]
         ignore line: [GNU C++14 (Buildroot 2020.02-gee85cab) version 7.5.0 (arm-buildroot-linux-gnueabihf)]
         ignore line: [	compiled by GNU C version 7.5.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.22-GMP]
         ignore line: []
@@ -919,13 +433,15 @@ events:
         ignore line: []
         ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
         ignore line: [Compiler executable checksum: b50adb8b082f2ddde96a6a81ec7e39fe]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -march=armv7ve -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon -meabi=5 -o CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccT8oVev.s]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/as -v -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -meabi=5 -o CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccflaWz5.s]
         ignore line: [GNU assembler version 2.32 (arm-buildroot-linux-gnueabihf) using BFD version (GNU Binutils) 2.32]
         ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
         ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        ignore line: [[2/2] : && /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ -march=armv7ve -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a7 -v CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_8bb00   && :]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        ignore line: [Linking CXX executable cmTC_66241]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66241.dir/link.txt --verbose=1]
+        ignore line: [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot  -v CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_66241 ]
         ignore line: [Using built-in specs.]
         ignore line: [COLLECT_GCC=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++.br_real]
         ignore line: [COLLECT_LTO_WRAPPER=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper]
@@ -935,19 +451,19 @@ events:
         ignore line: [gcc version 7.5.0 (Buildroot 2020.02-gee85cab) ]
         ignore line: [COMPILER_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/bin/]
         ignore line: [LIBRARY_PATH=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib/:/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/]
-        ignore line: [COLLECT_GCC_OPTIONS='-march=armv7ve' '-mfpu=neon' '-mfloat-abi=hard' '-mcpu=cortex-a7' '-v' '-o' 'cmTC_8bb00' '-shared-libgcc' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
-        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccwhELQd.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/ --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_8bb00 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_66241' '-shared-libgcc' '-mcpu=cortex-a7' '-mfloat-abi=hard' '-mfpu=neon-vfpv4' '-mabi=aapcs-linux' '-marm' '-mtls-dialect=gnu']
+        link line: [ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2 -plugin /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so -plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper -plugin-opt=-fresolution=/tmp/cc2rMX1W.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot --eh-frame-hdr -dynamic-linker /lib/ld-linux-armhf.so.3 -X -m armelf_linux_eabi -o cmTC_66241 /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0 -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib -L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtend.o /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crtn.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/collect2] ==> ignore
           arg [-plugin] ==> ignore
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/liblto_plugin.so] ==> ignore
           arg [-plugin-opt=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../libexec/gcc/arm-buildroot-linux-gnueabihf/7.5.0/lto-wrapper] ==> ignore
-          arg [-plugin-opt=-fresolution=/tmp/ccwhELQd.res] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/cc2rMX1W.res] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
           arg [-plugin-opt=-pass-through=-lc] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
           arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
-          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/] ==> ignore
+          arg [--sysroot=/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot] ==> ignore
           arg [--eh-frame-hdr] ==> ignore
           arg [-dynamic-linker] ==> ignore
           arg [/lib/ld-linux-armhf.so.3] ==> ignore
@@ -955,7 +471,7 @@ events:
           arg [-m] ==> ignore
           arg [armelf_linux_eabi] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_8bb00] ==> ignore
+          arg [cmTC_66241] ==> ignore
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crt1.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib/crti.o]
           arg [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o] ==> obj [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/crtbegin.o]
@@ -964,7 +480,7 @@ events:
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/../lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/../../../../arm-buildroot-linux-gnueabihf/lib]
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/lib]
           arg [-L/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib] ==> dir [/home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/lib]
-          arg [CMakeFiles/cmTC_8bb00.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_66241.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lstdc++] ==> lib [stdc++]
           arg [-lm] ==> lib [m]
           arg [-lgcc_s] ==> lib [gcc_s]

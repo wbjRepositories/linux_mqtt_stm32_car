@@ -21,4 +21,15 @@ CMakeFiles/lvglTest.dir/lvgl/src/misc/lv_log.c.o: \
  /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/bits/stdint-uintn.h \
  /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/../lv_conf_kconfig.h \
  /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lv_conf.h \
- /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/lv_types.h
+ /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/lv_types.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include/stdarg.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/string.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include/stddef.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/bits/types/locale_t.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/bits/types/__locale_t.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/strings.h \
+ /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/lv_printf.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/arm-buildroot-linux-gnueabihf/sysroot/usr/include/inttypes.h \
+ /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/../hal/lv_hal_tick.h \
+ /home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_lvgl/lvgl/src/misc/../hal/../lv_conf_internal.h \
+ /home/wbj/100ask_imx6ull-sdk/ToolChain/arm-buildroot-linux-gnueabihf_sdk-buildroot/lib/gcc/arm-buildroot-linux-gnueabihf/7.5.0/include/stdbool.h

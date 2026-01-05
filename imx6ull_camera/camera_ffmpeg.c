@@ -72,6 +72,7 @@ void sig_handler(int sig)
     is_running = 0;
     pthread_join(audio_thread_id, NULL);
     av_write_trailer(out_ctx);
+    av_log(NULL, AV_LOG_INFO, "Camera: Received %d signal\n", sig);
 }
 
 
@@ -228,7 +229,7 @@ void *audio_sample(void *argv)
     //     av_packet_unref(apkt);
     // }
     // av_packet_free(&apkt);
-    return NULL;
+    // return NULL;
 }
 
 int main(int argc, char *argv[])
@@ -345,7 +346,6 @@ int main(int argc, char *argv[])
     GOTO_ERR("Header writing error.\n");
     
     signal(SIGINT, sig_handler);
-
     vpkt = av_packet_alloc();
     if (vpkt == NULL)
     {

@@ -683,11 +683,23 @@ struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
     }
 
     /* open input file, and allocate format context */
+    
+    AVDictionary *opts = NULL;
+    // 1. 允许不安全的文件路径 (解决 absolute path 问题)
+    av_dict_set(&opts, "safe", "0", 0);
+    // 2. 允许自动探测格式
+    av_dict_set(&opts, "probesize", "102400", 0);
+    // 3. 【最关键】设置协议白名单，允许 concat 和 file 互相调用
+    // 如果没有这行，FFmpeg 可能会拒绝打开播放列表
+    av_dict_set(&opts, "protocol_whitelist", "file,http,https,tcp,tls,crypto,concat,subfile", 0);
 
-    if(avformat_open_input(&(ffmpeg_ctx->fmt_ctx), path, NULL, NULL) < 0) {
+    if(avformat_open_input(&(ffmpeg_ctx->fmt_ctx), path, NULL, &opts) < 0) {
         LV_LOG_ERROR("Could not open source file %s", path);
         goto failed;
     }
+
+        // 释放字典
+    av_dict_free(&opts);
 
     /* retrieve stream information */
 

@@ -19,10 +19,13 @@
 #include "common.h"
 #include <stdbool.h>
 #include <errno.h>
+#include <dirent.h>
 
 #include "../lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
 #include "lv_drivers/indev/evdev.h"
+// 如果你的 lvgl 文件夹直接在项目根目录
+#include "lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h"
 
 #define MAX_FINGERS 2      		//支持的最大手指数量
 #define LV_HOR_RES_MAX 1024		//屏幕水平像素数量
@@ -35,6 +38,9 @@
 #define CAM_W  320//640      //摄像头像素宽
 #define CAM_H  240//480      //摄像头像素高
 
+#define VIDEO_DIR   "/mnt/sd"
+#define MAX_FILES 1024       // 假设最大文件数，防止内存爆掉，可根据实际情况调整
+#define PLAYLIST_PATH   "/mnt/sd/playlist.ffconcat"
 
 typedef struct {
     int tracking_id;		//手指id
@@ -65,6 +71,11 @@ static lv_obj_t * dirct_speed_slider;       //转向速度滑动条
 static lv_obj_t * dirct_speed_slider_label;       //转向速度滑动条标签
 static lv_obj_t * page_main;             //主页面
 static lv_obj_t * page_camera;           //摄像头页面
+static lv_obj_t * page_player;          //播放器页面
+static lv_obj_t * player;               //播放器
+static lv_obj_t * video_time;           //视频时间
+static lv_obj_t * current_time;           //视频当前时间
+static lv_obj_t * video_progress;        //视频进度条
 static sem_t *mqtt_sem_sub;			//用来同步mqtt消息进程的信号量
 static int shm_fd;					//共享内存文件句柄
 static lv_img_dsc_t cam_img_dsc;        //摄像头像素描述
@@ -72,13 +83,12 @@ static lv_obj_t *cam_img_obj;           //摄像头对象
 static pid_t camera = -1;
 static pid_t camera_p2p = -1;
 static pid_t camera_cs = -1;
-static pid_t playback = -1;
 
 //杀死摄像头进程
 void kill_camera(pid_t *pid)
 {
     if(*pid > 0){
-        if (kill(*pid, SIGTERM) == 0) {
+        if (kill(*pid, SIGINT) == 0) {
             printf("Camera terminated : %d\n", *pid);
             *pid = -1;
         } else {
@@ -91,6 +101,92 @@ void run_camera(char *s)
     char *argv[] = {"/root/camera", s, NULL};
     execvp("/root/camera", argv);
     perror("execvp camera err");
+}
+
+// qsort比较函数
+int compare_filenames(const void *s1, const void *s2)
+{
+    return strcmp(*(const char **)s1, *(const char **)s2);
+}
+
+// 生成播放列表
+int generate_playlist(void)
+{
+    DIR *d = NULL;
+    struct dirent *dir = NULL;
+    char **file_list = NULL;
+    int count = 0;
+    int ret = 0;
+    d = opendir(VIDEO_DIR);
+    if (!d)
+    {
+        perror("无法打开目录："VIDEO_DIR);
+        return -1;
+    }
+    file_list = (char **)malloc(MAX_FILES * sizeof(char *));
+    if (file_list == NULL)
+    {
+        perror("内存分配失败");
+        closedir(d);
+        return -1;
+    }
+    
+    while ((dir = readdir(d)) != NULL)
+    {
+        if (dir->d_type != DT_REG && dir->d_type != DT_UNKNOWN)
+        {
+            continue;
+        }
+        // printf("strstr:%s\n",strstr(dir->d_name, "video"));
+        // printf("strcmp:%d\n",strcmp(strrchr(dir->d_name, '.'), ".mov"));
+        if (strstr(dir->d_name, "video") != NULL && strcmp(strrchr(dir->d_name, '.'), ".mov") == 0)
+        {
+            if (count < MAX_FILES)
+            {
+                file_list[count] = strdup(dir->d_name);
+                if (file_list[count])
+                {
+                    count++;
+                } else 
+                {
+                    printf("警告：视频文件数量超过最大限制 %d，部分文件将被忽略\n", MAX_FILES);
+                    break;
+                }
+            }
+        }
+    }
+    closedir(d);
+    if (count == 0)
+    {
+        printf("未在 %s 找到任何.mov文件\n", VIDEO_DIR);
+    }
+    qsort(file_list, count, sizeof(char *), compare_filenames);
+
+    FILE *f = fopen(PLAYLIST_PATH, "w");
+    if (f == NULL)
+    {
+        perror("无法创建 playlist.ffconcat");
+        ret = -1;
+    }
+    else
+    {
+        fprintf(f, "ffconcat version 1.0\n");
+        for (int i = 0; i < count; i++) 
+        {
+            fprintf(f, "file '%s/%s'\n", VIDEO_DIR, file_list[i]);
+            //fprintf(f, "file '%s'\n", file_list[i]);
+        }
+        printf("成功生成播放列表: %s，包含 %d 个片段\n", PLAYLIST_PATH, count);
+        fclose(f);
+    }
+    
+    for (int i = 0; i < count; i++)
+    {
+        free(file_list[i]);
+    }
+    free(file_list);
+
+    return ret;
 }
 
 /*
@@ -408,6 +504,12 @@ static void slider_event_cb(lv_event_t * e)
         lv_label_set_text(dirct_speed_slider_label, buf);
         lv_obj_align_to(dirct_speed_slider_label, slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
     }
+    else if(slider == video_progress)
+    {
+        lv_snprintf(buf, sizeof(buf), "%d%%", (int)lv_slider_get_value(slider));
+        lv_label_set_text(video_progress, buf);
+        lv_obj_align_to(video_time, video_progress,LV_ALIGN_OUT_LEFT_MID, 0, 0);
+    }
 }
 
 /**
@@ -433,7 +535,6 @@ static void dropdown_set_cb(lv_event_t * e)
                 //杀死其他摄像头进程
                 kill_camera(&camera_p2p);
                 kill_camera(&camera_cs);
-                kill_camera(&playback);
                 run_camera("camera");
             }
             else
@@ -441,6 +542,11 @@ static void dropdown_set_cb(lv_event_t * e)
                 //隐藏其他页面显示本页面
                 lv_obj_add_flag(page_main, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_clear_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
+                //隐藏播放器并停止播放
+                lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+                lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+                // lv_refr_now(NULL);
+                // lv_obj_invalidate(lv_scr_act());
             }
         }
         else if (strcmp(buf, "camera(p2p)") == 0)
@@ -455,7 +561,6 @@ static void dropdown_set_cb(lv_event_t * e)
                 //杀死其他摄像头进程
                 kill_camera(&camera);
                 kill_camera(&camera_cs);
-                kill_camera(&playback);
                 run_camera("camera_p2p");
                 // char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-input_format", "mjpeg", "-i", "/dev/video1", "-c:v", "copy" ,"-f" ,"mjpeg" ,"udp://192.168.1.10:5000", NULL};
                 // execvp("ffmpeg", argv);
@@ -466,6 +571,9 @@ static void dropdown_set_cb(lv_event_t * e)
                 //隐藏其他页面显示本页面
                 lv_obj_clear_flag(page_main, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
+                //隐藏播放器并停止播放
+                lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+                lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
             }
         }
         else if (strcmp(buf, "camera(c/s)") == 0)
@@ -480,18 +588,19 @@ static void dropdown_set_cb(lv_event_t * e)
                 //杀死其他摄像头进程
                 kill_camera(&camera);
                 kill_camera(&camera_p2p);
-                kill_camera(&playback);
                 run_camera("camera(c/s)");
                 // char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-video_size", "640x480", "-framerate", "15", "-i", "/dev/video1", "-q", "10" ,"-f" ,"flv" ,"rtmp://192.168.1.19/live/myCamera", NULL};
                 // execvp("ffmpeg", argv);
                 // perror("execvp ffmpeg err");
-
             }
             else
             {
                 //隐藏其他页面显示本页面
                 lv_obj_clear_flag(page_main, LV_OBJ_FLAG_HIDDEN);
                 lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
+                //隐藏播放器并停止播放
+                lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+                lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
             }
         }
         else if(strcmp(buf, "controller") == 0)
@@ -500,44 +609,29 @@ static void dropdown_set_cb(lv_event_t * e)
             kill_camera(&camera);
             kill_camera(&camera_p2p);
             kill_camera(&camera_cs);
-            kill_camera(&playback);
             //隐藏其他页面显示本页面
             lv_obj_clear_flag(page_main, LV_OBJ_FLAG_HIDDEN);
             lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
-        }
-        else if(strcmp(buf, "recording") == 0)
-        {
-            if (camera <= 0)
-                camera = fork();
-            if(camera < 0)
-            {
-                perror("fork err");
-            }
-            else if(camera == 0)
-            {
-                //杀死其他摄像头进程
-                kill_camera(&playback);
-                kill_camera(&camera_p2p);
-                kill_camera(&camera_cs);
-                run_camera("camera");
-            }
+            //隐藏播放器并停止播放
+            lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+            lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
         }
         else if(strcmp(buf, "playback") == 0)
         {
-            if (playback <= 0)
-                playback = fork();
-            if(playback < 0)
-            {
-                perror("fork err");
-            }
-            else if(playback == 0)
-            {
-                //杀死其他摄像头进程
-                kill_camera(&camera);
-                kill_camera(&camera_p2p);
-                kill_camera(&camera_cs);
-                run_camera("playback");
-            }
+            //杀死其他摄像头进程
+            kill_camera(&camera);
+            kill_camera(&camera_p2p);
+            kill_camera(&camera_cs);
+
+            generate_playlist();
+
+            lv_ffmpeg_player_set_src(player, PLAYLIST_PATH);
+
+            lv_obj_add_flag(cam_img_obj, LV_OBJ_FLAG_HIDDEN);
+            lv_obj_clear_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+            lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_START);
+            // lv_refr_now(NULL);
+            // lv_obj_invalidate(lv_scr_act());
         }
     }
 }
@@ -644,7 +738,7 @@ void sig_handler(int sig)
     munmap(car_status, sizeof(car_status_t));
     shm_unlink(SHM_NAME);
     sem_unlink(SEM_SUB_NAME);
-    printf("接受到%d函数\n", sig);
+    printf("LVGL: Received %d signal\n", sig);
     exit(sig);
 }
 
@@ -685,6 +779,12 @@ int camera_lvgl_init(lv_obj_t *parent)
     return 0;
 }
 
+// 简单的日志回调函数
+void my_log_cb(const char * buf)
+{
+    printf("%s", buf); // 直接打印到串口/终端
+}
+
 int main(void)
 {
     fprintf(stdout, "lvgl runing!\n");
@@ -694,6 +794,9 @@ int main(void)
     lv_indev_init();
     mqtt_shm_init();
     mqtt_sem_init();
+
+    // 启用日志
+    lv_log_register_print_cb(my_log_cb);
 
     if(signal(SIGINT, sig_handler) == SIG_ERR)
     {
@@ -784,21 +887,45 @@ int main(void)
 
     //创建摄像头图像对象
     page_camera = lv_obj_create(lv_scr_act());
+    lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_set_size(page_camera, lv_pct(100), lv_pct(100));
+
+    //创建播放器页
+    page_player = lv_obj_create(lv_scr_act());
+    lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_set_size(page_player, lv_pct(100), lv_pct(100));
+    //创建播放器
+    player = lv_ffmpeg_player_create(page_player);
+    // lv_obj_add_flag(player, LV_OBJ_FLAG_HIDDEN);
+    // lv_ffmpeg_player_set_auto_restart(player, false);
+    // lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+    lv_obj_center(player);
+    //创建播放器进度条
+    video_progress = lv_slider_create(page_player);
+    lv_obj_add_event_cb(video_progress, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_align(video_progress, LV_ALIGN_BOTTOM_MID, 0, -30);
+    lv_obj_set_width(video_progress, 600);
+    //创建视频时间
+    video_time = lv_label_create(page_player);
+    lv_label_set_text(video_time, "0%");
+    lv_obj_align_to(video_time, video_progress,LV_ALIGN_OUT_RIGHT_MID, 30, 0);
+    //创建视频当前时间
+    current_time = lv_label_create(page_player);
+    lv_label_set_text(current_time, "0%");
+    lv_obj_align_to(current_time, video_progress, LV_ALIGN_OUT_LEFT_MID, -30, 0);
+
+
+
+
+
     //创建下拉框，用来切换摄像头模式和小车控制器模式
     lv_obj_t * mode_dd = lv_dropdown_create(lv_scr_act());
-    lv_dropdown_set_options(mode_dd, "controller\n" "camera\n" "camera(p2p)\n" "camera(c/s)");
+    lv_dropdown_set_options(mode_dd, "controller\n" "camera\n" "playback\n" "camera(p2p)\n" "camera(c/s)");
     lv_obj_align(mode_dd, LV_ALIGN_TOP_LEFT, 0, 20);
     lv_obj_add_event_cb(mode_dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
-    lv_obj_set_size(page_camera, lv_pct(100), lv_pct(100));
-    //创建下拉框，用来切换回放，还是录制
-    lv_obj_t * video_dd = lv_dropdown_create(page_camera);
-    lv_dropdown_set_options(video_dd, "recording\n" "playback");
-    lv_obj_align(video_dd, LV_ALIGN_TOP_RIGHT, 0, 20);
-    lv_obj_add_event_cb(video_dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
 
     if(camera_lvgl_init(page_camera) < 0)
         return -1;
-    lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
 
     while(1) {
         lv_timer_handler();	//处理lvgl任务

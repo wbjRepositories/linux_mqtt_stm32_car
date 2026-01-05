@@ -229,7 +229,7 @@
  *-----------*/
 
 /*Enable the log module*/
-#define LV_USE_LOG 0
+#define LV_USE_LOG 1
 #if LV_USE_LOG
 
     /*How important log should be added:
@@ -690,7 +690,7 @@
 
 /*FFmpeg library for image decoding and playing videos
  *Supports all major image formats so do not enable other image decoder with it*/
-#define LV_USE_FFMPEG 0
+#define LV_USE_FFMPEG 1
 #if LV_USE_FFMPEG
     /*Dump input information to stderr*/
     #define LV_FFMPEG_DUMP_FORMAT 0
