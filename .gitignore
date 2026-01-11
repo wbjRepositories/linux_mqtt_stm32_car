@@ -20,6 +20,8 @@ CMakeCache.txt
 core
 !core/
 *.mov
+build/*
+!build/Makefile
 
 # Keil intermediate files
 *.dep
