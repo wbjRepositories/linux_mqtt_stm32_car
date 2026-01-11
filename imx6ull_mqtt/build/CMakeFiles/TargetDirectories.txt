@@ -1,3 +1,0 @@
-/home/book/MyCode/imx6ull_mqtt/build/CMakeFiles/mqttClient.dir
-/home/book/MyCode/imx6ull_mqtt/build/CMakeFiles/edit_cache.dir
-/home/book/MyCode/imx6ull_mqtt/build/CMakeFiles/rebuild_cache.dir

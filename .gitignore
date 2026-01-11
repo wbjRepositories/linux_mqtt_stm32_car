@@ -13,11 +13,12 @@
 *.map
 *.lst
 *.lnp
-CMakeFiles
+CMakeFiles/
 .cmake
 .json
 CMakeCache.txt
 core
+!core/
 *.mov
 
 # Keil intermediate files

@@ -1,3 +1,0 @@
-/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_camera/CMakeFiles/camera.dir
-/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_camera/CMakeFiles/edit_cache.dir
-/home/wbj/workSpace/linux_mqtt_stm32_car/imx6ull_camera/CMakeFiles/rebuild_cache.dir
