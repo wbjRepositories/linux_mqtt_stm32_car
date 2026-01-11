@@ -24,7 +24,6 @@
 #include "../lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
 #include "lv_drivers/indev/evdev.h"
-// 如果你的 lvgl 文件夹直接在项目根目录
 #include "lvgl/src/extra/libs/ffmpeg/lv_ffmpeg.h"
 
 #define MAX_FINGERS 2      		//支持的最大手指数量
@@ -913,6 +912,12 @@ int main(void)
     current_time = lv_label_create(page_player);
     lv_label_set_text(current_time, "0%");
     lv_obj_align_to(current_time, video_progress, LV_ALIGN_OUT_LEFT_MID, -30, 0);
+
+
+    //lv_ffmpeg_player_get_current_time()
+    //lv_ffmpeg_player_get_total_time()
+    //lv_ffmpeg_player_seek();
+
 
 
 

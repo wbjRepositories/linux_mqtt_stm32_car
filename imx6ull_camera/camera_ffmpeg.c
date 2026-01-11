@@ -12,6 +12,7 @@
 
 #define FILE_NMAE_OUTPUT    "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
 #define FILE_FORMAT_OUTPUT  "mov"
+#define AUDIO_OUT_RATE  44100
 
 //#define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s);goto _ERROR;}
 #define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s, av_err2str(ret));goto _ERROR;}                        
@@ -73,6 +74,7 @@ void sig_handler(int sig)
     pthread_join(audio_thread_id, NULL);
     av_write_trailer(out_ctx);
     av_log(NULL, AV_LOG_INFO, "Camera: Received %d signal\n", sig);
+    exit(0);
 }
 
 
@@ -155,7 +157,7 @@ void *audio_sample(void *argv)
     
     // 如果获取失败，给一个默认值（视你的硬件而定，通常 8000Hz 16bit 可能是 2字节）
     if (bytes_per_sample == 0) bytes_per_sample = 2; 
-    if (channels == 0) channels = 1; 
+    if (channels == 0) channels = 2; 
 
     while (is_running && frame_count < max_frames)
     {
@@ -178,9 +180,9 @@ void *audio_sample(void *argv)
                 // 根据已经采集的总样本数，手动计算 PTS
                 // 公式：PTS = 总样本数 / 采样率
                 // 使用 av_rescale_q 转换到输出流的时间基
-                apkt->pts = av_rescale_q(total_audio_samples, (AVRational){1, 8000}, audio_stream->time_base);
+                apkt->pts = av_rescale_q(total_audio_samples, (AVRational){1, AUDIO_OUT_RATE}, audio_stream->time_base);
                 apkt->dts = apkt->pts;
-                apkt->duration = av_rescale_q(samples_in_pkt, (AVRational){1, 8000}, audio_stream->time_base);
+                apkt->duration = av_rescale_q(samples_in_pkt, (AVRational){1, AUDIO_OUT_RATE}, audio_stream->time_base);
                 
                 // 累加样本数
                 total_audio_samples += samples_in_pkt;
@@ -272,7 +274,7 @@ int main(int argc, char *argv[])
     input_format = av_find_input_format("alsa");
     //设置麦克风参数
     av_dict_free(&input_dic);
-    ret = av_dict_set(&input_dic, "sample_rate", "8000", 0);
+    ret = av_dict_set(&input_dic, "sample_rate", "44100", 0);
     ret = av_dict_set(&input_dic, "thread_queue_size", "4096", 0);
     GOTO_ERR("Failed to set parameter framerate of the mic:%s");
     //打开麦克风
@@ -333,8 +335,8 @@ int main(int argc, char *argv[])
     
     // video_stream->time_base = video_in_ctx->streams[video_stream_index]->time_base;
     video_stream->time_base = (AVRational){1, 1000};
-    audio_stream->time_base = (AVRational){1, 8000}; 
-    // audio_stream->avg_frame_rate = (AVRational){8000, 1};
+    audio_stream->time_base = (AVRational){1, AUDIO_OUT_RATE}; 
+    // audio_stream->avg_frame_rate = (AVRational){AUDIO_OUT_RATE, 1};
     //audio_stream->time_base = audio_in_ctx->streams[audio_stream_index]->time_base;
 
     av_dict_set(&output_dic, "segment_time", "10", 0);
@@ -428,7 +430,7 @@ int main(int argc, char *argv[])
     pthread_create(&audio_thread_id, NULL, audio_sample, NULL);
 
     int64_t start_time_us = av_gettime(); // 获取当前的微秒时间
-
+    int64_t now_us = 0;
     while (1)
     {
         ret = av_read_frame(video_in_ctx, vpkt);
@@ -439,7 +441,7 @@ int main(int argc, char *argv[])
             {
                 vpkt->stream_index = video_stream->index;
 
-                int64_t now_us = av_gettime();
+                now_us = av_gettime();
         
                 // 2. 计算从开始到现在经过了多少时间
                 int64_t pts_us = now_us - start_time_us;

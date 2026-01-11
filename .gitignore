@@ -13,6 +13,12 @@
 *.map
 *.lst
 *.lnp
+CMakeFiles
+.cmake
+.json
+CMakeCache.txt
+core
+*.mov
 
 # Keil intermediate files
 *.dep

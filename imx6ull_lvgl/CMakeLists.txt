@@ -77,7 +77,9 @@ target_link_libraries(lvglTest PRIVATE
     avformat
     avutil
     swscale
-    
+    swresample
+    asound
+
     # 系统基础库
     pthread 
     rt

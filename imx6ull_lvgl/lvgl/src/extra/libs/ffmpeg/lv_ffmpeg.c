@@ -16,6 +16,9 @@
 #include <libavutil/timestamp.h>
 #include <libswscale/swscale.h>
 
+#include <alsa/asoundlib.h>
+#include <libswresample/swresample.h>
+
 /*********************
  *      DEFINES
  *********************/
@@ -35,7 +38,18 @@
 
 #define MY_CLASS &lv_ffmpeg_player_class
 
-#define FRAME_DEF_REFR_PERIOD   33  /*[ms]*/
+//#define FRAME_DEF_REFR_PERIOD   33  /*[ms]*/
+
+// 【修改】定时器频率改为更快的固定频率，以便精细控制同步
+// 不要再用视频帧率，建议 10ms 或 5ms
+#undef FRAME_DEF_REFR_PERIOD
+#define FRAME_DEF_REFR_PERIOD 5 
+
+// 音频输出参数配置 (PCM)
+#define AUDIO_OUT_RATE 44100
+#define AUDIO_OUT_CHANNELS 2
+#define AUDIO_OUT_FORMAT SND_PCM_FORMAT_S16_LE
+
 
 /**********************
  *      TYPEDEFS
@@ -54,6 +68,17 @@ struct ffmpeg_context_s {
     int video_dst_linesize[4];
     enum AVPixelFormat video_dst_pix_fmt;
     bool has_alpha;
+    // 新增成员音频相关
+    int audio_stream_idx;
+    AVCodecContext * audio_dec_ctx;
+    AVStream * audio_stream;
+    struct SwrContext * swr_ctx; // 重采样上下文
+    uint8_t * audio_out_buffer;  // 音频输出缓冲
+    int audio_out_buffer_size;
+    // 新增成员同步相关
+    double video_pts;      // 当前解码出来的视频帧的显示时间 (秒)
+    double audio_clock;    // 当前音频播放到的时间 (秒)
+    double video_time_base; // 视频流的时间基准
 };
 
 #pragma pack(1)
@@ -136,6 +161,49 @@ int lv_ffmpeg_get_frame_num(const char * path)
     return ret;
 }
 
+snd_pcm_t *pcm_handle = NULL;
+snd_pcm_hw_params_t *hwparams = NULL;
+/**
+ * 
+ */
+int alsa_init(void)
+{
+    int ret = 0;
+    ret = snd_pcm_open(&pcm_handle, "hw:0,0", SND_PCM_STREAM_PLAYBACK, 0);
+    if (ret < 0)
+    {
+        fprintf(stderr, "The audio device failed to open:%s", snd_strerror(ret));
+        goto _FAILED;
+    }
+    ret = snd_pcm_hw_params_malloc(&hwparams);
+    if (ret < 0)
+    {
+        fprintf(stderr, "Failed to allocate parameter space:%s", snd_strerror(ret));
+        goto _FAILED;
+    }
+    ret = snd_pcm_hw_params_any(pcm_handle, hwparams);
+    if (ret < 0)
+    {
+        fprintf(stderr, "Initialization parameters failed:%s", snd_strerror(ret));
+        goto _FAILED;
+    }
+
+    snd_pcm_hw_params_set_access(pcm_handle, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED);
+    snd_pcm_hw_params_set_format(pcm_handle, hwparams,SND_PCM_FORMAT_S16_LE);
+    snd_pcm_hw_params_set_channels(pcm_handle, hwparams, 2);
+    snd_pcm_hw_params_set_rate(pcm_handle, hwparams, AUDIO_OUT_RATE, 0);
+    snd_pcm_hw_params_set_period_size(pcm_handle, hwparams, 1024, 0);
+    snd_pcm_hw_params_set_buffer_size(pcm_handle, hwparams, 16*1024);
+    snd_pcm_hw_params(pcm_handle, hwparams);
+
+    snd_pcm_prepare(pcm_handle);
+
+_FAILED:
+    if (hwparams)
+        snd_pcm_hw_params_free(hwparams);
+    return ret;
+}
+
 lv_obj_t * lv_ffmpeg_player_create(lv_obj_t * parent)
 {
     lv_obj_t * obj = lv_obj_class_create_obj(MY_CLASS, parent);
@@ -191,16 +259,18 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
 
     lv_img_set_src(&player->img.obj, &(player->imgdsc));
 
-    int period = ffmpeg_get_frame_refr_period(player->ffmpeg_ctx);
+    // int period = ffmpeg_get_frame_refr_period(player->ffmpeg_ctx);
 
-    if(period > 0) {
-        LV_LOG_INFO("frame refresh period = %d ms, rate = %d fps",
-                    period, 1000 / period);
-        lv_timer_set_period(player->timer, period);
-    }
-    else {
-        LV_LOG_WARN("unable to get frame refresh period");
-    }
+    // if(period > 0) {
+    //     LV_LOG_INFO("frame refresh period = %d ms, rate = %d fps",
+    //                 period, 1000 / period);
+    //     lv_timer_set_period(player->timer, period);
+    // }
+    // else {
+    //     LV_LOG_WARN("unable to get frame refresh period");
+    // }
+    // 强制设为一个较小的检查周期
+    lv_timer_set_period(player->timer, 10); // 10ms 检查一次
 
     res = LV_RES_OK;
 
@@ -628,45 +698,161 @@ static int ffmpeg_get_frame_refr_period(struct ffmpeg_context_s * ffmpeg_ctx)
     return -1;
 }
 
-static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ffmpeg_ctx)
+// 初始化音频解码器和重采样器
+static int open_audio_stream(struct ffmpeg_context_s * ctx) {
+    int ret;
+    // 1. 查找音频流
+    ret = av_find_best_stream(ctx->fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
+    if (ret < 0) return -1;
+    ctx->audio_stream_idx = ret;
+    ctx->audio_stream = ctx->fmt_ctx->streams[ret];
+
+    // 2. 打开解码器 (参考原有 video 类似的逻辑)
+    AVCodec *dec = avcodec_find_decoder(ctx->audio_stream->codecpar->codec_id);
+    ctx->audio_dec_ctx = avcodec_alloc_context3(dec);
+    avcodec_parameters_to_context(ctx->audio_dec_ctx, ctx->audio_stream->codecpar);
+    avcodec_open2(ctx->audio_dec_ctx, dec, NULL);
+
+    // 3. 初始化重采样 (将任意格式转为 44.1k Stereo S16LE)
+    // 注意：FFmpeg 新版本 API 可能有所不同 (swr_alloc_set_opts2)，这里用旧版示例
+    ctx->swr_ctx = swr_alloc_set_opts(NULL,
+                                      av_get_default_channel_layout(AUDIO_OUT_CHANNELS),
+                                      AV_SAMPLE_FMT_S16, // 输出格式
+                                      AUDIO_OUT_RATE,    // 输出采样率
+                                      av_get_default_channel_layout(ctx->audio_dec_ctx->channels),
+                                      ctx->audio_dec_ctx->sample_fmt,
+                                      ctx->audio_dec_ctx->sample_rate,
+                                      0, NULL);
+    swr_init(ctx->swr_ctx);
+
+    // 4. 初始化 ALSA (使用你代码中定义的全局变量 pcm_handle)
+    if (pcm_handle) { // 假设外部已经初始化了，或者在这里初始化
+        // snd_pcm_open... snd_pcm_set_params... 
+        // 实际项目中建议在这里配置 ALSA 参数匹配 AUDIO_OUT_RATE
+        
+    }
+    alsa_init();
+    
+    // 获取视频的时间基准 (用于 PTS 计算)
+    if (ctx->video_stream) {
+        ctx->video_time_base = av_q2d(ctx->video_stream->time_base);
+    }
+    
+    return 0;
+}
+
+static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ctx)
 {
     int ret = 0;
-
     while(1) {
+        ret = av_read_frame(ctx->fmt_ctx, &ctx->pkt);
+        if(ret < 0) return -1; // 文件结束或错误
 
-        /* read frames from the file */
-        if(av_read_frame(ffmpeg_ctx->fmt_ctx, &(ffmpeg_ctx->pkt)) >= 0) {
-            bool is_image = false;
+        // --- 情况 A: 读到视频包 ---
+        if (ctx->pkt.stream_index == ctx->video_stream_idx) {
+            // 发送包到解码器
+            ret = avcodec_send_packet(ctx->video_dec_ctx, &ctx->pkt);
+            if (ret < 0) { av_packet_unref(&ctx->pkt); continue; }
 
-            /* check if the packet belongs to a stream we are interested in,
-             * otherwise skip it
-             */
-            if(ffmpeg_ctx->pkt.stream_index == ffmpeg_ctx->video_stream_idx) {
-                ret = ffmpeg_decode_packet(ffmpeg_ctx->video_dec_ctx,
-                                           &(ffmpeg_ctx->pkt), ffmpeg_ctx);
-                is_image = true;
-            }
+            // 接收解码后的帧
+            ret = avcodec_receive_frame(ctx->video_dec_ctx, ctx->frame);
+            if (ret == 0) {
+                // 【关键】记录当前视频帧的 PTS (换算成秒)
+                // 如果 frame->best_effort_timestamp 无效，尝试 frame->pts
+                int64_t pts = ctx->frame->best_effort_timestamp;
+                if (pts == AV_NOPTS_VALUE) pts = 0;
+                
+                ctx->video_pts = pts * ctx->video_time_base;
 
-            av_packet_unref(&(ffmpeg_ctx->pkt));
-
-            if(ret < 0) {
-                LV_LOG_WARN("video frame is empty %d", ret);
-                break;
-            }
-
-            /* Used to filter data that is not an image */
-            if(is_image) {
-                break;
+                // 转换图像格式给 LVGL (原有逻辑)
+                ffmpeg_output_video_frame(ctx);
+                
+                av_packet_unref(&ctx->pkt);
+                return 0; // 成功获取一帧视频，返回给上层去显示
             }
         }
-        else {
-            ret = -1;
-            break;
+        // --- 情况 B: 读到音频包 ---
+        else if (ctx->pkt.stream_index == ctx->audio_stream_idx) {
+            ret = avcodec_send_packet(ctx->audio_dec_ctx, &ctx->pkt);
+            if (ret == 0) {
+                while (avcodec_receive_frame(ctx->audio_dec_ctx, ctx->frame) >= 0) {
+                    // 1. 重采样音频数据
+                    // 计算输出样本数
+                    int out_samples = av_rescale_rnd(swr_get_delay(ctx->swr_ctx, ctx->audio_dec_ctx->sample_rate) +
+                                        ctx->frame->nb_samples, AUDIO_OUT_RATE, ctx->audio_dec_ctx->sample_rate, AV_ROUND_UP);
+                    
+                    // 确保缓冲区够大 (简化处理)
+                    uint8_t *buffer = malloc(out_samples * AUDIO_OUT_CHANNELS * 2); 
+
+                    int real_samples = swr_convert(ctx->swr_ctx, &buffer, out_samples, 
+                                                   (const uint8_t **)ctx->frame->data, ctx->frame->nb_samples);
+                    // 2. 写入 ALSA (播放声音)
+                    if (pcm_handle && real_samples > 0) {
+                        // 注意：这里是阻塞写入，可能会稍微影响 UI 流畅度，但在简单实现中是必要的
+                        snd_pcm_sframes_t frames_written = snd_pcm_writei(pcm_handle, buffer, real_samples);
+                        if (frames_written < 0) {
+                            frames_written = snd_pcm_recover(pcm_handle, frames_written, 0);
+                            if (frames_written < 0)
+                            {
+                                fprintf(stderr, "The error cannot be recovered: %s\n", snd_strerror(frames_written));
+                                break;
+                            }
+                        }
+                        // 3. 【关键】更新音频时钟
+                        // 音频时钟 = 当前音频包 PTS。
+                        // 更精确的做法是：音频PTS + (已写入声卡但在缓冲区的延迟)
+                        // 简单做法：直接用音频包的时间戳                        
+                        double audio_pts = ctx->frame->pts * av_q2d(ctx->audio_stream->time_base);
+                        ctx->audio_clock = audio_pts;
+                    }
+                    free(buffer);
+                }
+            }
         }
+        av_packet_unref(&ctx->pkt);
+        // 继续循环，直到找到视频包或文件结束
     }
-
-    return ret;
 }
+
+// static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ffmpeg_ctx)
+// {
+//     int ret = 0;
+
+//     while(1) {
+
+//         /* read frames from the file */
+//         if(av_read_frame(ffmpeg_ctx->fmt_ctx, &(ffmpeg_ctx->pkt)) >= 0) {
+//             bool is_image = false;
+
+//             /* check if the packet belongs to a stream we are interested in,
+//              * otherwise skip it
+//              */
+//             if(ffmpeg_ctx->pkt.stream_index == ffmpeg_ctx->video_stream_idx) {
+//                 ret = ffmpeg_decode_packet(ffmpeg_ctx->video_dec_ctx,
+//                                            &(ffmpeg_ctx->pkt), ffmpeg_ctx);
+//                 is_image = true;
+//             }
+
+//             av_packet_unref(&(ffmpeg_ctx->pkt));
+
+//             if(ret < 0) {
+//                 LV_LOG_WARN("video frame is empty %d", ret);
+//                 break;
+//             }
+
+//             /* Used to filter data that is not an image */
+//             if(is_image) {
+//                 break;
+//             }
+//         }
+//         else {
+//             ret = -1;
+//             break;
+//         }
+//     }
+
+//     return ret;
+// }
 
 struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
 {
@@ -718,6 +904,8 @@ struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
         ffmpeg_ctx->has_alpha = ffmpeg_pix_fmt_has_alpha(ffmpeg_ctx->video_dec_ctx->pix_fmt);
 
         ffmpeg_ctx->video_dst_pix_fmt = (ffmpeg_ctx->has_alpha ? AV_PIX_FMT_BGRA : AV_PIX_FMT_TRUE_COLOR);
+        
+        open_audio_stream(ffmpeg_ctx);
     }
 
 #if LV_FFMPEG_AV_DUMP_FORMAT != 0
@@ -825,28 +1013,82 @@ static void lv_ffmpeg_player_frame_update_cb(lv_timer_t * timer)
 {
     lv_obj_t * obj = (lv_obj_t *)timer->user_data;
     lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
+    struct ffmpeg_context_s * ctx = player->ffmpeg_ctx;
 
-    if(!player->ffmpeg_ctx) {
-        return;
+    if(!ctx) return;
+
+    // --- 音视频同步逻辑 ---
+    double diff = ctx->video_pts - ctx->audio_clock;
+    double sync_threshold = 0.03; // 30ms 的同步阈值
+
+    if (diff > sync_threshold) {
+        // [情况1]：视频比音频快 (Video PTS > Audio Clock)
+        // 动作：等待。不解码下一帧，也不刷新 UI，直接返回。
+        // 因为定时器是 10ms 一次，稍后会再进来检查。
+        return; 
+    }
+    
+    if (diff < -sync_threshold) {
+        // [情况2]：视频比音频慢 (Video PTS < Audio Clock)
+        // 动作：丢帧 (Drop Frame)。
+        // 连续解码，直到追上音频
+        // 这里做一个简单的丢帧循环（限制次数防止卡死）
+        int drop_count = 0;
+        while (diff < -sync_threshold && drop_count < 5) {
+             LV_LOG_WARN("Skipping frame (Video Lag: %.3f)", diff);
+             if (ffmpeg_update_next_frame(ctx) < 0) break; // 解码下一帧
+             diff = ctx->video_pts - ctx->audio_clock;     // 重新计算差异
+             drop_count++;
+        }
     }
 
-    int has_next = ffmpeg_update_next_frame(player->ffmpeg_ctx);
-
-    if(has_next < 0) {
-        lv_ffmpeg_player_set_cmd(obj, player->auto_restart ? LV_FFMPEG_PLAYER_CMD_START : LV_FFMPEG_PLAYER_CMD_STOP);
-        return;
-    }
-
+    // [情况3]：时间刚好 (或追赶上了) -> 渲染显示
+    
+    // 刷新 UI 显示当前这一帧
 #if LV_COLOR_DEPTH != 32
-    if(player->ffmpeg_ctx->has_alpha) {
+    if(ctx->has_alpha) {
         convert_color_depth((uint8_t *)(player->imgdsc.data),
                             player->imgdsc.header.w * player->imgdsc.header.h);
     }
 #endif
+    // 准备下一帧数据 (解码放到缓冲区，等待下一次定时器来判断时间)
+    // 这一步很重要：我们显示完当前帧后，立刻去解下一帧拿到它的 PTS，
+    // 这样下次定时器进来时才有数据做比较。
+    int has_next = ffmpeg_update_next_frame(ctx);
+    if(has_next < 0) {
+        lv_ffmpeg_player_set_cmd(obj, player->auto_restart ? LV_FFMPEG_PLAYER_CMD_START : LV_FFMPEG_PLAYER_CMD_STOP);
+    }
 
     lv_img_cache_invalidate_src(lv_img_get_src(obj));
     lv_obj_invalidate(obj);
 }
+
+// static void lv_ffmpeg_player_frame_update_cb(lv_timer_t * timer)
+// {
+//     lv_obj_t * obj = (lv_obj_t *)timer->user_data;
+//     lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
+
+//     if(!player->ffmpeg_ctx) {
+//         return;
+//     }
+
+//     int has_next = ffmpeg_update_next_frame(player->ffmpeg_ctx);
+
+//     if(has_next < 0) {
+//         lv_ffmpeg_player_set_cmd(obj, player->auto_restart ? LV_FFMPEG_PLAYER_CMD_START : LV_FFMPEG_PLAYER_CMD_STOP);
+//         return;
+//     }
+
+// #if LV_COLOR_DEPTH != 32
+//     if(player->ffmpeg_ctx->has_alpha) {
+//         convert_color_depth((uint8_t *)(player->imgdsc.data),
+//                             player->imgdsc.header.w * player->imgdsc.header.h);
+//     }
+// #endif
+
+//     lv_img_cache_invalidate_src(lv_img_get_src(obj));
+//     lv_obj_invalidate(obj);
+// }
 
 static void lv_ffmpeg_player_constructor(const lv_obj_class_t * class_p,
                                          lv_obj_t * obj)
