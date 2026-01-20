@@ -87,6 +87,10 @@ void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd);
  */
 void lv_ffmpeg_player_set_auto_restart(lv_obj_t * obj, bool en);
 
+void lv_ffmpeg_player_get_total_time(lv_obj_t * arg, char* buf);
+void lv_ffmpeg_player_get_current_time(lv_obj_t * arg, char* buf);
+void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf);
+
 /*=====================
  * Other functions
  *====================*/

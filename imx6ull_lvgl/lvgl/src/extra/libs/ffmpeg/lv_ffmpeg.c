@@ -18,6 +18,7 @@
 
 #include <alsa/asoundlib.h>
 #include <libswresample/swresample.h>
+#include <pthread.h>
 
 /*********************
  *      DEFINES
@@ -38,12 +39,6 @@
 
 #define MY_CLASS &lv_ffmpeg_player_class
 
-//#define FRAME_DEF_REFR_PERIOD   33  /*[ms]*/
-
-// 【修改】定时器频率改为更快的固定频率，以便精细控制同步
-// 不要再用视频帧率，建议 10ms 或 5ms
-#undef FRAME_DEF_REFR_PERIOD
-#define FRAME_DEF_REFR_PERIOD 5 
 
 // 音频输出参数配置 (PCM)
 #define AUDIO_OUT_RATE 44100
@@ -51,9 +46,21 @@
 #define AUDIO_OUT_FORMAT SND_PCM_FORMAT_S16_LE
 
 
+snd_pcm_t *pcm_handle = NULL;
+snd_pcm_hw_params_t *hwparams = NULL;
+
 /**********************
  *      TYPEDEFS
  **********************/
+// 包队列
+typedef struct {
+    AVPacketList *first, *last;
+    int nb_packets;
+    int size;
+    pthread_mutex_t mutex; // 互斥锁保护队列
+    pthread_cond_t cond;   // 条件变量（用于唤醒）
+} PacketQueue;
+
 struct ffmpeg_context_s {
     AVFormatContext * fmt_ctx;
     AVCodecContext * video_dec_ctx;
@@ -61,8 +68,6 @@ struct ffmpeg_context_s {
     uint8_t * video_src_data[4];
     uint8_t * video_dst_data[4];
     struct SwsContext * sws_ctx;
-    AVFrame * frame;
-    AVPacket pkt;
     int video_stream_idx;
     int video_src_linesize[4];
     int video_dst_linesize[4];
@@ -73,13 +78,26 @@ struct ffmpeg_context_s {
     AVCodecContext * audio_dec_ctx;
     AVStream * audio_stream;
     struct SwrContext * swr_ctx; // 重采样上下文
-    uint8_t * audio_out_buffer;  // 音频输出缓冲
-    int audio_out_buffer_size;
     // 新增成员同步相关
-    double video_pts;      // 当前解码出来的视频帧的显示时间 (秒)
-    double audio_clock;    // 当前音频播放到的时间 (秒)
-    double video_time_base; // 视频流的时间基准
+    double video_time_base;     // 视频流的时间基准
+    double audio_clock;         // 当前音频播放到的时间（基准时间，秒）
+
+     // 队列
+    PacketQueue videoq;
+    PacketQueue audioq;
+    
+    // 控制标志
+    int abort_request;       // 退出标志
+    int pause_request;       // 暂停标志
+    int seek_req;            // 是否请求了Seek
+    int64_t seek_pos;        // Seek的位置
+    float playback_speed;    // 倍速 (1.0, 1.5, 2.0 等)
 };
+
+// lvgl定时器处理同步
+extern pthread_mutex_t timer_mutex;
+// 输出上下文同步锁
+pthread_mutex_t ctx_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 #pragma pack(1)
 
@@ -104,10 +122,8 @@ static void ffmpeg_close_src_ctx(struct ffmpeg_context_s * ffmpeg_ctx);
 static void ffmpeg_close_dst_ctx(struct ffmpeg_context_s * ffmpeg_ctx);
 static int ffmpeg_image_allocate(struct ffmpeg_context_s * ffmpeg_ctx);
 static int ffmpeg_get_img_header(const char * path, lv_img_header_t * header);
-static int ffmpeg_get_frame_refr_period(struct ffmpeg_context_s * ffmpeg_ctx);
 static uint8_t * ffmpeg_get_img_data(struct ffmpeg_context_s * ffmpeg_ctx);
-static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ffmpeg_ctx);
-static int ffmpeg_output_video_frame(struct ffmpeg_context_s * ffmpeg_ctx);
+static int ffmpeg_output_video_frame(struct ffmpeg_context_s * ffmpeg_ctx ,AVFrame *frame);
 static bool ffmpeg_pix_fmt_has_alpha(enum AVPixelFormat pix_fmt);
 static bool ffmpeg_pix_fmt_is_yuv(enum AVPixelFormat pix_fmt);
 
@@ -135,6 +151,471 @@ const lv_obj_class_t lv_ffmpeg_player_class = {
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
+/**
+ * 初始化队列 (辅助函数)
+ */
+void packet_queue_init(PacketQueue *q) {
+    memset(q, 0, sizeof(PacketQueue));
+    pthread_mutex_init(&q->mutex, NULL);
+    pthread_cond_init(&q->cond, NULL);
+}
+
+/**
+ * 入队函数 (生产者)
+ *
+ * @param q   队列指针
+ * @param pkt 要入队的 Packet。注意：入队后，pkt 的数据所有权转移给队列，
+ *            调用者不应再释放 pkt 中的 buf，建议入队后调用 av_packet_unref 或不再使用原 pkt。
+ * @return    0 表示成功，<0 表示失败
+ */
+int packet_queue_put(PacketQueue *q, AVPacket *pkt) {
+    AVPacketList *pkt1;
+
+    // 1. 分配节点内存
+    pkt1 = av_malloc(sizeof(AVPacketList));
+    if (!pkt1) {
+        return -1;
+    }
+    
+    // 2. 将传入的 pkt 内容（引用）移动到新节点中
+    // 注意：这里是浅拷贝结构体，pkt 内部的数据指针（buf）被接管
+    pkt1->pkt = *pkt; 
+    pkt1->next = NULL;
+
+    // 3. 加锁访问队列
+    pthread_mutex_lock(&q->mutex);
+
+    // 4. 更新链表指针
+    if (!q->last) {
+        // 如果队列为空，头尾都指向新节点
+        q->first = pkt1;
+    } else {
+        // 否则，将新节点挂在末尾
+        q->last->next = pkt1;
+    }
+    q->last = pkt1;
+
+    // 5. 更新统计数据
+    q->nb_packets++;
+    q->size += pkt1->pkt.size + sizeof(*pkt1);
+
+    // 6. 发送信号唤醒等待在 packet_queue_get 的消费者线程
+    pthread_cond_signal(&q->cond);
+
+    // 7. 解锁
+    pthread_mutex_unlock(&q->mutex);
+
+    return 0;
+}
+
+/**
+ * 将 Packet 插入队列头部 (LIFO 行为，或者用于高优先级消息如 Flush)
+ * 
+ * @param q   队列指针
+ * @param pkt 要插入的包
+ * @return    0 成功，<0 失败
+ */
+int packet_queue_put_front(PacketQueue *q, AVPacket *pkt) {
+    AVPacketList *pkt1;
+
+    // 1. 分配节点内存
+    pkt1 = av_malloc(sizeof(AVPacketList));
+    if (!pkt1) {
+        return -1;
+    }
+
+    // 2. 引用计数拷贝（安全做法）
+    // 如果是特殊的 flush_pkt（data为NULL），av_packet_ref 也能正常处理
+    if (av_packet_ref(&pkt1->pkt, pkt) < 0) {
+        av_free(pkt1);
+        return -1;
+    }
+    
+    // 3. 加锁
+    pthread_mutex_lock(&q->mutex);
+
+    // 4. 处理链表指针（关键逻辑）
+    pkt1->next = q->first; // 新节点的 next 指向当前的头
+    q->first = pkt1;       // 新节点成为新的头
+
+    // 5. 处理特殊情况：如果队列原本为空
+    if (!q->last) {
+        q->last = pkt1; // 头尾都是同一个节点
+    }
+
+    // 6. 更新统计
+    q->nb_packets++;
+    q->size += pkt1->pkt.size + sizeof(*pkt1);
+
+    // 7. 唤醒等待的线程
+    pthread_cond_signal(&q->cond);
+
+    // 8. 解锁
+    pthread_mutex_unlock(&q->mutex);
+
+    return 0;
+}
+
+/**
+ * 出队函数 (消费者)
+ *
+ * @param q     队列指针
+ * @param pkt   用于接收出队数据的 Packet 指针
+ * @param block 是否阻塞：1 为阻塞等待，0 为非阻塞立即返回
+ * @return      1 表示成功获取，0 表示队列为空且非阻塞，-1 表示错误或退出
+ */
+int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block) {
+    AVPacketList *pkt1;
+    int ret;
+
+    // 1. 加锁
+    pthread_mutex_lock(&q->mutex);
+
+    for (;;) {
+        pkt1 = q->first;
+
+        if (pkt1) {
+            // --- 情况 A: 队列不为空 ---
+            
+            // 2. 取出头节点，移动 first 指针
+            q->first = pkt1->next;
+            if (!q->first) {
+                q->last = NULL;
+            }
+
+            // 3. 更新统计数据
+            q->nb_packets--;
+            q->size -= pkt1->pkt.size + sizeof(*pkt1);
+
+            // 4. 将数据返回给调用者
+            *pkt = pkt1->pkt;
+            
+            // 5. 释放节点内存（注意：不释放 pkt 内部的数据，因为数据已转移给 *pkt）
+            av_free(pkt1);
+            
+            ret = 1;
+            break;
+        } else if (!block) {
+            // --- 情况 B: 队列为空且设为非阻塞 ---
+            ret = 0;
+            break;
+        } else {
+            // --- 情况 C: 队列为空且设为阻塞 ---
+            // 等待条件变量唤醒（会暂时释放锁，被唤醒后重新持有锁）
+            pthread_cond_wait(&q->cond, &q->mutex);
+        }
+    }
+
+    // 6. 解锁
+    pthread_mutex_unlock(&q->mutex);
+    return ret;
+}
+
+/**
+ * 清空队列中的所有包，释放内存，重置计数
+ * 
+ * @param q 队列指针
+ */
+void packet_queue_flush(PacketQueue *q) {
+    AVPacketList *pkt, *pkt1;
+
+    // 1. 加锁，防止在清理过程中有其他线程写入或读取
+    pthread_mutex_lock(&q->mutex);
+
+    // 2. 遍历链表释放所有节点
+    for (pkt = q->first; pkt; pkt = pkt1) {
+        pkt1 = pkt->next; // 先保存下一个节点的指针
+        
+        // 关键步骤：释放 AVPacket 内部的数据缓冲
+        // 这对应于 packet_queue_put 中的 av_packet_ref
+        av_packet_unref(&pkt->pkt);
+        
+        // 释放节点本身的内存
+        av_free(pkt);
+    }
+
+    // 3. 重置队列状态
+    q->last = NULL;
+    q->first = NULL;
+    q->nb_packets = 0;
+    q->size = 0;
+
+    // 4. 解锁
+    pthread_mutex_unlock(&q->mutex);
+}
+
+/**
+ * 销毁队列并释放残留 Packet (辅助函数)
+ */
+void packet_queue_destroy(PacketQueue *q) {
+    // packet_queue_flush(q); // 需实现 flush 清空逻辑
+    pthread_mutex_destroy(&q->mutex);
+    pthread_cond_destroy(&q->cond);
+}
+
+// 解码线程
+void *demux_thread(void *arg)
+{
+    struct ffmpeg_context_s *ctx = (struct ffmpeg_context_s *)arg;
+    AVPacket *pkt = av_packet_alloc();
+    int ret = 0;
+    while(!ctx->abort_request) {
+         // 1. 处理 Seek (拉进度条)
+        if (ctx->seek_req) {
+            int64_t seek_target = ctx->seek_pos;
+            if (av_seek_frame(ctx->fmt_ctx, -1, seek_target, AVSEEK_FLAG_BACKWARD) >= 0) {
+                // 清空队列
+                packet_queue_flush(&ctx->videoq);
+                packet_queue_flush(&ctx->audioq);
+                // 刷新解码器缓冲
+                avcodec_flush_buffers(ctx->video_dec_ctx);
+                avcodec_flush_buffers(ctx->audio_dec_ctx);
+            }
+            ctx->seek_req = 0;
+        }
+
+        // 2. 队列满了就休息一下（防止内存爆掉），提前缓存10mb/5mb
+        if (ctx->videoq.size > 10 * 1024 * 1024 || ctx->audioq.size > 5 * 1024 * 1024) {
+            usleep(10000); 
+            continue;
+        }
+        pthread_mutex_lock(&ctx_mutex);
+        ret = av_read_frame(ctx->fmt_ctx, pkt);
+        pthread_mutex_unlock(&ctx_mutex);
+        if (ret < 0)
+        {
+            // 文件结束或错误
+            av_log(NULL, AV_LOG_INFO, "File end or error.\n");
+            return NULL;
+        }
+        // 情况 A: 读到视频包
+        if (pkt->stream_index == ctx->video_stream_idx) {
+            // 发送包到解码器
+            ret = packet_queue_put(&ctx->videoq, pkt);
+            if (ret < 0)
+            {
+                exit(0);
+            }
+        }
+        // 情况 B: 读到音频包
+        else if (pkt->stream_index == ctx->audio_stream_idx) {
+            ret = packet_queue_put(&ctx->audioq, pkt);
+            if (ret < 0)
+            {
+                exit(0);
+            }
+        }
+        else
+        {
+            av_packet_unref(pkt);
+        }
+    }
+    return NULL;
+}
+
+// 音频处理线程，维护音频时钟
+void *audio_processing_thread(void *arg)
+{
+    struct ffmpeg_context_s *ctx = (struct ffmpeg_context_s *)arg;
+    AVPacket pkt;
+    AVFrame *frame = av_frame_alloc();
+    while (!ctx->abort_request)
+    {
+        if (ctx->pause_request) {usleep(20000); continue;}
+        packet_queue_get(&ctx->audioq, &pkt, 1);
+        int ret = avcodec_send_packet(ctx->audio_dec_ctx, &pkt);
+        if (ret == 0) {
+            while (avcodec_receive_frame(ctx->audio_dec_ctx, frame) >= 0) {
+                // 1. 重采样音频数据
+                // 计算输出样本数
+                int out_samples = av_rescale_rnd(swr_get_delay(ctx->swr_ctx, ctx->audio_dec_ctx->sample_rate) +
+                                    frame->nb_samples, AUDIO_OUT_RATE, ctx->audio_dec_ctx->sample_rate, AV_ROUND_UP);
+                
+                // 确保缓冲区够大
+                uint8_t *buffer = malloc(out_samples * AUDIO_OUT_CHANNELS * 2); 
+
+                int real_samples = swr_convert(ctx->swr_ctx, &buffer, out_samples, 
+                                                (const uint8_t **)frame->data, frame->nb_samples);
+                // 2. 写入 ALSA (播放声音)
+                if (pcm_handle && real_samples > 0) {
+                    // 这里是阻塞写入，可能会稍微影响 UI 流畅度，但在简单实现中是必要的
+                    snd_pcm_sframes_t frames_written = snd_pcm_writei(pcm_handle, buffer, real_samples);
+                    if (frames_written < 0) {
+                        frames_written = snd_pcm_recover(pcm_handle, frames_written, 0);
+                        if (frames_written < 0)
+                        {
+                            fprintf(stderr, "The error cannot be recovered: %s\n", snd_strerror(frames_written));
+                            break;
+                        }
+                    }
+                    // 3. 更新音频时钟
+                    // 音频时钟 = 当前音频包 PTS。
+                    // 更精确的做法是：音频PTS - (已写入声卡但在缓冲区的延迟)。让音频提前放，然后加上缓冲区延时正好和视频同步
+                    // 简单做法：直接用音频包的时间戳                        
+                    double audio_pts = frame->pts * av_q2d(ctx->audio_stream->time_base);
+                    snd_pcm_sframes_t delay_frames;
+                    snd_pcm_delay(pcm_handle, &delay_frames);
+                    ctx->audio_clock = audio_pts - (double)(delay_frames/ctx->audio_dec_ctx->sample_rate);
+                }
+                free(buffer);
+            }
+        }
+        av_packet_unref(&pkt);
+    }
+    return NULL;
+}
+
+// 视频处理线程，显示到屏幕上。
+void *video_processing_thread(void *arg)
+{
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+    lv_obj_t * obj = (lv_obj_t *)player;
+    if(!ctx) return NULL;
+    AVPacket pkt;
+    AVFrame *frame = av_frame_alloc();
+    while (!ctx->abort_request)
+    {
+        if (ctx->pause_request) {usleep(20000); continue;}
+        packet_queue_get(&ctx->videoq, &pkt, 1);
+        int ret = avcodec_send_packet(ctx->video_dec_ctx, &pkt);
+        if (ret == 0)
+        {
+            // 接收解码后的帧
+            ret = avcodec_receive_frame(ctx->video_dec_ctx, frame);
+            if (ret < 0) {
+                printf("a\n");
+            }
+
+            // 音视频同步逻辑
+            double video_pts = frame->best_effort_timestamp * av_q2d(ctx->video_stream->time_base);
+            double diff = video_pts - ctx->audio_clock;
+            double sync_threshold = 0.03; // 30ms 的同步阈值
+
+            // 视频比音频快
+            if (diff > sync_threshold)
+            {
+                packet_queue_put_front(&ctx->videoq, &pkt);
+                continue;
+            }
+            // 视频比音频慢
+            if (diff < -sync_threshold) 
+            {
+                av_packet_unref(&pkt);
+                continue;
+            }
+
+            // 转换图像格式给 LVGL
+            ffmpeg_output_video_frame(ctx, frame);
+            
+            av_packet_unref(&pkt);
+
+            pthread_mutex_lock(&timer_mutex);
+            lv_img_cache_invalidate_src(lv_img_get_src(obj));
+            lv_obj_invalidate(obj);
+            pthread_mutex_unlock(&timer_mutex);
+
+            usleep(10000);
+        }
+    }
+    return NULL;
+}
+/**
+ *  获取文件总时长。
+ * @param arg lv_ffmpeg_player_t *类型参数。
+ * @param buf 输出的时间。
+ */
+void lv_ffmpeg_player_get_total_time(lv_obj_t * arg, char* buf)
+{
+    // 安全检查：防止空指针崩溃
+    if (arg == NULL || buf == NULL) {
+        return;
+    }
+
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+
+    // 检查 FFmpeg 上下文是否已初始化
+    if (ctx == NULL || ctx->fmt_ctx == NULL) {
+        sprintf(buf, "00:00:00");
+        return;
+    }
+
+    int64_t duration_us = ctx->fmt_ctx->duration;
+
+    // 检查时长是否有效
+    if (duration_us == AV_NOPTS_VALUE) {
+        // 如果是直播流或无法检测时长，显示 00:00:00
+        sprintf(buf, "00:00:00");
+        return;
+    }
+
+    // 计算时长
+    // 为了避免浮点精度问题，使用整数运算 + 四舍五入
+    // duration_us / 1000000 (AV_TIME_BASE)
+    int64_t total_seconds = (duration_us + 500000) / AV_TIME_BASE; // +500000 用于四舍五入
+
+    int hours = total_seconds / 3600;
+    int mins  = (total_seconds % 3600) / 60;
+    int secs  = total_seconds % 60;
+
+    // 格式化输出
+    // 使用 %02d 确保是 "05:01:09" 而不是 "5:1:9"
+    sprintf(buf, "%02d:%02d:%02d", hours, mins, secs);
+}
+
+
+void lv_ffmpeg_player_get_current_time(lv_obj_t * arg, char* buf)
+{
+    // 安全检查：防止空指针崩溃
+    if (arg == NULL || buf == NULL) {
+        return;
+    }
+
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+
+    // 检查 FFmpeg 上下文是否已初始化
+    if (ctx == NULL || ctx->fmt_ctx == NULL) {
+        sprintf(buf, "00:00:00");
+        return;
+    }
+
+    int64_t current_seconds = (int64_t)ctx->audio_clock;
+
+    int hours = current_seconds / 3600;
+    int mins  = (current_seconds % 3600) / 60;
+    int secs  = current_seconds % 60;
+
+    sprintf(buf, "%02d:%02d:%02d", hours, mins, secs);
+}
+
+
+void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf)
+{
+
+    // 安全检查：防止空指针崩溃
+    if (arg == NULL || buf == NULL) {
+        return;
+    }
+
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+
+    // 检查 FFmpeg 上下文是否已初始化
+    if (ctx == NULL || ctx->fmt_ctx == NULL) {
+        sprintf(buf, "00:00:00");
+        return;
+    }
+
+    int hour, minute, second, pos;
+    sscanf(buf, "%d:%d:%d", &hour, &minute, &second);
+    pos = hour * 3600 + minute * 60 + second;
+
+    ctx->seek_pos = pos;
+    ctx->seek_req = 1;
+}
+
 
 void lv_ffmpeg_init(void)
 {
@@ -144,7 +625,7 @@ void lv_ffmpeg_init(void)
     lv_img_decoder_set_close_cb(dec, decoder_close);
 
 #if LV_FFMPEG_AV_DUMP_FORMAT == 0
-    av_log_set_level(AV_LOG_QUIET);
+    av_log_set_level(AV_LOG_INFO);
 #endif
 }
 
@@ -161,10 +642,9 @@ int lv_ffmpeg_get_frame_num(const char * path)
     return ret;
 }
 
-snd_pcm_t *pcm_handle = NULL;
-snd_pcm_hw_params_t *hwparams = NULL;
+
 /**
- * 
+ * 初始化alsa
  */
 int alsa_init(void)
 {
@@ -189,7 +669,7 @@ int alsa_init(void)
     }
 
     snd_pcm_hw_params_set_access(pcm_handle, hwparams, SND_PCM_ACCESS_RW_INTERLEAVED);
-    snd_pcm_hw_params_set_format(pcm_handle, hwparams,SND_PCM_FORMAT_S16_LE);
+    snd_pcm_hw_params_set_format(pcm_handle, hwparams,AUDIO_OUT_FORMAT);
     snd_pcm_hw_params_set_channels(pcm_handle, hwparams, 2);
     snd_pcm_hw_params_set_rate(pcm_handle, hwparams, AUDIO_OUT_RATE, 0);
     snd_pcm_hw_params_set_period_size(pcm_handle, hwparams, 1024, 0);
@@ -223,7 +703,6 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
         player->ffmpeg_ctx = NULL;
     }
 
-    lv_timer_pause(player->timer);
 
     player->ffmpeg_ctx = ffmpeg_open_file(path);
 
@@ -259,20 +738,17 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
 
     lv_img_set_src(&player->img.obj, &(player->imgdsc));
 
-    // int period = ffmpeg_get_frame_refr_period(player->ffmpeg_ctx);
-
-    // if(period > 0) {
-    //     LV_LOG_INFO("frame refresh period = %d ms, rate = %d fps",
-    //                 period, 1000 / period);
-    //     lv_timer_set_period(player->timer, period);
-    // }
-    // else {
-    //     LV_LOG_WARN("unable to get frame refresh period");
-    // }
-    // 强制设为一个较小的检查周期
-    lv_timer_set_period(player->timer, 10); // 10ms 检查一次
 
     res = LV_RES_OK;
+
+    // 初始化音视频包队列
+    packet_queue_init(&player->ffmpeg_ctx->audioq);
+    packet_queue_init(&player->ffmpeg_ctx->videoq);
+    // 运行解码、音频、视频线程
+    pthread_t demux_pid,audio_pid,video_pid;
+    pthread_create(&demux_pid, NULL, demux_thread, player->ffmpeg_ctx);
+    pthread_create(&audio_pid, NULL, audio_processing_thread, player->ffmpeg_ctx);
+    pthread_create(&video_pid, NULL, video_processing_thread, player);
 
 failed:
     return res;
@@ -288,27 +764,34 @@ void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd)
         return;
     }
 
-    lv_timer_t * timer = player->timer;
 
     switch(cmd) {
         case LV_FFMPEG_PLAYER_CMD_START:
+            pthread_mutex_lock(&ctx_mutex);
             av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
                           0, 0, AVSEEK_FLAG_BACKWARD);
-            lv_timer_resume(timer);
+            pthread_mutex_unlock(&ctx_mutex);
+            player->ffmpeg_ctx->pause_request = 0;
             LV_LOG_INFO("ffmpeg player start");
             break;
         case LV_FFMPEG_PLAYER_CMD_STOP:
+            pthread_mutex_lock(&ctx_mutex);
             av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
                           0, 0, AVSEEK_FLAG_BACKWARD);
-            lv_timer_pause(timer);
+            player->ffmpeg_ctx->pause_request = 1;
+            pthread_mutex_unlock(&ctx_mutex);              
             LV_LOG_INFO("ffmpeg player stop");
             break;
         case LV_FFMPEG_PLAYER_CMD_PAUSE:
-            lv_timer_pause(timer);
+            pthread_mutex_lock(&ctx_mutex);
+            player->ffmpeg_ctx->pause_request = 1;
+            pthread_mutex_unlock(&ctx_mutex);
             LV_LOG_INFO("ffmpeg player pause");
             break;
         case LV_FFMPEG_PLAYER_CMD_RESUME:
-            lv_timer_resume(timer);
+            pthread_mutex_lock(&ctx_mutex);
+            pthread_mutex_unlock(&ctx_mutex);
+            player->ffmpeg_ctx->pause_request = 0;
             LV_LOG_INFO("ffmpeg player resume");
             break;
         default:
@@ -365,11 +848,6 @@ static lv_res_t decoder_open(lv_img_decoder_t * decoder, lv_img_decoder_dsc_t * 
             return LV_RES_INV;
         }
 
-        if(ffmpeg_update_next_frame(ffmpeg_ctx) < 0) {
-            ffmpeg_close(ffmpeg_ctx);
-            LV_LOG_ERROR("ffmpeg update frame failed");
-            return LV_RES_INV;
-        }
 
         ffmpeg_close_src_ctx(ffmpeg_ctx);
         uint8_t * img_data = ffmpeg_get_img_data(ffmpeg_ctx);
@@ -453,13 +931,13 @@ static bool ffmpeg_pix_fmt_is_yuv(enum AVPixelFormat pix_fmt)
     return !(desc->flags & AV_PIX_FMT_FLAG_RGB) && desc->nb_components >= 2;
 }
 
-static int ffmpeg_output_video_frame(struct ffmpeg_context_s * ffmpeg_ctx)
+static int ffmpeg_output_video_frame(struct ffmpeg_context_s * ffmpeg_ctx, AVFrame *frame)
 {
     int ret = -1;
 
     int width = ffmpeg_ctx->video_dec_ctx->width;
     int height = ffmpeg_ctx->video_dec_ctx->height;
-    AVFrame * frame = ffmpeg_ctx->frame;
+    //AVFrame * frame = ffmpeg_ctx->frame;
 
     if(frame->width != width
        || frame->height != height
@@ -542,50 +1020,6 @@ failed:
     return ret;
 }
 
-static int ffmpeg_decode_packet(AVCodecContext * dec, const AVPacket * pkt,
-                                struct ffmpeg_context_s * ffmpeg_ctx)
-{
-    int ret = 0;
-
-    /* submit the packet to the decoder */
-    ret = avcodec_send_packet(dec, pkt);
-    if(ret < 0) {
-        LV_LOG_ERROR("Error submitting a packet for decoding (%s)",
-                     av_err2str(ret));
-        return ret;
-    }
-
-    /* get all the available frames from the decoder */
-    while(ret >= 0) {
-        ret = avcodec_receive_frame(dec, ffmpeg_ctx->frame);
-        if(ret < 0) {
-
-            /* those two return values are special and mean there is
-             * no output frame available,
-             * but there were no errors during decoding
-             */
-            if(ret == AVERROR_EOF || ret == AVERROR(EAGAIN)) {
-                return 0;
-            }
-
-            LV_LOG_ERROR("Error during decoding (%s)", av_err2str(ret));
-            return ret;
-        }
-
-        /* write the frame data to output file */
-        if(dec->codec->type == AVMEDIA_TYPE_VIDEO) {
-            ret = ffmpeg_output_video_frame(ffmpeg_ctx);
-        }
-
-        av_frame_unref(ffmpeg_ctx->frame);
-        if(ret < 0) {
-            LV_LOG_WARN("ffmpeg_decode_packet ended %d", ret);
-            return ret;
-        }
-    }
-
-    return 0;
-}
 
 static int ffmpeg_open_codec_context(int * stream_idx,
                                      AVCodecContext ** dec_ctx, AVFormatContext * fmt_ctx,
@@ -686,17 +1120,6 @@ failed:
     return ret;
 }
 
-static int ffmpeg_get_frame_refr_period(struct ffmpeg_context_s * ffmpeg_ctx)
-{
-    int avg_frame_rate_num = ffmpeg_ctx->video_stream->avg_frame_rate.num;
-    if(avg_frame_rate_num > 0) {
-        int period = 1000 * (int64_t)ffmpeg_ctx->video_stream->avg_frame_rate.den
-                     / avg_frame_rate_num;
-        return period;
-    }
-
-    return -1;
-}
 
 // 初始化音频解码器和重采样器
 static int open_audio_stream(struct ffmpeg_context_s * ctx) {
@@ -707,14 +1130,13 @@ static int open_audio_stream(struct ffmpeg_context_s * ctx) {
     ctx->audio_stream_idx = ret;
     ctx->audio_stream = ctx->fmt_ctx->streams[ret];
 
-    // 2. 打开解码器 (参考原有 video 类似的逻辑)
+    // 2. 打开解码器
     AVCodec *dec = avcodec_find_decoder(ctx->audio_stream->codecpar->codec_id);
     ctx->audio_dec_ctx = avcodec_alloc_context3(dec);
     avcodec_parameters_to_context(ctx->audio_dec_ctx, ctx->audio_stream->codecpar);
     avcodec_open2(ctx->audio_dec_ctx, dec, NULL);
 
     // 3. 初始化重采样 (将任意格式转为 44.1k Stereo S16LE)
-    // 注意：FFmpeg 新版本 API 可能有所不同 (swr_alloc_set_opts2)，这里用旧版示例
     ctx->swr_ctx = swr_alloc_set_opts(NULL,
                                       av_get_default_channel_layout(AUDIO_OUT_CHANNELS),
                                       AV_SAMPLE_FMT_S16, // 输出格式
@@ -725,12 +1147,7 @@ static int open_audio_stream(struct ffmpeg_context_s * ctx) {
                                       0, NULL);
     swr_init(ctx->swr_ctx);
 
-    // 4. 初始化 ALSA (使用你代码中定义的全局变量 pcm_handle)
-    if (pcm_handle) { // 假设外部已经初始化了，或者在这里初始化
-        // snd_pcm_open... snd_pcm_set_params... 
-        // 实际项目中建议在这里配置 ALSA 参数匹配 AUDIO_OUT_RATE
-        
-    }
+    // 4. 初始化 ALSA
     alsa_init();
     
     // 获取视频的时间基准 (用于 PTS 计算)
@@ -741,118 +1158,6 @@ static int open_audio_stream(struct ffmpeg_context_s * ctx) {
     return 0;
 }
 
-static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ctx)
-{
-    int ret = 0;
-    while(1) {
-        ret = av_read_frame(ctx->fmt_ctx, &ctx->pkt);
-        if(ret < 0) return -1; // 文件结束或错误
-
-        // --- 情况 A: 读到视频包 ---
-        if (ctx->pkt.stream_index == ctx->video_stream_idx) {
-            // 发送包到解码器
-            ret = avcodec_send_packet(ctx->video_dec_ctx, &ctx->pkt);
-            if (ret < 0) { av_packet_unref(&ctx->pkt); continue; }
-
-            // 接收解码后的帧
-            ret = avcodec_receive_frame(ctx->video_dec_ctx, ctx->frame);
-            if (ret == 0) {
-                // 【关键】记录当前视频帧的 PTS (换算成秒)
-                // 如果 frame->best_effort_timestamp 无效，尝试 frame->pts
-                int64_t pts = ctx->frame->best_effort_timestamp;
-                if (pts == AV_NOPTS_VALUE) pts = 0;
-                
-                ctx->video_pts = pts * ctx->video_time_base;
-
-                // 转换图像格式给 LVGL (原有逻辑)
-                ffmpeg_output_video_frame(ctx);
-                
-                av_packet_unref(&ctx->pkt);
-                return 0; // 成功获取一帧视频，返回给上层去显示
-            }
-        }
-        // --- 情况 B: 读到音频包 ---
-        else if (ctx->pkt.stream_index == ctx->audio_stream_idx) {
-            ret = avcodec_send_packet(ctx->audio_dec_ctx, &ctx->pkt);
-            if (ret == 0) {
-                while (avcodec_receive_frame(ctx->audio_dec_ctx, ctx->frame) >= 0) {
-                    // 1. 重采样音频数据
-                    // 计算输出样本数
-                    int out_samples = av_rescale_rnd(swr_get_delay(ctx->swr_ctx, ctx->audio_dec_ctx->sample_rate) +
-                                        ctx->frame->nb_samples, AUDIO_OUT_RATE, ctx->audio_dec_ctx->sample_rate, AV_ROUND_UP);
-                    
-                    // 确保缓冲区够大 (简化处理)
-                    uint8_t *buffer = malloc(out_samples * AUDIO_OUT_CHANNELS * 2); 
-
-                    int real_samples = swr_convert(ctx->swr_ctx, &buffer, out_samples, 
-                                                   (const uint8_t **)ctx->frame->data, ctx->frame->nb_samples);
-                    // 2. 写入 ALSA (播放声音)
-                    if (pcm_handle && real_samples > 0) {
-                        // 注意：这里是阻塞写入，可能会稍微影响 UI 流畅度，但在简单实现中是必要的
-                        snd_pcm_sframes_t frames_written = snd_pcm_writei(pcm_handle, buffer, real_samples);
-                        if (frames_written < 0) {
-                            frames_written = snd_pcm_recover(pcm_handle, frames_written, 0);
-                            if (frames_written < 0)
-                            {
-                                fprintf(stderr, "The error cannot be recovered: %s\n", snd_strerror(frames_written));
-                                break;
-                            }
-                        }
-                        // 3. 【关键】更新音频时钟
-                        // 音频时钟 = 当前音频包 PTS。
-                        // 更精确的做法是：音频PTS + (已写入声卡但在缓冲区的延迟)
-                        // 简单做法：直接用音频包的时间戳                        
-                        double audio_pts = ctx->frame->pts * av_q2d(ctx->audio_stream->time_base);
-                        ctx->audio_clock = audio_pts;
-                    }
-                    free(buffer);
-                }
-            }
-        }
-        av_packet_unref(&ctx->pkt);
-        // 继续循环，直到找到视频包或文件结束
-    }
-}
-
-// static int ffmpeg_update_next_frame(struct ffmpeg_context_s * ffmpeg_ctx)
-// {
-//     int ret = 0;
-
-//     while(1) {
-
-//         /* read frames from the file */
-//         if(av_read_frame(ffmpeg_ctx->fmt_ctx, &(ffmpeg_ctx->pkt)) >= 0) {
-//             bool is_image = false;
-
-//             /* check if the packet belongs to a stream we are interested in,
-//              * otherwise skip it
-//              */
-//             if(ffmpeg_ctx->pkt.stream_index == ffmpeg_ctx->video_stream_idx) {
-//                 ret = ffmpeg_decode_packet(ffmpeg_ctx->video_dec_ctx,
-//                                            &(ffmpeg_ctx->pkt), ffmpeg_ctx);
-//                 is_image = true;
-//             }
-
-//             av_packet_unref(&(ffmpeg_ctx->pkt));
-
-//             if(ret < 0) {
-//                 LV_LOG_WARN("video frame is empty %d", ret);
-//                 break;
-//             }
-
-//             /* Used to filter data that is not an image */
-//             if(is_image) {
-//                 break;
-//             }
-//         }
-//         else {
-//             ret = -1;
-//             break;
-//         }
-//     }
-
-//     return ret;
-// }
 
 struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
 {
@@ -875,7 +1180,7 @@ struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
     av_dict_set(&opts, "safe", "0", 0);
     // 2. 允许自动探测格式
     av_dict_set(&opts, "probesize", "102400", 0);
-    // 3. 【最关键】设置协议白名单，允许 concat 和 file 互相调用
+    // 3. 设置协议白名单，允许 concat 和 file 互相调用
     // 如果没有这行，FFmpeg 可能会拒绝打开播放列表
     av_dict_set(&opts, "protocol_whitelist", "file,http,https,tcp,tls,crypto,concat,subfile", 0);
 
@@ -884,7 +1189,7 @@ struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
         goto failed;
     }
 
-        // 释放字典
+    // 释放字典
     av_dict_free(&opts);
 
     /* retrieve stream information */
@@ -904,7 +1209,7 @@ struct ffmpeg_context_s * ffmpeg_open_file(const char * path)
         ffmpeg_ctx->has_alpha = ffmpeg_pix_fmt_has_alpha(ffmpeg_ctx->video_dec_ctx->pix_fmt);
 
         ffmpeg_ctx->video_dst_pix_fmt = (ffmpeg_ctx->has_alpha ? AV_PIX_FMT_BGRA : AV_PIX_FMT_TRUE_COLOR);
-        
+
         open_audio_stream(ffmpeg_ctx);
     }
 
@@ -960,17 +1265,6 @@ static int ffmpeg_image_allocate(struct ffmpeg_context_s * ffmpeg_ctx)
 
     LV_LOG_INFO("allocate video_dst_bufsize = %d", ret);
 
-    ffmpeg_ctx->frame = av_frame_alloc();
-
-    if(ffmpeg_ctx->frame == NULL) {
-        LV_LOG_ERROR("Could not allocate frame");
-        return -1;
-    }
-
-    /* initialize packet, set data to NULL, let the demuxer fill it */
-    av_init_packet(&ffmpeg_ctx->pkt);
-    ffmpeg_ctx->pkt.data = NULL;
-    ffmpeg_ctx->pkt.size = 0;
 
     return 0;
 }
@@ -979,7 +1273,6 @@ static void ffmpeg_close_src_ctx(struct ffmpeg_context_s * ffmpeg_ctx)
 {
     avcodec_free_context(&(ffmpeg_ctx->video_dec_ctx));
     avformat_close_input(&(ffmpeg_ctx->fmt_ctx));
-    av_frame_free(&(ffmpeg_ctx->frame));
     if(ffmpeg_ctx->video_src_data[0] != NULL) {
         av_free(ffmpeg_ctx->video_src_data[0]);
         ffmpeg_ctx->video_src_data[0] = NULL;
@@ -1009,86 +1302,6 @@ static void ffmpeg_close(struct ffmpeg_context_s * ffmpeg_ctx)
     LV_LOG_INFO("ffmpeg_ctx closed");
 }
 
-static void lv_ffmpeg_player_frame_update_cb(lv_timer_t * timer)
-{
-    lv_obj_t * obj = (lv_obj_t *)timer->user_data;
-    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
-    struct ffmpeg_context_s * ctx = player->ffmpeg_ctx;
-
-    if(!ctx) return;
-
-    // --- 音视频同步逻辑 ---
-    double diff = ctx->video_pts - ctx->audio_clock;
-    double sync_threshold = 0.03; // 30ms 的同步阈值
-
-    if (diff > sync_threshold) {
-        // [情况1]：视频比音频快 (Video PTS > Audio Clock)
-        // 动作：等待。不解码下一帧，也不刷新 UI，直接返回。
-        // 因为定时器是 10ms 一次，稍后会再进来检查。
-        return; 
-    }
-    
-    if (diff < -sync_threshold) {
-        // [情况2]：视频比音频慢 (Video PTS < Audio Clock)
-        // 动作：丢帧 (Drop Frame)。
-        // 连续解码，直到追上音频
-        // 这里做一个简单的丢帧循环（限制次数防止卡死）
-        int drop_count = 0;
-        while (diff < -sync_threshold && drop_count < 5) {
-             LV_LOG_WARN("Skipping frame (Video Lag: %.3f)", diff);
-             if (ffmpeg_update_next_frame(ctx) < 0) break; // 解码下一帧
-             diff = ctx->video_pts - ctx->audio_clock;     // 重新计算差异
-             drop_count++;
-        }
-    }
-
-    // [情况3]：时间刚好 (或追赶上了) -> 渲染显示
-    
-    // 刷新 UI 显示当前这一帧
-#if LV_COLOR_DEPTH != 32
-    if(ctx->has_alpha) {
-        convert_color_depth((uint8_t *)(player->imgdsc.data),
-                            player->imgdsc.header.w * player->imgdsc.header.h);
-    }
-#endif
-    // 准备下一帧数据 (解码放到缓冲区，等待下一次定时器来判断时间)
-    // 这一步很重要：我们显示完当前帧后，立刻去解下一帧拿到它的 PTS，
-    // 这样下次定时器进来时才有数据做比较。
-    int has_next = ffmpeg_update_next_frame(ctx);
-    if(has_next < 0) {
-        lv_ffmpeg_player_set_cmd(obj, player->auto_restart ? LV_FFMPEG_PLAYER_CMD_START : LV_FFMPEG_PLAYER_CMD_STOP);
-    }
-
-    lv_img_cache_invalidate_src(lv_img_get_src(obj));
-    lv_obj_invalidate(obj);
-}
-
-// static void lv_ffmpeg_player_frame_update_cb(lv_timer_t * timer)
-// {
-//     lv_obj_t * obj = (lv_obj_t *)timer->user_data;
-//     lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
-
-//     if(!player->ffmpeg_ctx) {
-//         return;
-//     }
-
-//     int has_next = ffmpeg_update_next_frame(player->ffmpeg_ctx);
-
-//     if(has_next < 0) {
-//         lv_ffmpeg_player_set_cmd(obj, player->auto_restart ? LV_FFMPEG_PLAYER_CMD_START : LV_FFMPEG_PLAYER_CMD_STOP);
-//         return;
-//     }
-
-// #if LV_COLOR_DEPTH != 32
-//     if(player->ffmpeg_ctx->has_alpha) {
-//         convert_color_depth((uint8_t *)(player->imgdsc.data),
-//                             player->imgdsc.header.w * player->imgdsc.header.h);
-//     }
-// #endif
-
-//     lv_img_cache_invalidate_src(lv_img_get_src(obj));
-//     lv_obj_invalidate(obj);
-// }
 
 static void lv_ffmpeg_player_constructor(const lv_obj_class_t * class_p,
                                          lv_obj_t * obj)
@@ -1099,9 +1312,6 @@ static void lv_ffmpeg_player_constructor(const lv_obj_class_t * class_p,
 
     player->auto_restart = false;
     player->ffmpeg_ctx = NULL;
-    player->timer = lv_timer_create(lv_ffmpeg_player_frame_update_cb,
-                                    FRAME_DEF_REFR_PERIOD, obj);
-    lv_timer_pause(player->timer);
 
     LV_TRACE_OBJ_CREATE("finished");
 }

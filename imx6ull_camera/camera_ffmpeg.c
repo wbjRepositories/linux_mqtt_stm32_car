@@ -10,12 +10,17 @@
 #include <sys/types.h>
 #include <sys/signal.h>
 
-#define FILE_NMAE_OUTPUT    "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
+// #define FILE_NMAE_OUTPUT    "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
+// #define FILE_NMAE_OUTPUT    "/mnt/sd/video.mov"
+#define OUT_FILENAME_FMT     "/mnt/sd/video_%03d.mov"
 #define FILE_FORMAT_OUTPUT  "mov"
 #define AUDIO_OUT_RATE  44100
+#define SEGMENT_DURATION_SEC 5.0   // 每个分段大概 5 秒
+#define LIST_FILENAME        "/mnt/sd/playlist.ffconcat"
 
 //#define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s);goto _ERROR;}
 #define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s, av_err2str(ret));goto _ERROR;}                        
+#define RET_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s, av_err2str(ret)); return ret;}  
 
 int ret = -1;
 AVFormatContext *video_in_ctx  = NULL;
@@ -53,6 +58,20 @@ pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 int64_t total_audio_samples = 0;
 pthread_t audio_thread_id;
 
+int shm_frm_fd;
+int width = 0;
+int height = 0;
+pthread_mutexattr_t mutex_attr;
+pthread_condattr_t cond_attr;
+int64_t now_us = 0;
+int64_t start_time_us;
+
+int file_index; // 文件索引
+int64_t seg_start_pts; // 当前分段的起始 PTS
+int64_t last_pts;      // 记录上一帧的 PTS 用于计算时长
+
+int codec_once = 0;     // 仅初始化一次编码器，提高性能。
+
 #define SHM_FRM_NAME     "/shm_frm" //摄像头信号量
 struct camera_frm_struct
 {
@@ -67,12 +86,11 @@ struct camera_frm_struct *camera_frm;
 // 辅助宏：将值限制在 0-255 范围内
 #define CLAMP(v) ((v) < 0 ? 0 : ((v) > 255 ? 255 : (v)))
 
+static void close_current_segment(void);
 
 void sig_handler(int sig)
 {
-    is_running = 0;
-    pthread_join(audio_thread_id, NULL);
-    av_write_trailer(out_ctx);
+    close_current_segment();
     av_log(NULL, AV_LOG_INFO, "Camera: Received %d signal\n", sig);
     exit(0);
 }
@@ -147,8 +165,6 @@ void YUVJ422P_to_ARGB8888(uint8_t *src_data[3], int src_linesize[3],
 
 void *audio_sample(void *argv)
 {
-    apkt = av_packet_alloc();
-
     // 【重要】获取音频参数，用于计算样本数
     // 通常 ALSA 采集的是 S16LE (2字节)，单声道或双声道
     AVCodecParameters *par = audio_in_ctx->streams[audio_stream_index]->codecpar;
@@ -194,44 +210,204 @@ void *audio_sample(void *argv)
         }
         av_packet_unref(apkt);
     }
-    av_packet_free(&apkt);
     return NULL;
+}
 
-    // ret = av_read_frame(audio_in_ctx, apkt);
-    // if (ret < 0)
-    // {
-    //     av_log(NULL, AV_LOG_ERROR, "audio sample err1");
-    //     exit -1;
-    // }
+static void update_ffconcat(const char *filename, double duration) {
+    FILE *fp = fopen(LIST_FILENAME, "a");
+    if (!fp) {
+        perror("Failed to open ffconcat file");
+        return;
+    }
     
-    // audio_start_pts = apkt->pts;
-    // audio_start_dts = apkt->dts;
-    // while (is_running && frame_count < max_frames)
-    // {
-    //     ret = av_read_frame(audio_in_ctx, apkt);
-    //     if (ret < 0)
-    //     {
-    //         av_log(NULL, AV_LOG_ERROR, "audio sample err");
-    //         return NULL;
-    //     }
+    // 如果是第一个文件，写入头部
+    if (ftell(fp) == 0) {
+        fprintf(fp, "ffconcat version 1.0\n");
+    }
+
+    fprintf(fp, "file '%s'\n", filename);
+    // 这里解决了你的问题：手动写入 duration
+    fprintf(fp, "duration %.6f\n", duration); 
+    
+    // 刷新缓冲区，确保掉电不丢失
+    fflush(fp);
+    fclose(fp);
+    printf("[Concat] Added %s with duration %.6f\n", filename, duration);
+}
+
+static int open_new_segment(void)
+{
+    printf("open_new_segment\n");
+    char filename[64];
+    snprintf(filename, sizeof(filename), OUT_FILENAME_FMT, file_index);
+
+    ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, filename);
+    RET_ERR("NO MEMORY!:%s\n");
+    //创建视频流
+    video_stream = avformat_new_stream(out_ctx, NULL);
+    if (video_stream == NULL)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "Failed to create the video stream.\n");
+        ret = -1;
+        // goto _ERROR;
+    }
+    //创建音频流
+    audio_stream = avformat_new_stream(out_ctx, NULL);
+    if (audio_stream == NULL)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "Failed to create the audio stream.\n");
+        ret = -1;
+        // goto _ERROR;
+    }
+    //查找视频流并拷贝
+    video_stream_index = av_find_best_stream(video_in_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
+    if (video_stream_index < 0)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "No video stream was found.\n");
+        ret = -1;
+        // goto _ERROR;
+    }
+    ret = avcodec_parameters_copy(video_stream->codecpar, video_in_ctx->streams[video_stream_index]->codecpar);
+    RET_ERR("Video parameters cannot be copied:%s\n");
+    video_stream->codecpar->codec_tag = 0;
+
+    //查找音频流并拷贝
+    audio_stream_index = av_find_best_stream(audio_in_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
+    if (audio_stream_index < 0)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "No audio stream was found.\n");
+        ret = -1;
+        // goto _ERROR;
+    }
+    ret = avcodec_parameters_copy(audio_stream->codecpar, audio_in_ctx->streams[audio_stream_index]->codecpar);
+    RET_ERR("Audio parameters cannot be copied:%s\n");
+    audio_stream->codecpar->codec_tag = 0;
+
+    //设置声道布局掩码。不写会提醒 not writing 'chan' tag due to lack of channel information
+    if (audio_stream->codecpar->channel_layout == 0) {
+        audio_stream->codecpar->channel_layout = AV_CH_LAYOUT_STEREO;
+    }
+
+    // // 使用segment自动生成ffconcat文件
+    // av_dict_set(&output_dic, "segment_time", "5", 0);
+    // av_dict_set(&output_dic, "reset_timestamps", "1", 0);
+    // av_dict_set(&output_dic, "strftime", "1", 0);
+    // av_dict_set(&output_dic, "segment_format", FILE_FORMAT_OUTPUT, 0);
+    // av_dict_set(&output_dic, "segment_list", "/mnt/sd/playlist.ffconcat", 0);
+    // av_dict_set(&output_dic, "segment_list_type", "ffconcat", 0);
+    // // 设置列表实时更新（写完一个分片就刷新一次列表）
+    // av_dict_set(&output_dic, "segment_list_flags", "live", 0);
+    // // 设置 segment_list_size 为 0，表示保留所有历史记录，不删除旧的条目
+    // av_dict_set(&output_dic, "segment_list_size", "0", 0);
+
+    if (codec_once == 0)
+    {
+        codec_once = 1;
+        //找解码器
+        vcodec = avcodec_find_decoder(video_stream->codecpar->codec_id);
+        if (vcodec == NULL)
+        {
+            av_log(NULL, AV_LOG_ERROR, "Decoder not found.\n");
+            return -1;
+        }
+        vcodec_ctx = avcodec_alloc_context3(vcodec);
+        if (vcodec_ctx == NULL)
+        {
+            av_log(NULL, AV_LOG_ERROR, "Decoder failed to allocate memory.\n");
+            return -1;
+        }
+        ret = avcodec_parameters_to_context(vcodec_ctx, video_stream->codecpar);
+        RET_ERR("Failed to copy parameters to the encoder.\n");
+
+        vcodec_ctx->time_base = (AVRational){1, 1000};
+        vcodec_ctx->framerate = (AVRational){1000, 1};
+
+
+        ret = avcodec_open2(vcodec_ctx, vcodec, NULL);
+        RET_ERR("Failed to open the encoder.\n");
+
+
+        width = video_stream->codecpar->width; 
+        height = video_stream->codecpar->height;
+        //uint8_t *rgb_buffer = (uint8_t*)malloc(video_stream->codecpar->width * video_stream->codecpar->height * 3);
+        int shm_frm_fd;
+        if((shm_frm_fd = shm_open(SHM_FRM_NAME, O_RDWR, 0644)) < 0)
+        {
+            fprintf(stderr, "camera:shm_open %s err, errno=%d(%s)\n",SHM_FRM_NAME,errno,strerror(errno));
+            return -1;
+        }
+
+        if(ftruncate(shm_frm_fd, sizeof(struct camera_frm_struct) + width * height * 4 ) < 0)
+        {
+            perror("ftruncate err");
+            return -1;
+        }
         
-    //     if(ret == 0)
-    //     {
-    //         if (apkt->stream_index == audio_stream_index)
-    //         {
-    //             apkt->stream_index = audio_stream->index;;
-    //             apkt->pts -= audio_start_pts;
-    //             apkt->dts -= audio_start_dts;
-    //             av_packet_rescale_ts(apkt, audio_in_ctx->streams[audio_stream_index]->time_base, audio_stream->time_base);
-    //             pthread_mutex_lock(&lock);
-    //             av_interleaved_write_frame(out_ctx, apkt);
-    //             pthread_mutex_unlock(&lock);
-    //         }
-    //     }
-    //     av_packet_unref(apkt);
-    // }
-    // av_packet_free(&apkt);
-    // return NULL;
+        //uint32_t *frm;
+        //uint32_t frm[CAM_W * CAM_H * 4];
+        if((camera_frm = mmap(NULL, sizeof(struct camera_frm_struct) + width * height * 4 ,PROT_READ | PROT_WRITE, MAP_SHARED, shm_frm_fd, 0)) == MAP_FAILED)
+        {
+            perror("mmap err");
+            return -1;
+        }
+
+        // 1. 初始化互斥锁属性
+        pthread_mutexattr_init(&mutex_attr);
+        // 设置为进程间共享
+        pthread_mutexattr_setpshared(&mutex_attr, PTHREAD_PROCESS_SHARED);
+        
+        // 2. 初始化条件变量属性
+        pthread_condattr_init(&cond_attr);
+        // 设置为进程间共享
+        pthread_condattr_setpshared(&cond_attr, PTHREAD_PROCESS_SHARED);
+        pthread_mutex_init(&camera_frm->camera_frm_mutex, &mutex_attr);
+        pthread_cond_init(&camera_frm->camera_frm_cond, &cond_attr);
+    }
+    
+    video_stream->time_base = vcodec_ctx->time_base;
+    audio_stream->time_base = (AVRational){1, AUDIO_OUT_RATE}; 
+
+    //打开输出文件
+    ret = avio_open2(&out_ctx->pb, filename, AVIO_FLAG_READ_WRITE, NULL, NULL);
+    RET_ERR("Audio parameters cannot be copied:%s\n");
+
+    is_running = 1;
+    pthread_create(&audio_thread_id, NULL, audio_sample, NULL);
+
+    ret = avformat_write_header(out_ctx, NULL);
+    RET_ERR("Header writing error.\n");
+
+    printf("[Segment] Opened %s\n", filename);
+}
+
+static void close_current_segment(void)
+{
+
+    char filename[64];
+    snprintf(filename, sizeof(filename), OUT_FILENAME_FMT, file_index);
+
+    // 停止录制流程
+    is_running = 0;
+    pthread_join(audio_thread_id, NULL);
+
+    av_write_trailer(out_ctx);
+
+    double seg_duration = (double)(last_pts - seg_start_pts) * av_q2d(video_stream->time_base);
+
+    update_ffconcat(filename, seg_duration);
+    
+    ret = 0;
+    
+    if (out_ctx && out_ctx->pb)
+        avio_closep(&out_ctx->pb);
+    if (out_ctx)
+        avformat_free_context(out_ctx);
+    if (input_dic)
+        av_dict_free(&input_dic);
+
+    file_index++;
+
+    printf("close_current_segment\n");
 }
 
 int main(int argc, char *argv[])
@@ -255,6 +431,32 @@ int main(int argc, char *argv[])
     av_log_set_level(AV_LOG_INFO);
     ret = avformat_network_init();
     GOTO_ERR("Network flow initialization error:%s\n");
+
+    signal(SIGINT, sig_handler);
+    vpkt = av_packet_alloc();
+    if (vpkt == NULL)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "video Package allocation failed.\n");
+        ret = -1;
+        goto _ERROR;
+    }
+
+    apkt = av_packet_alloc();
+    if (apkt == NULL)
+    {
+        av_log(NULL, AV_LOG_ERROR, "Incorrect allocation of package space.");
+        goto _ERROR;
+    }
+
+
+    frame = av_frame_alloc();
+    if (frame == NULL)
+    {
+        av_log(NULL, AV_LOG_ERROR, "Frame allocation failed.\n");
+        goto _ERROR;
+    }
+
+
 
     //选择摄像输入格式
     input_format = av_find_input_format("v4l2");
@@ -282,217 +484,78 @@ int main(int argc, char *argv[])
     GOTO_ERR("Failed to open audio device: %s\n");
     //audio_in_ctx->flags |= AVFMT_FLAG_NONBLOCK;
     //创建输出上下文。如果用了segment会自动创建文件。
-    ret = avformat_alloc_output_context2(&out_ctx, NULL, "segment", FILE_NMAE_OUTPUT);
-    GOTO_ERR("NO MEMORY!:%s\n");
-    //创建视频流
-    video_stream = avformat_new_stream(out_ctx, NULL);
-    if (video_stream == NULL)
-    {
-        av_log(out_ctx, AV_LOG_ERROR, "Failed to create the video stream.\n");
-        ret = -1;
-        goto _ERROR;
-    }
-    //创建音频流
-    audio_stream = avformat_new_stream(out_ctx, NULL);
-    if (audio_stream == NULL)
-    {
-        av_log(out_ctx, AV_LOG_ERROR, "Failed to create the audio stream.\n");
-        ret = -1;
-        goto _ERROR;
-    }
-    //查找视频流并拷贝
-    video_stream_index = av_find_best_stream(video_in_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);
-    if (video_stream_index < 0)
-    {
-        av_log(out_ctx, AV_LOG_ERROR, "No video stream was found.\n");
-        ret = -1;
-        goto _ERROR;
-    }
-    ret = avcodec_parameters_copy(video_stream->codecpar, video_in_ctx->streams[video_stream_index]->codecpar);
-    GOTO_ERR("Video parameters cannot be copied:%s\n");
-    video_stream->codecpar->codec_tag = 0;
-
-    //查找音频流并拷贝
-    audio_stream_index = av_find_best_stream(audio_in_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
-    if (audio_stream_index < 0)
-    {
-        av_log(out_ctx, AV_LOG_ERROR, "No audio stream was found.\n");
-        ret = -1;
-        goto _ERROR;
-    }
-    ret = avcodec_parameters_copy(audio_stream->codecpar, audio_in_ctx->streams[audio_stream_index]->codecpar);
-    GOTO_ERR("Audio parameters cannot be copied:%s\n");
-    audio_stream->codecpar->codec_tag = 0;
-
-    //设置声道布局掩码。不写会提醒 not writing 'chan' tag due to lack of channel information
-    if (audio_stream->codecpar->channel_layout == 0) {
-        audio_stream->codecpar->channel_layout = AV_CH_LAYOUT_STEREO;
-    }
-
-    //打开输出文件
-    // ret = avio_open2(&out_ctx->pb, FILE_NMAE_OUTPUT, AVIO_FLAG_READ_WRITE, NULL, NULL);
-    // GOTO_ERR("Audio parameters cannot be copied:%s\n");
+    // ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, FILE_NMAE_OUTPUT);
     
-    // video_stream->time_base = video_in_ctx->streams[video_stream_index]->time_base;
-    video_stream->time_base = (AVRational){1, 1000};
-    audio_stream->time_base = (AVRational){1, AUDIO_OUT_RATE}; 
-    // audio_stream->avg_frame_rate = (AVRational){AUDIO_OUT_RATE, 1};
-    //audio_stream->time_base = audio_in_ctx->streams[audio_stream_index]->time_base;
-
-    av_dict_set(&output_dic, "segment_time", "10", 0);
-    av_dict_set(&output_dic, "reset_timestamps", "1", 0);
-    av_dict_set(&output_dic, "strftime", "1", 0);
-    av_dict_set(&output_dic, "segment_format", FILE_FORMAT_OUTPUT, 0);
-
-    ret = avformat_write_header(out_ctx, &output_dic);
-    GOTO_ERR("Header writing error.\n");
     
-    signal(SIGINT, sig_handler);
-    vpkt = av_packet_alloc();
-    if (vpkt == NULL)
-    {
-        av_log(out_ctx, AV_LOG_ERROR, "video Package allocation failed.\n");
-        ret = -1;
-        goto _ERROR;
-    }
-
-    // ret = av_read_frame(video_in_ctx, vpkt);
-    // GOTO_ERR("Error in reading packet.\n");
-    // video_start_pts = vpkt->pts;
-    // video_start_dts = vpkt->dts;
-    // av_packet_unref(vpkt);
-
-    //找解码器
-    vcodec = avcodec_find_decoder(video_stream->codecpar->codec_id);
-    if (vcodec == NULL)
-    {
-        av_log(NULL, AV_LOG_ERROR, "Decoder not found.\n");
-        goto _ERROR;
-    }
-    vcodec_ctx = avcodec_alloc_context3(vcodec);
-    if (vcodec_ctx == NULL)
-    {
-        av_log(NULL, AV_LOG_ERROR, "Decoder failed to allocate memory.\n");
-        goto _ERROR;
-    }
-    ret = avcodec_parameters_to_context(vcodec_ctx, video_stream->codecpar);
-    GOTO_ERR("Failed to copy parameters to the encoder.\n");
-
-    ret = avcodec_open2(vcodec_ctx, vcodec, NULL);
-    GOTO_ERR("Failed to open the encoder.\n");
-
-    frame = av_frame_alloc();
-    if (frame == NULL)
-    {
-        av_log(NULL, AV_LOG_ERROR, "Frame allocation failed.\n");
-        goto _ERROR;
-    }
-
-    int width = video_stream->codecpar->width; 
-    int height = video_stream->codecpar->height;
-    //uint8_t *rgb_buffer = (uint8_t*)malloc(video_stream->codecpar->width * video_stream->codecpar->height * 3);
-    int shm_frm_fd;
-    if((shm_frm_fd = shm_open(SHM_FRM_NAME, O_RDWR, 0644)) < 0)
-    {
-        fprintf(stderr, "camera:shm_open %s err, errno=%d(%s)\n",SHM_FRM_NAME,errno,strerror(errno));
-        return -1;
-    }
-
-    if(ftruncate(shm_frm_fd, sizeof(struct camera_frm_struct) + width * height * 4 ) < 0)
-    {
-        perror("ftruncate err");
-        return -1;
-    }
-    
-    //uint32_t *frm;
-    //uint32_t frm[CAM_W * CAM_H * 4];
-    if((camera_frm = mmap(NULL, sizeof(struct camera_frm_struct) + width * height * 4 ,PROT_READ | PROT_WRITE, MAP_SHARED, shm_frm_fd, 0)) == MAP_FAILED)
-    {
-        perror("mmap err");
-        return -1;
-    }
-
-    pthread_mutexattr_t mutex_attr;
-    pthread_condattr_t cond_attr;
-
-    // 1. 初始化互斥锁属性
-    pthread_mutexattr_init(&mutex_attr);
-    // 设置为进程间共享
-    pthread_mutexattr_setpshared(&mutex_attr, PTHREAD_PROCESS_SHARED);
-    
-    // 2. 初始化条件变量属性
-    pthread_condattr_init(&cond_attr);
-    // 设置为进程间共享
-    pthread_condattr_setpshared(&cond_attr, PTHREAD_PROCESS_SHARED);
-    pthread_mutex_init(&camera_frm->camera_frm_mutex, &mutex_attr);
-    pthread_cond_init(&camera_frm->camera_frm_cond, &cond_attr);
-
-    pthread_create(&audio_thread_id, NULL, audio_sample, NULL);
-
-    int64_t start_time_us = av_gettime(); // 获取当前的微秒时间
-    int64_t now_us = 0;
+    start_time_us = av_gettime(); // 获取当前的微秒时间
     while (1)
     {
-        ret = av_read_frame(video_in_ctx, vpkt);
-        GOTO_ERR("Error in reading video packet.\n");
-        if(ret == 0)
+        ret = open_new_segment();
+        if (ret < 0)
         {
-            if (vpkt->stream_index == video_stream_index)
-            {
-                vpkt->stream_index = video_stream->index;
-
-                now_us = av_gettime();
-        
-                // 2. 计算从开始到现在经过了多少时间
-                int64_t pts_us = now_us - start_time_us;
-
-                // 3. 将微秒(us)转换为输出流的 time_base
-                // av_gettime() 返回的是微秒 (1/1,000,000 秒)
-                vpkt->pts = av_rescale_q(pts_us, (AVRational){1, 1000000}, video_stream->time_base);
-                vpkt->dts = vpkt->pts;
-
-                vpkt->duration = av_rescale_q(1, (AVRational){1, 1000000}, video_stream->time_base);
-                vpkt->pos = -1;
-
-                //av_packet_rescale_ts(vpkt, video_in_ctx->streams[video_stream_index]->time_base, video_stream->time_base);
-                
-
-                avcodec_send_packet(vcodec_ctx, vpkt);
-                ret = avcodec_receive_frame(vcodec_ctx, frame);
-                if (ret == 0)
-                {
-                    pthread_mutex_lock(&camera_frm->camera_frm_mutex);   //上锁
-                    YUVJ422P_to_ARGB8888(frame->data, frame->linesize, width, height, (uint8_t *)camera_frm->frm);
-                    camera_frm->new_frame_ready = 1;
-                    while (camera_frm->new_frame_ready == 1)
-                    {
-                        pthread_cond_wait(&camera_frm->camera_frm_cond, &camera_frm->camera_frm_mutex);
-                    }
-                    pthread_mutex_unlock(&camera_frm->camera_frm_mutex);   //解锁
-                }
-                
-                
-
-
-                
-                pthread_mutex_lock(&lock);
-                av_interleaved_write_frame(out_ctx, vpkt);
-                pthread_mutex_unlock(&lock);
-                
-                //frame_count++;
-            }
-            
+            av_log(NULL, AV_LOG_ERROR, "Failed to open a new file.");
+            goto _ERROR;
         }
-        av_packet_unref(vpkt);
+        
+        while (1)
+        {
+            ret = av_read_frame(video_in_ctx, vpkt);
+            GOTO_ERR("Error in reading video packet.\n");
+            if(ret == 0)
+            {
+                if (vpkt->stream_index == video_stream_index)
+                {
+                    vpkt->stream_index = video_stream->index;
+
+                    now_us = av_gettime();
+            
+                    // 2. 计算从开始到现在经过了多少时间
+                    int64_t pts_us = now_us - start_time_us;
+
+                    // 3. 将微秒(us)转换为输出流的 time_base
+                    // av_gettime() 返回的是微秒 (1/1,000,000 秒)
+                    vpkt->pts = av_rescale_q(pts_us, (AVRational){1, 1000000}, video_stream->time_base);
+                    vpkt->dts = vpkt->pts;
+
+                    //记录当前分段最后一包的pts
+                    last_pts = vpkt->pts;
+
+                    vpkt->duration = av_rescale_q(1000000 / 10, (AVRational){1, 1000000}, video_stream->time_base);
+                    vpkt->pos = -1;
+
+                    avcodec_send_packet(vcodec_ctx, vpkt);
+                    ret = avcodec_receive_frame(vcodec_ctx, frame);
+                    if (ret == 0)
+                    {
+                        pthread_mutex_lock(&camera_frm->camera_frm_mutex);   //上锁
+                        YUVJ422P_to_ARGB8888(frame->data, frame->linesize, width, height, (uint8_t *)camera_frm->frm);
+                        camera_frm->new_frame_ready = 1;
+                        while (camera_frm->new_frame_ready == 1)
+                        {
+                            pthread_cond_wait(&camera_frm->camera_frm_cond, &camera_frm->camera_frm_mutex);
+                        }
+                        pthread_mutex_unlock(&camera_frm->camera_frm_mutex);   //解锁
+                    }
+                    
+                    double current_seg_dur = (double)(vpkt->pts - seg_start_pts) * av_q2d(video_stream->time_base);
+                    // printf("current_seg_dur:%lf\n",current_seg_dur);
+                    // printf("vpkt->pts:%lld\n",vpkt->pts);
+                    if (current_seg_dur >= SEGMENT_DURATION_SEC) 
+                    {
+                        close_current_segment();
+                        seg_start_pts = vpkt->pts;
+                        break;
+                    }
+                    
+                    pthread_mutex_lock(&lock);
+                    av_interleaved_write_frame(out_ctx, vpkt);
+                    pthread_mutex_unlock(&lock);                    
+                }
+            }
+            av_packet_unref(vpkt);
+        }
     }
 
-    // 停止录制流程
-    is_running = 0;
-    pthread_join(audio_thread_id, NULL);
-
-    av_write_trailer(out_ctx);
-
-    ret = 0;
 _ERROR:
     if (vpkt)
         av_packet_free(&vpkt);
