@@ -19,6 +19,7 @@
 #include <alsa/asoundlib.h>
 #include <libswresample/swresample.h>
 #include <pthread.h>
+#include <unistd.h>
 
 /*********************
  *      DEFINES
@@ -87,12 +88,15 @@ struct ffmpeg_context_s {
     PacketQueue audioq;
     
     // 控制标志
-    int abort_request;       // 退出标志
-    int pause_request;       // 暂停标志
-    int seek_req;            // 是否请求了Seek
-    int64_t seek_pos;        // Seek的位置
-    float playback_speed;    // 倍速 (1.0, 1.5, 2.0 等)
+    int abort_request;          // 退出标志
+    int pause_request;          // 暂停标志
+    int seek_req;               // 是否请求了Seek
+    int64_t seek_pos;           // Seek的位置
+    float playback_speed;       // 倍速 (1.0, 1.5, 2.0 等)
 };
+
+extern int demux_pause_request;    // 解码暂停标志
+extern int playback_end;           // 播放结束标志
 
 // lvgl定时器处理同步
 extern pthread_mutex_t timer_mutex;
@@ -360,8 +364,10 @@ void *demux_thread(void *arg)
     AVPacket *pkt = av_packet_alloc();
     int ret = 0;
     while(!ctx->abort_request) {
+        if (demux_pause_request) {usleep(100000); continue;}
          // 1. 处理 Seek (拉进度条)
         if (ctx->seek_req) {
+            ctx->seek_req = 0;
             int64_t seek_target = ctx->seek_pos;
             if (av_seek_frame(ctx->fmt_ctx, -1, seek_target, AVSEEK_FLAG_BACKWARD) >= 0) {
                 // 清空队列
@@ -370,8 +376,10 @@ void *demux_thread(void *arg)
                 // 刷新解码器缓冲
                 avcodec_flush_buffers(ctx->video_dec_ctx);
                 avcodec_flush_buffers(ctx->audio_dec_ctx);
+
+                printf("seek_req000\n");
             }
-            ctx->seek_req = 0;
+            printf("seek_req\n");
         }
 
         // 2. 队列满了就休息一下（防止内存爆掉），提前缓存10mb/5mb
@@ -386,7 +394,7 @@ void *demux_thread(void *arg)
         {
             // 文件结束或错误
             av_log(NULL, AV_LOG_INFO, "File end or error.\n");
-            return NULL;
+            demux_pause_request = 1;
         }
         // 情况 A: 读到视频包
         if (pkt->stream_index == ctx->video_stream_idx) {
@@ -419,11 +427,32 @@ void *audio_processing_thread(void *arg)
     struct ffmpeg_context_s *ctx = (struct ffmpeg_context_s *)arg;
     AVPacket pkt;
     AVFrame *frame = av_frame_alloc();
+    int ret = 0;
+    int count; // 队列读取为空计数
     while (!ctx->abort_request)
     {
         if (ctx->pause_request) {usleep(20000); continue;}
-        packet_queue_get(&ctx->audioq, &pkt, 1);
-        int ret = avcodec_send_packet(ctx->audio_dec_ctx, &pkt);
+        ret = packet_queue_get(&ctx->audioq, &pkt, 0);
+        if (ret < 0)
+        {
+            fprintf(stderr, "An error occurred while reading the queue.");
+            return NULL;
+        }
+        else if (ret == 0)
+        {
+            count++;
+            printf("count:%d\n",count);
+            if (count > 10)  // 如果连续多次读取队列都为空，代表读完了，则停止播放。
+            {
+                ctx->pause_request = 1;
+                playback_end = 1;
+            }
+            usleep(10000);
+            continue;
+        }
+        count = 0;
+        
+        ret = avcodec_send_packet(ctx->audio_dec_ctx, &pkt);
         if (ret == 0) {
             while (avcodec_receive_frame(ctx->audio_dec_ctx, frame) >= 0) {
                 // 1. 重采样音频数据
@@ -564,7 +593,11 @@ void lv_ffmpeg_player_get_total_time(lv_obj_t * arg, char* buf)
     sprintf(buf, "%02d:%02d:%02d", hours, mins, secs);
 }
 
-
+/**
+ *  获取音视频当前时间。
+ * @param arg lv_ffmpeg_player_t *类型参数。
+ * @param buf 输出的时间。
+ */
 void lv_ffmpeg_player_get_current_time(lv_obj_t * arg, char* buf)
 {
     // 安全检查：防止空指针崩溃
@@ -593,7 +626,6 @@ void lv_ffmpeg_player_get_current_time(lv_obj_t * arg, char* buf)
 
 void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf)
 {
-
     // 安全检查：防止空指针崩溃
     if (arg == NULL || buf == NULL) {
         return;
@@ -612,8 +644,10 @@ void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf)
     sscanf(buf, "%d:%d:%d", &hour, &minute, &second);
     pos = hour * 3600 + minute * 60 + second;
 
-    ctx->seek_pos = pos;
+    ctx->seek_pos = pos * AV_TIME_BASE;
     ctx->seek_req = 1;
+
+    printf("seek\n");
 }
 
 

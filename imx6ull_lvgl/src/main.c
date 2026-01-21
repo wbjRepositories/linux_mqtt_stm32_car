@@ -74,7 +74,7 @@ static lv_obj_t * page_camera;           //摄像头页面
 static lv_obj_t * page_player;          //播放器页面
 static lv_obj_t * player;               //播放器
 static lv_obj_t * video_time;           //视频时间
-static lv_obj_t * current_time;           //视频当前时间
+static lv_obj_t * current_time_label;    //视频当前时间
 static lv_obj_t * video_progress;        //视频进度条
 static lv_obj_t * play_btn;             //播放按钮
 static lv_obj_t * play_btn_label;       //播放按键标签
@@ -85,6 +85,12 @@ static lv_obj_t *cam_img_obj;           //摄像头对象
 static pid_t camera = -1;
 static pid_t camera_p2p = -1;
 static pid_t camera_cs = -1;
+static lv_timer_t * play_timer;                         // 播放器当前时间定时器
+static char total_time[32] = {};                        // 播放器视频总时间
+static int total_second;                                // 播放器视频总秒数
+static int video_hour, video_minute, video_second;      // 播放器视频时分秒。
+int demux_pause_request;                    // 解码暂停标志
+int playback_end;                           // 播放结束标志
 
 // lvgl定时器处理同步
 pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -512,31 +518,78 @@ static void slider_event_cb(lv_event_t * e)
     lv_obj_t * slider = lv_event_get_target(e);
     char buf[8];
     int32_t slider_value = lv_slider_get_value(slider);
-    if(slider == speed_slider)
+    lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_VALUE_CHANGED)
     {
-        lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
-        car_status->speed_max = 127 * slider_value / 100;
-        lv_label_set_text(speed_slider_label, buf);
-        lv_obj_align_to(speed_slider_label, slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
-    }
-    else if(slider == dirct_speed_slider)
-    {
-        lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
-        car_status->dirct_speed = 127 * slider_value / 100;
-        lv_label_set_text(dirct_speed_slider_label, buf);
-        lv_obj_align_to(dirct_speed_slider_label, slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
-    }
-    else if(slider == video_progress)
-    {
-        char text[32] = {};
-        // lv_ffmpeg_player_get_current_time(player, text);
+        if(slider == speed_slider)
+        {
+            lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
+            car_status->speed_max = 127 * slider_value / 100;
+            lv_label_set_text(speed_slider_label, buf);
+            lv_obj_align_to(speed_slider_label, slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
+        }
+        else if(slider == dirct_speed_slider)
+        {
+            lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
+            car_status->dirct_speed = 127 * slider_value / 100;
+            lv_label_set_text(dirct_speed_slider_label, buf);
+            lv_obj_align_to(dirct_speed_slider_label, slider, LV_ALIGN_OUT_BOTTOM_MID, 0, 10);
+        }
+        else if(slider == video_progress)
+        {
+            int hour, minute, second;     // 播放器视频时分秒，总秒数。
 
-        lv_ffmpeg_player_seek(player, text);
-        // lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
-        lv_label_set_text(current_time, text);
-        lv_obj_align_to(current_time, video_progress, LV_ALIGN_OUT_LEFT_MID, -30, 0);
+            // lv_ffmpeg_player_seek(player, total_second);
+            // lv_snprintf(buf, sizeof(buf), "%d%%", (int)slider_value);
+
+            hour = (int)(total_second * (slider_value / 100.0) / 3600);
+            minute = ((int)(total_second * (slider_value / 100.0)) % 3600) / 60;
+            second = (int)(total_second * (slider_value / 100.0)) % 60;
+
+            lv_snprintf(total_time, sizeof(total_time), "%02d:%02d:%02d", hour, minute, second);
+            lv_label_set_text(current_time_label, total_time);
+            lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
+
+            lv_timer_pause(play_timer);
+        }
     }
+    else if (code == LV_EVENT_RELEASED)
+    {
+        if(slider == video_progress)
+        {
+            printf("LV_EVENT_RELEASED\n");
+            lv_ffmpeg_player_seek(player, total_time);
+            demux_pause_request = 0;
+            lv_timer_reset(play_timer);
+        }
+    }
+    
+    
 }
+
+// 播放器进度时间定时器回调
+void play_timer_cb(lv_timer_t * timer)
+{
+    char time[32] = {};
+    int hour, minute, second, current_second;     // 播放器视频时分秒，总秒数。
+    lv_ffmpeg_player_get_current_time(player, time);
+    sscanf(time, "%d:%d:%d", &hour, &minute, &second);
+    current_second = hour * 3600 + minute * 60 + second;
+    lv_label_set_text(current_time_label, time);
+    lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
+
+    lv_slider_set_value(video_progress, (int)((1.0 * current_second / total_second) * 100), LV_ANIM_OFF);
+
+    if (playback_end == 1)
+    {
+        lv_slider_set_value(video_progress, 100, LV_ANIM_OFF);
+        lv_ffmpeg_player_get_total_time(player, time);
+        lv_label_set_text(current_time_label, time);
+        lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
+    }
+    
+}
+
 
 /**
  * 下拉框事件回调
@@ -576,8 +629,8 @@ static void dropdown_set_cb(lv_event_t * e)
                 //隐藏播放器并停止播放
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
-                // lv_refr_now(NULL);
-                // lv_obj_invalidate(lv_scr_act());
+                // 删除播放器进度时间定时器
+                lv_timer_del(play_timer);
             }
         }
         else if (strcmp(buf, "camera(p2p)") == 0)
@@ -605,6 +658,8 @@ static void dropdown_set_cb(lv_event_t * e)
                 //隐藏播放器并停止播放
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+                // 删除播放器进度时间定时器
+                lv_timer_del(play_timer);
             }
         }
         else if (strcmp(buf, "camera(c/s)") == 0)
@@ -632,6 +687,8 @@ static void dropdown_set_cb(lv_event_t * e)
                 //隐藏播放器并停止播放
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+                // 删除播放器进度时间定时器
+                lv_timer_del(play_timer);
             }
         }
         else if(strcmp(buf, "controller") == 0)
@@ -646,6 +703,8 @@ static void dropdown_set_cb(lv_event_t * e)
             //隐藏播放器并停止播放
             lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
             lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+            // 删除播放器进度时间定时器
+            lv_timer_del(play_timer);
         }
         else if(strcmp(buf, "playback") == 0)
         {
@@ -664,11 +723,19 @@ static void dropdown_set_cb(lv_event_t * e)
             lv_obj_clear_flag(page_player, LV_OBJ_FLAG_HIDDEN);
 
             // 写入视频时间
-            char text[32] = {};
-            lv_ffmpeg_player_get_total_time(player, text);
-            lv_label_set_text(video_time, text);
-            // lv_refr_now(NULL);
-            // lv_obj_invalidate(lv_scr_act());
+            char time[32] = {};
+            lv_ffmpeg_player_get_total_time(player, time);
+            lv_label_set_text(video_time, time);
+            // 获取视频时分秒，总秒数。
+            sscanf(time, "%d:%d:%d", &video_hour, &video_minute, &video_second);
+            total_second = video_hour * 3600 + video_minute * 60 + video_second;
+
+            // 创建播放器进度时间定时器
+            play_timer = lv_timer_create(play_timer_cb, 100, NULL);
+
+            
+            
+
         }
     }
 }
@@ -940,6 +1007,7 @@ int main(void)
     //创建播放器进度条
     video_progress = lv_slider_create(page_player);
     lv_obj_add_event_cb(video_progress, slider_event_cb, LV_EVENT_VALUE_CHANGED, NULL);
+    lv_obj_add_event_cb(video_progress, slider_event_cb, LV_EVENT_RELEASED, NULL);
     lv_obj_align(video_progress, LV_ALIGN_BOTTOM_MID, 0, -30);
     lv_obj_set_width(video_progress, 600);
     // //创建播放按键
@@ -954,13 +1022,15 @@ int main(void)
     lv_obj_center(play_btn_label);
     //创建视频时间
     video_time = lv_label_create(page_player);
-    lv_obj_align_to(video_time, video_progress,LV_ALIGN_OUT_RIGHT_MID, 30, 0);
+    lv_obj_align_to(video_time, video_progress,LV_ALIGN_OUT_RIGHT_MID, 20, 0);
     //创建视频当前时间
-    current_time = lv_label_create(page_player);
+    current_time_label = lv_label_create(page_player);
     char text[32] = {};
     lv_ffmpeg_player_get_current_time(player, text);
-    lv_label_set_text(current_time, text);
-    lv_obj_align_to(current_time, video_progress, LV_ALIGN_OUT_LEFT_MID, -30, 0);
+    lv_label_set_text(current_time_label, text);
+    lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
+
+
 
 
     //lv_ffmpeg_player_get_current_time()
