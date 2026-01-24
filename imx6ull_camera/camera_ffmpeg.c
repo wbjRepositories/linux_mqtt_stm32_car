@@ -9,11 +9,12 @@
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/signal.h>
-
+#include <time.h>
 // #define FILE_NMAE_OUTPUT    "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
 // #define FILE_NMAE_OUTPUT    "/mnt/sd/video.mov"
-#define OUT_FILENAME_FMT     "/mnt/sd/video_%03d.mov"
-#define FILE_FORMAT_OUTPUT  "mov"
+// #define FILE_NMAE_OUTPUT     "/mnt/sd/video_%03d.mov"
+#define FILE_NMAE_OUTPUT     "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
+// #define FILE_FORMAT_OUTPUT  "mov"
 #define AUDIO_OUT_RATE  44100
 #define SEGMENT_DURATION_SEC 5.0   // 每个分段大概 5 秒
 #define LIST_FILENAME        "/mnt/sd/playlist.ffconcat"
@@ -66,7 +67,8 @@ pthread_condattr_t cond_attr;
 int64_t now_us = 0;
 int64_t start_time_us;
 
-int file_index; // 文件索引
+// int file_index; // 文件索引
+char filename[64]; // 文件名
 int64_t seg_start_pts; // 当前分段的起始 PTS
 int64_t last_pts;      // 记录上一帧的 PTS 用于计算时长
 
@@ -226,7 +228,7 @@ static void update_ffconcat(const char *filename, double duration) {
     }
 
     fprintf(fp, "file '%s'\n", filename);
-    // 这里解决了你的问题：手动写入 duration
+    // 手动写入 duration
     fprintf(fp, "duration %.6f\n", duration); 
     
     // 刷新缓冲区，确保掉电不丢失
@@ -238,8 +240,14 @@ static void update_ffconcat(const char *filename, double duration) {
 static int open_new_segment(void)
 {
     printf("open_new_segment\n");
-    char filename[64];
-    snprintf(filename, sizeof(filename), OUT_FILENAME_FMT, file_index);
+    time_t raw_time;
+    struct tm time_info;
+
+    time(&raw_time);
+    localtime_r(&raw_time, &time_info);
+
+    // snprintf(filename, sizeof(filename), FILE_NMAE_OUTPUT, file_index);
+    strftime(filename, sizeof(filename), FILE_NMAE_OUTPUT, &time_info);
 
     ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, filename);
     RET_ERR("NO MEMORY!:%s\n");
@@ -382,10 +390,6 @@ static int open_new_segment(void)
 
 static void close_current_segment(void)
 {
-
-    char filename[64];
-    snprintf(filename, sizeof(filename), OUT_FILENAME_FMT, file_index);
-
     // 停止录制流程
     is_running = 0;
     pthread_join(audio_thread_id, NULL);
@@ -405,7 +409,7 @@ static void close_current_segment(void)
     if (input_dic)
         av_dict_free(&input_dic);
 
-    file_index++;
+    // file_index++;
 
     printf("close_current_segment\n");
 }

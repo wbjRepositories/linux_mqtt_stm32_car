@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <errno.h>
 #include <dirent.h>
+#include <wait.h>
 
 #include "../lvgl/lvgl.h"
 #include "lv_drivers/display/fbdev.h"
@@ -561,10 +562,9 @@ static void slider_event_cb(lv_event_t * e)
             lv_ffmpeg_player_seek(player, total_time);
             demux_pause_request = 0;
             lv_timer_reset(play_timer);
+            lv_timer_resume(play_timer);
         }
     }
-    
-    
 }
 
 // 播放器进度时间定时器回调
@@ -630,7 +630,11 @@ static void dropdown_set_cb(lv_event_t * e)
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
                 // 删除播放器进度时间定时器
-                lv_timer_del(play_timer);
+                if (play_timer)
+                {
+                    lv_timer_del(play_timer);
+                    play_timer = NULL;
+                }
             }
         }
         else if (strcmp(buf, "camera(p2p)") == 0)
@@ -659,7 +663,11 @@ static void dropdown_set_cb(lv_event_t * e)
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
                 // 删除播放器进度时间定时器
-                lv_timer_del(play_timer);
+                if (play_timer)
+                {
+                    lv_timer_del(play_timer);
+                    play_timer = NULL;
+                }
             }
         }
         else if (strcmp(buf, "camera(c/s)") == 0)
@@ -688,7 +696,11 @@ static void dropdown_set_cb(lv_event_t * e)
                 lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
                 lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
                 // 删除播放器进度时间定时器
-                lv_timer_del(play_timer);
+                if (play_timer)
+                {
+                    lv_timer_del(play_timer);
+                    play_timer = NULL;
+                }
             }
         }
         else if(strcmp(buf, "controller") == 0)
@@ -704,7 +716,11 @@ static void dropdown_set_cb(lv_event_t * e)
             lv_obj_add_flag(page_player, LV_OBJ_FLAG_HIDDEN);
             lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
             // 删除播放器进度时间定时器
-            lv_timer_del(play_timer);
+            if (play_timer)
+            {
+                lv_timer_del(play_timer);
+                play_timer = NULL;
+            }
         }
         else if(strcmp(buf, "playback") == 0)
         {
@@ -715,11 +731,15 @@ static void dropdown_set_cb(lv_event_t * e)
 
             //生成播放列表
             // generate_playlist();
+            // 阻塞等待摄像头进程完全退出
+            int status;
+            waitpid(camera, &status, 0); 
 
+            lv_ffmpeg_player_reset_src(player, PLAYLIST_PATH);
             // lv_ffmpeg_player_set_src(player, PLAYLIST_PATH);
             // lv_ffmpeg_player_set_auto_restart(player, true);
             lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_START);
-            lv_obj_add_flag(cam_img_obj, LV_OBJ_FLAG_HIDDEN);
+            lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(page_player, LV_OBJ_FLAG_HIDDEN);
 
             // 写入视频时间
@@ -731,11 +751,10 @@ static void dropdown_set_cb(lv_event_t * e)
             total_second = video_hour * 3600 + video_minute * 60 + video_second;
 
             // 创建播放器进度时间定时器
-            play_timer = lv_timer_create(play_timer_cb, 100, NULL);
-
-            
-            
-
+            if (!play_timer)
+            {
+                play_timer = lv_timer_create(play_timer_cb, 200, NULL);
+            }
         }
     }
 }
@@ -1002,7 +1021,7 @@ int main(void)
     player = lv_ffmpeg_player_create(page_player);
     // lv_obj_add_flag(player, LV_OBJ_FLAG_HIDDEN);
     lv_ffmpeg_player_set_src(player, PLAYLIST_PATH);
-    lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+    // lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
     lv_obj_center(player);
     //创建播放器进度条
     video_progress = lv_slider_create(page_player);
@@ -1031,11 +1050,6 @@ int main(void)
     lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
 
 
-
-
-    //lv_ffmpeg_player_get_current_time()
-    //lv_ffmpeg_player_get_total_time()
-    //lv_ffmpeg_player_seek();
 
 
 

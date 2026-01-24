@@ -91,6 +91,8 @@ void lv_ffmpeg_player_get_total_time(lv_obj_t * arg, char* buf);
 void lv_ffmpeg_player_get_current_time(lv_obj_t * arg, char* buf);
 void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf);
 
+lv_res_t lv_ffmpeg_player_reset_src(lv_obj_t * obj, const char * path);
+
 /*=====================
  * Other functions
  *====================*/

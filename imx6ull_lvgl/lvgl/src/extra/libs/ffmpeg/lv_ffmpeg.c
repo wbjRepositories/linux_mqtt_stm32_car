@@ -102,6 +102,8 @@ extern int playback_end;           // 播放结束标志
 extern pthread_mutex_t timer_mutex;
 // 输出上下文同步锁
 pthread_mutex_t ctx_mutex = PTHREAD_MUTEX_INITIALIZER;
+// 线程号
+pthread_t demux_pid,audio_pid,video_pid;
 
 #pragma pack(1)
 
@@ -352,7 +354,7 @@ void packet_queue_flush(PacketQueue *q) {
  * 销毁队列并释放残留 Packet (辅助函数)
  */
 void packet_queue_destroy(PacketQueue *q) {
-    // packet_queue_flush(q); // 需实现 flush 清空逻辑
+    packet_queue_flush(q);
     pthread_mutex_destroy(&q->mutex);
     pthread_cond_destroy(&q->cond);
 }
@@ -367,7 +369,6 @@ void *demux_thread(void *arg)
         if (demux_pause_request) {usleep(100000); continue;}
          // 1. 处理 Seek (拉进度条)
         if (ctx->seek_req) {
-            ctx->seek_req = 0;
             int64_t seek_target = ctx->seek_pos;
             if (av_seek_frame(ctx->fmt_ctx, -1, seek_target, AVSEEK_FLAG_BACKWARD) >= 0) {
                 // 清空队列
@@ -376,10 +377,8 @@ void *demux_thread(void *arg)
                 // 刷新解码器缓冲
                 avcodec_flush_buffers(ctx->video_dec_ctx);
                 avcodec_flush_buffers(ctx->audio_dec_ctx);
-
-                printf("seek_req000\n");
             }
-            printf("seek_req\n");
+            ctx->seek_req = 0;
         }
 
         // 2. 队列满了就休息一下（防止内存爆掉），提前缓存10mb/5mb
@@ -428,7 +427,7 @@ void *audio_processing_thread(void *arg)
     AVPacket pkt;
     AVFrame *frame = av_frame_alloc();
     int ret = 0;
-    int count; // 队列读取为空计数
+    int count = 0; // 队列读取为空计数
     while (!ctx->abort_request)
     {
         if (ctx->pause_request) {usleep(20000); continue;}
@@ -686,19 +685,19 @@ int alsa_init(void)
     ret = snd_pcm_open(&pcm_handle, "hw:0,0", SND_PCM_STREAM_PLAYBACK, 0);
     if (ret < 0)
     {
-        fprintf(stderr, "The audio device failed to open:%s", snd_strerror(ret));
+        fprintf(stderr, "The audio device failed to open:%s\n", snd_strerror(ret));
         goto _FAILED;
     }
     ret = snd_pcm_hw_params_malloc(&hwparams);
     if (ret < 0)
     {
-        fprintf(stderr, "Failed to allocate parameter space:%s", snd_strerror(ret));
+        fprintf(stderr, "Failed to allocate parameter space:%s\n", snd_strerror(ret));
         goto _FAILED;
     }
     ret = snd_pcm_hw_params_any(pcm_handle, hwparams);
     if (ret < 0)
     {
-        fprintf(stderr, "Initialization parameters failed:%s", snd_strerror(ret));
+        fprintf(stderr, "Initialization parameters failed:%s\n", snd_strerror(ret));
         goto _FAILED;
     }
 
@@ -714,7 +713,10 @@ int alsa_init(void)
 
 _FAILED:
     if (hwparams)
+    {
         snd_pcm_hw_params_free(hwparams);
+        hwparams = NULL;
+    }
     return ret;
 }
 
@@ -775,11 +777,11 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
 
     res = LV_RES_OK;
 
+    player->ffmpeg_ctx->pause_request = 1;
     // 初始化音视频包队列
     packet_queue_init(&player->ffmpeg_ctx->audioq);
     packet_queue_init(&player->ffmpeg_ctx->videoq);
     // 运行解码、音频、视频线程
-    pthread_t demux_pid,audio_pid,video_pid;
     pthread_create(&demux_pid, NULL, demux_thread, player->ffmpeg_ctx);
     pthread_create(&audio_pid, NULL, audio_processing_thread, player->ffmpeg_ctx);
     pthread_create(&video_pid, NULL, video_processing_thread, player);
@@ -787,6 +789,154 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
 failed:
     return res;
 }
+/*
+ * 释放 ffmpeg_context_s 资源
+ * 参数传入二级指针，以便在释放后将原指针置为 NULL，防止悬空指针
+ */
+void ffmpeg_context_free(struct ffmpeg_context_s **ctx_ptr) {
+    if (!ctx_ptr || !*ctx_ptr) {
+        return;
+    }
+
+    struct ffmpeg_context_s *ctx = *ctx_ptr;
+
+    // 1. 销毁队列 (清空节点并销毁锁/条件变量)
+    // 注意：videoq 和 audioq 是结构体成员而非指针，所以传入地址
+    packet_queue_destroy(&ctx->videoq);
+    packet_queue_destroy(&ctx->audioq);
+
+    // 2. 释放视频图像转换上下文
+    if (ctx->sws_ctx) {
+        sws_freeContext(ctx->sws_ctx);
+        ctx->sws_ctx = NULL;
+    }
+
+    // 3. 释放音频重采样上下文
+    if (ctx->swr_ctx) {
+        swr_free(&ctx->swr_ctx);
+    }
+
+    // 4. 释放分配的图像缓冲区
+    // 注意：如果是通过 av_image_alloc 分配的，data[0] 指向连续内存块的首地址，只需释放 data[0]
+    if (ctx->video_dst_data[0]) {
+        av_freep(&ctx->video_dst_data[0]);
+    }
+    // 注意：通常 src_data 来自解码后的 AVFrame，如果是引用的 Frame 数据则不需要在此释放。
+    // 但如果这里是你手动 av_image_alloc 分配的缓存，则取消下面代码的注释：
+    /*
+    if (ctx->video_src_data[0]) {
+        av_freep(&ctx->video_src_data[0]);
+    }
+    */
+    // 为了安全，将指针数组清零
+    memset(ctx->video_dst_data, 0, sizeof(ctx->video_dst_data));
+    memset(ctx->video_src_data, 0, sizeof(ctx->video_src_data));
+
+    // 5. 释放编解码器上下文
+    if (ctx->video_dec_ctx) {
+        avcodec_free_context(&ctx->video_dec_ctx);
+    }
+    if (ctx->audio_dec_ctx) {
+        avcodec_free_context(&ctx->audio_dec_ctx);
+    }
+
+    // 6. 关闭输入文件并释放 AVFormatContext
+    // avformat_close_input 会自动释放其中的 AVStream (audio_stream, video_stream)，无需手动释放流
+    if (ctx->fmt_ctx) {
+        avformat_close_input(&ctx->fmt_ctx);
+    }
+
+    // 7. 释放结构体自身内存
+    free(ctx);
+    
+    // 释放alsa
+    if (hwparams)
+    {
+        snd_pcm_hw_params_free(hwparams);
+        hwparams = NULL;
+    }
+    if (pcm_handle)
+    {
+        snd_pcm_close(pcm_handle);
+        pcm_handle = NULL;
+    }
+        
+
+    // 8. 将外部指针置空
+    *ctx_ptr = NULL;
+}
+
+// PacketQueue 中止函数
+void packet_queue_abort(PacketQueue *q) {
+    pthread_mutex_lock(&q->mutex);
+    // 这里通常不需要改变队列数据，只需要发信号唤醒正在等待 get 的线程
+    pthread_cond_signal(&q->cond); 
+    pthread_mutex_unlock(&q->mutex);
+}
+
+void player_stop_threads(lv_ffmpeg_player_t *player) {
+    if (!player || !player->ffmpeg_ctx) return;
+
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+
+    // 1. 设置退出标志
+    ctx->abort_request = 1;
+
+    // 2. 唤醒所有可能阻塞在队列上的线程
+    // 如果 demux 线程卡在网络读取上，av_read_frame 需要配合 interrupt_callback (高级用法)
+    // 这里主要唤醒音视频解码线程
+    packet_queue_abort(&ctx->audioq);
+    packet_queue_abort(&ctx->videoq);
+
+    // 3. 等待线程结束 (Join)
+    // 注意：判断线程变量是否有效，防止 Join 未创建的线程
+    if (demux_pid) {
+        pthread_join(demux_pid, NULL);
+        demux_pid = 0;
+    }
+    if (audio_pid) {
+        pthread_join(audio_pid, NULL);
+        audio_pid = 0;
+    }
+    if (video_pid) {
+        pthread_join(video_pid, NULL);
+        video_pid = 0;
+    }
+
+    printf("All threads stopped safely.\n");
+}
+
+lv_res_t lv_ffmpeg_player_reset_src(lv_obj_t * obj, const char * path)
+{
+    LV_ASSERT_OBJ(obj, MY_CLASS);
+
+    lv_res_t ret;
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
+
+    // 1. 停止旧线程
+    // 此时旧的 ctx 还在，线程还在运行旧数据，必须先停下来
+    player_stop_threads(player);
+
+    // 2. 释放旧的 Context
+    // 使用上一条回答中生成的释放函数
+    ffmpeg_context_free(&player->ffmpeg_ctx);
+
+    // 3. 初始化新的 Context
+    demux_pause_request = 0;
+    ret = lv_ffmpeg_player_set_src(obj, path);
+    // ... 在这里执行 avformat_open_input 等初始化操作，加载 new_url ...
+    // 记得初始化 mutex, cond, abort_request = 0 等
+
+    // 4. 重新创建线程
+    // 此时传入的是崭新的 player->ffmpeg_ctx
+    // pthread_create(&demux_pid, NULL, demux_thread, player->ffmpeg_ctx);
+    // pthread_create(&audio_pid, NULL, audio_processing_thread, player->ffmpeg_ctx);
+    // pthread_create(&video_pid, NULL, video_processing_thread, player);
+    
+    printf("Player restarted with new context.\n");
+    return ret;
+}
+
 
 void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd)
 {
@@ -802,16 +952,18 @@ void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd)
     switch(cmd) {
         case LV_FFMPEG_PLAYER_CMD_START:
             pthread_mutex_lock(&ctx_mutex);
-            av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
-                          0, 0, AVSEEK_FLAG_BACKWARD);
+            // av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
+            //               0, 0, AVSEEK_FLAG_BACKWARD);
             pthread_mutex_unlock(&ctx_mutex);
             player->ffmpeg_ctx->pause_request = 0;
             LV_LOG_INFO("ffmpeg player start");
             break;
         case LV_FFMPEG_PLAYER_CMD_STOP:
             pthread_mutex_lock(&ctx_mutex);
-            av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
-                          0, 0, AVSEEK_FLAG_BACKWARD);
+            // av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
+                        //   0, 0, AVSEEK_FLAG_BACKWARD);
+            player->ffmpeg_ctx->seek_pos = 0;
+            player->ffmpeg_ctx->seek_req = 1;
             player->ffmpeg_ctx->pause_request = 1;
             pthread_mutex_unlock(&ctx_mutex);              
             LV_LOG_INFO("ffmpeg player stop");
