@@ -79,6 +79,7 @@ target_link_libraries(lvglTest PRIVATE
     swscale
     swresample
     asound
+    avfilter
 
     # 系统基础库
     pthread 

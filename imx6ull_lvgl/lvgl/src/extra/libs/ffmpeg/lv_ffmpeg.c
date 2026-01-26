@@ -15,6 +15,10 @@
 #include <libavutil/samplefmt.h>
 #include <libavutil/timestamp.h>
 #include <libswscale/swscale.h>
+#include <libavfilter/avfilter.h>
+#include <libavfilter/buffersink.h>
+#include <libavfilter/buffersrc.h>
+#include <libavutil/opt.h>
 
 #include <alsa/asoundlib.h>
 #include <libswresample/swresample.h>
@@ -42,7 +46,7 @@
 
 
 // 音频输出参数配置 (PCM)
-#define AUDIO_OUT_RATE 44100
+#define AUDIO_OUT_RATE 44100 //ctx->audio_dec_ctx->sample_rate
 #define AUDIO_OUT_CHANNELS 2
 #define AUDIO_OUT_FORMAT SND_PCM_FORMAT_S16_LE
 
@@ -50,56 +54,11 @@
 snd_pcm_t *pcm_handle = NULL;
 snd_pcm_hw_params_t *hwparams = NULL;
 
+static int queue_count = 0; // 队列读取为空计数
+
 /**********************
  *      TYPEDEFS
  **********************/
-// 包队列
-typedef struct {
-    AVPacketList *first, *last;
-    int nb_packets;
-    int size;
-    pthread_mutex_t mutex; // 互斥锁保护队列
-    pthread_cond_t cond;   // 条件变量（用于唤醒）
-} PacketQueue;
-
-struct ffmpeg_context_s {
-    AVFormatContext * fmt_ctx;
-    AVCodecContext * video_dec_ctx;
-    AVStream * video_stream;
-    uint8_t * video_src_data[4];
-    uint8_t * video_dst_data[4];
-    struct SwsContext * sws_ctx;
-    int video_stream_idx;
-    int video_src_linesize[4];
-    int video_dst_linesize[4];
-    enum AVPixelFormat video_dst_pix_fmt;
-    bool has_alpha;
-    // 新增成员音频相关
-    int audio_stream_idx;
-    AVCodecContext * audio_dec_ctx;
-    AVStream * audio_stream;
-    struct SwrContext * swr_ctx; // 重采样上下文
-    // 新增成员同步相关
-    double video_time_base;     // 视频流的时间基准
-    double audio_clock;         // 当前音频播放到的时间（基准时间，秒）
-
-     // 队列
-    PacketQueue videoq;
-    PacketQueue audioq;
-    
-    // 控制标志
-    int abort_request;          // 退出标志
-    int pause_request;          // 暂停标志
-    int seek_req;               // 是否请求了Seek
-    int64_t seek_pos;           // Seek的位置
-    float playback_speed;       // 倍速 (1.0, 1.5, 2.0 等)
-};
-
-extern int demux_pause_request;    // 解码暂停标志
-extern int playback_end;           // 播放结束标志
-
-// lvgl定时器处理同步
-extern pthread_mutex_t timer_mutex;
 // 输出上下文同步锁
 pthread_mutex_t ctx_mutex = PTHREAD_MUTEX_INITIALIZER;
 // 线程号
@@ -157,6 +116,25 @@ const lv_obj_class_t lv_ffmpeg_player_class = {
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
+
+void set_demux_pause(lv_obj_t * arg, int flag)
+{
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+    ctx->demux_pause_request = flag;
+}
+void set_playback_speed(lv_obj_t * arg, float speed)
+{
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+    ctx->playback_speed = speed;
+}
+int get_playback_end(lv_obj_t * arg)
+{
+    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
+    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
+    return ctx->playback_end;
+}
 /**
  * 初始化队列 (辅助函数)
  */
@@ -366,7 +344,7 @@ void *demux_thread(void *arg)
     AVPacket *pkt = av_packet_alloc();
     int ret = 0;
     while(!ctx->abort_request) {
-        if (demux_pause_request) {usleep(100000); continue;}
+        if (ctx->demux_pause_request) {usleep(100000); continue;}
          // 1. 处理 Seek (拉进度条)
         if (ctx->seek_req) {
             int64_t seek_target = ctx->seek_pos;
@@ -393,7 +371,7 @@ void *demux_thread(void *arg)
         {
             // 文件结束或错误
             av_log(NULL, AV_LOG_INFO, "File end or error.\n");
-            demux_pause_request = 1;
+            ctx->demux_pause_request = 1;
         }
         // 情况 A: 读到视频包
         if (pkt->stream_index == ctx->video_stream_idx) {
@@ -427,7 +405,14 @@ void *audio_processing_thread(void *arg)
     AVPacket pkt;
     AVFrame *frame = av_frame_alloc();
     int ret = 0;
-    int count = 0; // 队列读取为空计数
+    
+    int filter_init_flag = 0;
+    float playback_speed_old = ctx->playback_speed;
+    AVFilterGraph *filter_graph = NULL;
+    AVFilterContext *src_ctx, *sink_ctx, *atempo_ctx;
+    AVFrame *filt_frame = av_frame_alloc();
+    uint8_t *buffer = NULL;      // 存放音频数据的用户缓冲区
+    unsigned int buf_size = 0;   // 记录当前 buffer 到底有多大
     while (!ctx->abort_request)
     {
         if (ctx->pause_request) {usleep(20000); continue;}
@@ -435,70 +420,213 @@ void *audio_processing_thread(void *arg)
         if (ret < 0)
         {
             fprintf(stderr, "An error occurred while reading the queue.");
-            return NULL;
+            continue;
         }
         else if (ret == 0)
         {
-            count++;
-            printf("count:%d\n",count);
-            if (count > 10)  // 如果连续多次读取队列都为空，代表读完了，则停止播放。
+            queue_count++;
+            printf("queue_count:%d\n",queue_count);
+            if (queue_count > 10)  // 如果连续多次读取队列都为空，代表读完了，则停止播放。
             {
                 ctx->pause_request = 1;
-                playback_end = 1;
+                ctx->playback_end = 1;
             }
             usleep(10000);
             continue;
         }
-        count = 0;
+        queue_count = 0;
         
         ret = avcodec_send_packet(ctx->audio_dec_ctx, &pkt);
         if (ret == 0) {
             while (avcodec_receive_frame(ctx->audio_dec_ctx, frame) >= 0) {
-                // 1. 重采样音频数据
-                // 计算输出样本数
-                int out_samples = av_rescale_rnd(swr_get_delay(ctx->swr_ctx, ctx->audio_dec_ctx->sample_rate) +
-                                    frame->nb_samples, AUDIO_OUT_RATE, ctx->audio_dec_ctx->sample_rate, AV_ROUND_UP);
-                
-                // 确保缓冲区够大
-                uint8_t *buffer = malloc(out_samples * AUDIO_OUT_CHANNELS * 2); 
-
-                int real_samples = swr_convert(ctx->swr_ctx, &buffer, out_samples, 
-                                                (const uint8_t **)frame->data, frame->nb_samples);
-                // 2. 写入 ALSA (播放声音)
-                if (pcm_handle && real_samples > 0) {
-                    // 这里是阻塞写入，可能会稍微影响 UI 流畅度，但在简单实现中是必要的
-                    snd_pcm_sframes_t frames_written = snd_pcm_writei(pcm_handle, buffer, real_samples);
-                    if (frames_written < 0) {
-                        frames_written = snd_pcm_recover(pcm_handle, frames_written, 0);
-                        if (frames_written < 0)
-                        {
-                            fprintf(stderr, "The error cannot be recovered: %s\n", snd_strerror(frames_written));
-                            break;
-                        }
+                // 倍速控制逻辑，使用滤镜
+                if (filter_init_flag == 0 || abs(playback_speed_old - ctx->playback_speed) > 0.01)
+                {
+                    filter_init_flag = 1;
+                    
+                    playback_speed_old = ctx->playback_speed;
+                    // 1. 初始化 Graph
+                    if (filter_graph)
+                    {
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
                     }
-                    // 3. 更新音频时钟
-                    // 音频时钟 = 当前音频包 PTS。
-                    // 更精确的做法是：音频PTS - (已写入声卡但在缓冲区的延迟)。让音频提前放，然后加上缓冲区延时正好和视频同步
-                    // 简单做法：直接用音频包的时间戳                        
-                    double audio_pts = frame->pts * av_q2d(ctx->audio_stream->time_base);
-                    snd_pcm_sframes_t delay_frames;
-                    snd_pcm_delay(pcm_handle, &delay_frames);
-                    ctx->audio_clock = audio_pts - (double)(delay_frames/ctx->audio_dec_ctx->sample_rate);
+                    filter_graph = avfilter_graph_alloc();
+
+                    // 2. 创建 buffer (输入源)
+                    // 需要配置 sample_rate, sample_fmt, channel_layout 等参数匹配解码后的 frame
+                    char args[512];
+                    snprintf(args, sizeof(args), "time_base=%d/%d:sample_rate=%d:sample_fmt=%s:channel_layout=0x%"PRIx64,
+                            ctx->audio_dec_ctx->time_base.num, ctx->audio_dec_ctx->time_base.den, 
+                            ctx->audio_dec_ctx->sample_rate,
+                            av_get_sample_fmt_name(ctx->audio_dec_ctx->sample_fmt), ctx->audio_dec_ctx->channel_layout);
+                    ret = avfilter_graph_create_filter(&src_ctx, avfilter_get_by_name("abuffer"), "in", args, NULL, filter_graph);
+                    if (ret < 0)
+                    {
+                        fprintf(stderr, "Failed to create filter\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
+
+                    // 3. 创建 atempo (倍速滤镜)
+                    // speed 为浮点数，例如 1.5, 2.0
+                    char tmp[16];
+                    sprintf(tmp, "%f", ctx->playback_speed);
+                    ret = avfilter_graph_create_filter(&atempo_ctx, avfilter_get_by_name("atempo"), "atempo", tmp, NULL, filter_graph);
+                    if (ret < 0)
+                    {
+                        fprintf(stderr, "Failed to create filter\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
+                    // 4. 创建 buffersink (输出)
+                    ret = avfilter_graph_create_filter(&sink_ctx, avfilter_get_by_name("abuffersink"), "out", NULL, NULL, filter_graph);
+                    if (ret < 0)
+                    {
+                        fprintf(stderr, "Failed to create filter\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
+                    // 5. 连接滤镜: in -> atempo -> out
+                    ret = avfilter_link(src_ctx, 0, atempo_ctx, 0);
+                    if (ret != 0)
+                    {
+                        fprintf(stderr, "Connection to the filter failed\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
+                    
+
+                    ret = avfilter_link(atempo_ctx, 0, sink_ctx, 0);
+                    if (ret != 0)
+                    {
+                        fprintf(stderr, "Connection to the filter failed\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
+                    // 6. 配置 Graph
+                    ret = avfilter_graph_config(filter_graph, NULL);
+                    if (ret < 0)
+                    {
+                        fprintf(stderr, "Configuration of Graph failed\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        continue; 
+                    }
                 }
-                free(buffer);
+                
+                ret = av_buffersrc_add_frame_flags(src_ctx, frame, AV_BUFFERSRC_FLAG_KEEP_REF);
+                if (ret < 0) 
+                {
+                    avfilter_graph_free(&filter_graph);
+                    filter_graph = NULL;
+                    filter_init_flag = 0;
+                    continue; 
+                }
+                // B. 从滤镜图拉取处理后的帧 (Sink)
+                // 注意：这是一个 while 循环，因为输入 1 帧可能产生 N 帧 (N >= 0)
+                while (1) {
+                    ret = av_buffersink_get_frame(sink_ctx, filt_frame);
+                    if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+                        // EAGAIN: 需要更多输入帧才能输出
+                        // EOF: 结束
+                        break; 
+                    }
+                    if (ret < 0)
+                    {
+                        fprintf(stderr, "Failed to obtain frames from the filter.\n");
+                        avfilter_graph_free(&filter_graph);
+                        filter_graph = NULL;
+                        filter_init_flag = 0;
+                        break;
+                    }
+
+
+
+
+                    // 1. 重采样音频数据
+                    // 计算输出样本数
+                    int out_samples = av_rescale_rnd(swr_get_delay(ctx->swr_ctx, filt_frame->sample_rate) +
+                                        filt_frame->nb_samples, AUDIO_OUT_RATE, ctx->audio_dec_ctx->sample_rate, AV_ROUND_UP);
+                    
+                    // 确保缓冲区够大
+                    av_fast_malloc(&buffer, &buf_size, out_samples * AUDIO_OUT_CHANNELS * 2);
+
+                    int real_samples = swr_convert(ctx->swr_ctx, &buffer, out_samples, 
+                                                    (const uint8_t **)filt_frame->data, filt_frame->nb_samples);
+                    // 2. 写入 ALSA (播放声音)
+                    if (pcm_handle && real_samples > 0) {
+                        // 这里是阻塞写入，可能会稍微影响 UI 流畅度，但在简单实现中是必要的
+                        snd_pcm_sframes_t frames_written = snd_pcm_writei(pcm_handle, buffer, real_samples);
+                        if (frames_written < 0) {
+                            frames_written = snd_pcm_recover(pcm_handle, frames_written, 0);
+                            if (frames_written < 0)
+                            {
+                                fprintf(stderr, "The error cannot be recovered: %s\n", snd_strerror(frames_written));
+                                break;
+                            }
+                        }
+                        // 3. 更新音频时钟
+                        // 音频时钟 = 当前音频包 PTS。
+                        // 更精确的做法是：音频PTS - (已写入声卡但在缓冲区的延迟)。让音频提前放，然后加上缓冲区延时正好和视频同步
+                        // 简单做法：直接用音频包的时间戳                        
+                        double audio_pts = frame->pts * av_q2d(ctx->audio_stream->time_base);
+                        snd_pcm_sframes_t delay_frames;
+                        snd_pcm_delay(pcm_handle, &delay_frames);  
+                        //倍速后sample_rate应该乘以个播放倍数
+                        ctx->audio_clock = audio_pts - (double)(delay_frames/AUDIO_OUT_RATE);
+                    }
+                    // free(buffer);
+
+                    // 用完必须释放 ref，否则内存泄漏
+                    av_frame_unref(filt_frame);
+                }
+
+                
             }
         }
         av_packet_unref(&pkt);
     }
+
+    if (buffer)
+    {
+        av_free(buffer);
+        buffer = NULL;
+    }
+    if (frame)
+    {
+        av_frame_free(&frame);
+        frame = NULL;
+    }
+    if (filt_frame)
+    {
+        av_frame_free(&filt_frame);
+        filt_frame = NULL;
+    }
+    if (filter_graph)
+    {
+        avfilter_graph_free(&filter_graph);
+        filter_graph = NULL;
+    }
+
     return NULL;
 }
 
 // 视频处理线程，显示到屏幕上。
 void *video_processing_thread(void *arg)
 {
-    lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)arg;
-    struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
-    lv_obj_t * obj = (lv_obj_t *)player;
+    struct ffmpeg_context_s *ctx = (struct ffmpeg_context_s *)arg;
     if(!ctx) return NULL;
     AVPacket pkt;
     AVFrame *frame = av_frame_alloc();
@@ -512,7 +640,8 @@ void *video_processing_thread(void *arg)
             // 接收解码后的帧
             ret = avcodec_receive_frame(ctx->video_dec_ctx, frame);
             if (ret < 0) {
-                printf("a\n");
+                printf("Error in receiving video frames.\n");
+                continue;
             }
 
             // 音视频同步逻辑
@@ -524,12 +653,14 @@ void *video_processing_thread(void *arg)
             if (diff > sync_threshold)
             {
                 packet_queue_put_front(&ctx->videoq, &pkt);
-                continue;
+                usleep((int64_t)(diff * 1000000)); 
+                // continue;
             }
             // 视频比音频慢
             if (diff < -sync_threshold) 
             {
                 av_packet_unref(&pkt);
+                av_frame_unref(frame);
                 continue;
             }
 
@@ -538,12 +669,6 @@ void *video_processing_thread(void *arg)
             
             av_packet_unref(&pkt);
 
-            pthread_mutex_lock(&timer_mutex);
-            lv_img_cache_invalidate_src(lv_img_get_src(obj));
-            lv_obj_invalidate(obj);
-            pthread_mutex_unlock(&timer_mutex);
-
-            usleep(10000);
         }
     }
     return NULL;
@@ -646,7 +771,7 @@ void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf)
     ctx->seek_pos = pos * AV_TIME_BASE;
     ctx->seek_req = 1;
 
-    printf("seek\n");
+    printf("ctx->seek_pos:%lld\n",ctx->seek_pos);
 }
 
 
@@ -778,13 +903,16 @@ lv_res_t lv_ffmpeg_player_set_src(lv_obj_t * obj, const char * path)
     res = LV_RES_OK;
 
     player->ffmpeg_ctx->pause_request = 1;
+    player->ffmpeg_ctx->playback_speed = 1.0;
+    player->ffmpeg_ctx->demux_pause_request = 0;
+    player->ffmpeg_ctx->playback_end = 0;
     // 初始化音视频包队列
     packet_queue_init(&player->ffmpeg_ctx->audioq);
     packet_queue_init(&player->ffmpeg_ctx->videoq);
     // 运行解码、音频、视频线程
     pthread_create(&demux_pid, NULL, demux_thread, player->ffmpeg_ctx);
     pthread_create(&audio_pid, NULL, audio_processing_thread, player->ffmpeg_ctx);
-    pthread_create(&video_pid, NULL, video_processing_thread, player);
+    pthread_create(&video_pid, NULL, video_processing_thread, player->ffmpeg_ctx);
 
 failed:
     return res;
@@ -800,39 +928,32 @@ void ffmpeg_context_free(struct ffmpeg_context_s **ctx_ptr) {
 
     struct ffmpeg_context_s *ctx = *ctx_ptr;
 
-    // 1. 销毁队列 (清空节点并销毁锁/条件变量)
-    // 注意：videoq 和 audioq 是结构体成员而非指针，所以传入地址
+    // 销毁队列 (清空节点并销毁锁/条件变量)
     packet_queue_destroy(&ctx->videoq);
     packet_queue_destroy(&ctx->audioq);
 
-    // 2. 释放视频图像转换上下文
+    // 释放视频图像转换上下文
     if (ctx->sws_ctx) {
         sws_freeContext(ctx->sws_ctx);
         ctx->sws_ctx = NULL;
     }
 
-    // 3. 释放音频重采样上下文
+    // 释放音频重采样上下文
     if (ctx->swr_ctx) {
         swr_free(&ctx->swr_ctx);
     }
 
-    // 4. 释放分配的图像缓冲区
+    // 释放分配的图像缓冲区
     // 注意：如果是通过 av_image_alloc 分配的，data[0] 指向连续内存块的首地址，只需释放 data[0]
     if (ctx->video_dst_data[0]) {
         av_freep(&ctx->video_dst_data[0]);
     }
-    // 注意：通常 src_data 来自解码后的 AVFrame，如果是引用的 Frame 数据则不需要在此释放。
-    // 但如果这里是你手动 av_image_alloc 分配的缓存，则取消下面代码的注释：
-    /*
-    if (ctx->video_src_data[0]) {
-        av_freep(&ctx->video_src_data[0]);
-    }
-    */
-    // 为了安全，将指针数组清零
+
+    // 将指针数组清零
     memset(ctx->video_dst_data, 0, sizeof(ctx->video_dst_data));
     memset(ctx->video_src_data, 0, sizeof(ctx->video_src_data));
 
-    // 5. 释放编解码器上下文
+    // 释放编解码器上下文
     if (ctx->video_dec_ctx) {
         avcodec_free_context(&ctx->video_dec_ctx);
     }
@@ -840,13 +961,13 @@ void ffmpeg_context_free(struct ffmpeg_context_s **ctx_ptr) {
         avcodec_free_context(&ctx->audio_dec_ctx);
     }
 
-    // 6. 关闭输入文件并释放 AVFormatContext
+    // 关闭输入文件并释放 AVFormatContext
     // avformat_close_input 会自动释放其中的 AVStream (audio_stream, video_stream)，无需手动释放流
     if (ctx->fmt_ctx) {
         avformat_close_input(&ctx->fmt_ctx);
     }
 
-    // 7. 释放结构体自身内存
+    // 释放结构体自身内存
     free(ctx);
     
     // 释放alsa
@@ -862,7 +983,7 @@ void ffmpeg_context_free(struct ffmpeg_context_s **ctx_ptr) {
     }
         
 
-    // 8. 将外部指针置空
+    // 将外部指针置空
     *ctx_ptr = NULL;
 }
 
@@ -879,17 +1000,14 @@ void player_stop_threads(lv_ffmpeg_player_t *player) {
 
     struct ffmpeg_context_s *ctx = player->ffmpeg_ctx;
 
-    // 1. 设置退出标志
+    // 设置退出标志
     ctx->abort_request = 1;
 
-    // 2. 唤醒所有可能阻塞在队列上的线程
-    // 如果 demux 线程卡在网络读取上，av_read_frame 需要配合 interrupt_callback (高级用法)
-    // 这里主要唤醒音视频解码线程
+    // 唤醒所有可能阻塞在队列上的线程，主要唤醒音视频解码线程
     packet_queue_abort(&ctx->audioq);
     packet_queue_abort(&ctx->videoq);
 
-    // 3. 等待线程结束 (Join)
-    // 注意：判断线程变量是否有效，防止 Join 未创建的线程
+    // 等待线程结束 (Join)
     if (demux_pid) {
         pthread_join(demux_pid, NULL);
         demux_pid = 0;
@@ -913,25 +1031,19 @@ lv_res_t lv_ffmpeg_player_reset_src(lv_obj_t * obj, const char * path)
     lv_res_t ret;
     lv_ffmpeg_player_t * player = (lv_ffmpeg_player_t *)obj;
 
-    // 1. 停止旧线程
+    // 停止旧线程
     // 此时旧的 ctx 还在，线程还在运行旧数据，必须先停下来
     player_stop_threads(player);
 
-    // 2. 释放旧的 Context
+    // 释放旧的 Context
     // 使用上一条回答中生成的释放函数
     ffmpeg_context_free(&player->ffmpeg_ctx);
 
-    // 3. 初始化新的 Context
-    demux_pause_request = 0;
+    // 初始化新的 Context
     ret = lv_ffmpeg_player_set_src(obj, path);
     // ... 在这里执行 avformat_open_input 等初始化操作，加载 new_url ...
     // 记得初始化 mutex, cond, abort_request = 0 等
 
-    // 4. 重新创建线程
-    // 此时传入的是崭新的 player->ffmpeg_ctx
-    // pthread_create(&demux_pid, NULL, demux_thread, player->ffmpeg_ctx);
-    // pthread_create(&audio_pid, NULL, audio_processing_thread, player->ffmpeg_ctx);
-    // pthread_create(&video_pid, NULL, video_processing_thread, player);
     
     printf("Player restarted with new context.\n");
     return ret;
@@ -952,16 +1064,14 @@ void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd)
     switch(cmd) {
         case LV_FFMPEG_PLAYER_CMD_START:
             pthread_mutex_lock(&ctx_mutex);
-            // av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
-            //               0, 0, AVSEEK_FLAG_BACKWARD);
             pthread_mutex_unlock(&ctx_mutex);
             player->ffmpeg_ctx->pause_request = 0;
+            player->ffmpeg_ctx->playback_end = 0;
+            queue_count = 0;
             LV_LOG_INFO("ffmpeg player start");
             break;
         case LV_FFMPEG_PLAYER_CMD_STOP:
             pthread_mutex_lock(&ctx_mutex);
-            // av_seek_frame(player->ffmpeg_ctx->fmt_ctx,
-                        //   0, 0, AVSEEK_FLAG_BACKWARD);
             player->ffmpeg_ctx->seek_pos = 0;
             player->ffmpeg_ctx->seek_req = 1;
             player->ffmpeg_ctx->pause_request = 1;

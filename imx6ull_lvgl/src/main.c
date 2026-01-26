@@ -90,8 +90,7 @@ static lv_timer_t * play_timer;                         // 播放器当前时间
 static char total_time[32] = {};                        // 播放器视频总时间
 static int total_second;                                // 播放器视频总秒数
 static int video_hour, video_minute, video_second;      // 播放器视频时分秒。
-int demux_pause_request;                    // 解码暂停标志
-int playback_end;                           // 播放结束标志
+static lv_obj_t * speed_dd;
 
 // lvgl定时器处理同步
 pthread_mutex_t timer_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -558,9 +557,11 @@ static void slider_event_cb(lv_event_t * e)
     {
         if(slider == video_progress)
         {
-            printf("LV_EVENT_RELEASED\n");
+            // printf("LV_EVENT_RELEASED\n");
+            lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_START);
+            set_demux_pause(player, 0);
             lv_ffmpeg_player_seek(player, total_time);
-            demux_pause_request = 0;
+            usleep(100000);
             lv_timer_reset(play_timer);
             lv_timer_resume(play_timer);
         }
@@ -580,7 +581,7 @@ void play_timer_cb(lv_timer_t * timer)
 
     lv_slider_set_value(video_progress, (int)((1.0 * current_second / total_second) * 100), LV_ANIM_OFF);
 
-    if (playback_end == 1)
+    if (get_playback_end(player) == 1)
     {
         lv_slider_set_value(video_progress, 100, LV_ANIM_OFF);
         lv_ffmpeg_player_get_total_time(player, time);
@@ -594,7 +595,7 @@ void play_timer_cb(lv_timer_t * timer)
 /**
  * 下拉框事件回调
  */
-static void dropdown_set_cb(lv_event_t * e)
+static void mode_dropdown_set_cb(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
@@ -741,7 +742,7 @@ static void dropdown_set_cb(lv_event_t * e)
             lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_START);
             lv_obj_add_flag(page_camera, LV_OBJ_FLAG_HIDDEN);
             lv_obj_clear_flag(page_player, LV_OBJ_FLAG_HIDDEN);
-
+            lv_dropdown_set_selected(speed_dd, 1);
             // 写入视频时间
             char time[32] = {};
             lv_ffmpeg_player_get_total_time(player, time);
@@ -755,6 +756,32 @@ static void dropdown_set_cb(lv_event_t * e)
             {
                 play_timer = lv_timer_create(play_timer_cb, 200, NULL);
             }
+        }
+    }
+}
+
+static void speed_dropdown_set_cb(lv_event_t * e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * obj = lv_event_get_target(e);
+    char buf[32];
+    lv_dropdown_get_selected_str(obj, buf, sizeof(buf));
+    if(code == LV_EVENT_VALUE_CHANGED) {
+        if (strcmp(buf, "0.5x") == 0)
+        {
+            set_playback_speed(player, 0.5);
+        }
+        else if (strcmp(buf, "1.0x") == 0)
+        {
+            set_playback_speed(player, 1.0);
+        }
+        else if (strcmp(buf, "1.5x") == 0)
+        {
+            set_playback_speed(player, 1.5);
+        }
+        else if (strcmp(buf, "2.0x") == 0)
+        {
+            set_playback_speed(player, 2.0);
         }
     }
 }
@@ -1021,7 +1048,7 @@ int main(void)
     player = lv_ffmpeg_player_create(page_player);
     // lv_obj_add_flag(player, LV_OBJ_FLAG_HIDDEN);
     lv_ffmpeg_player_set_src(player, PLAYLIST_PATH);
-    // lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
+    lv_ffmpeg_player_set_cmd(player, LV_FFMPEG_PLAYER_CMD_STOP);
     lv_obj_center(player);
     //创建播放器进度条
     video_progress = lv_slider_create(page_player);
@@ -1049,8 +1076,21 @@ int main(void)
     lv_label_set_text(current_time_label, text);
     lv_obj_align_to(current_time_label, video_progress, LV_ALIGN_OUT_LEFT_MID, -20, 0);
 
-
-
+    
+    static const char * opts = "0.5x\n"
+                               "1.0x\n"
+                               "1.5x\n"
+                               "2.0x";
+                               
+    
+    speed_dd = lv_dropdown_create(page_player);
+    lv_obj_set_width(speed_dd, 100);
+    lv_dropdown_set_options_static(speed_dd, opts);
+    lv_dropdown_set_dir(speed_dd, LV_DIR_BOTTOM);
+    lv_dropdown_set_symbol(speed_dd, LV_SYMBOL_UP);
+    lv_obj_align(speed_dd, LV_ALIGN_BOTTOM_RIGHT, 0, -10);
+    lv_dropdown_set_selected(speed_dd, 1);
+    lv_obj_add_event_cb(speed_dd, speed_dropdown_set_cb, LV_EVENT_ALL, NULL);
 
 
 
@@ -1060,15 +1100,13 @@ int main(void)
     lv_obj_t * mode_dd = lv_dropdown_create(lv_scr_act());
     lv_dropdown_set_options(mode_dd, "controller\n" "camera\n" "playback\n" "camera(p2p)\n" "camera(c/s)");
     lv_obj_align(mode_dd, LV_ALIGN_TOP_LEFT, 0, 20);
-    lv_obj_add_event_cb(mode_dd, dropdown_set_cb, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(mode_dd, mode_dropdown_set_cb, LV_EVENT_ALL, NULL);
 
     if(camera_lvgl_init(page_camera) < 0)
         return -1;
 
     while(1) {
-        pthread_mutex_lock(&timer_mutex);
         lv_timer_handler();	//处理lvgl任务
-        pthread_mutex_unlock(&timer_mutex);
         if (!lv_obj_has_flag(page_camera, LV_OBJ_FLAG_HIDDEN)) 
         {
             if(pthread_mutex_trylock(&camera_frm->camera_frm_mutex) == 0)

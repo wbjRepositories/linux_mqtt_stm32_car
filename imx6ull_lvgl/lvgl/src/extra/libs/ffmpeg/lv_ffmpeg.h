@@ -13,6 +13,7 @@ extern "C" {
  *      INCLUDES
  *********************/
 #include "../../../lvgl.h"
+#include <libavformat/avformat.h>
 #if LV_USE_FFMPEG != 0
 
 /*********************
@@ -42,6 +43,54 @@ typedef enum {
     _LV_FFMPEG_PLAYER_CMD_LAST
 } lv_ffmpeg_player_cmd_t;
 
+// 包队列
+typedef struct {
+    AVPacketList *first, *last;
+    int nb_packets;
+    int size;
+    pthread_mutex_t mutex; // 互斥锁保护队列
+    pthread_cond_t cond;   // 条件变量（用于唤醒）
+} PacketQueue;
+
+
+struct ffmpeg_context_s {
+    AVFormatContext * fmt_ctx;
+    AVCodecContext * video_dec_ctx;
+    AVStream * video_stream;
+    uint8_t * video_src_data[4];
+    uint8_t * video_dst_data[4];
+    struct SwsContext * sws_ctx;
+    int video_stream_idx;
+    int video_src_linesize[4];
+    int video_dst_linesize[4];
+    enum AVPixelFormat video_dst_pix_fmt;
+    bool has_alpha;
+    // 新增成员音频相关
+    int audio_stream_idx;
+    AVCodecContext * audio_dec_ctx;
+    AVStream * audio_stream;
+    struct SwrContext * swr_ctx; // 重采样上下文
+    // 新增成员同步相关
+    double video_time_base;     // 视频流的时间基准
+    double audio_clock;         // 当前音频播放到的时间（基准时间，秒）
+
+     // 队列
+    PacketQueue videoq;
+    PacketQueue audioq;
+    
+    // 控制标志
+    int abort_request;          // 退出标志
+    int pause_request;          // 暂停标志
+    int seek_req;               // 是否请求了Seek
+    int64_t seek_pos;           // Seek的位置
+    int demux_pause_request;                    // 解码暂停标志
+    int playback_end;                           // 播放结束标志
+    float playback_speed;       //播放速度，几倍速
+};
+
+void set_demux_pause(lv_obj_t * arg, int flag);
+void set_playback_speed(lv_obj_t * arg, float speed);
+int get_playback_end(lv_obj_t * arg);
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
