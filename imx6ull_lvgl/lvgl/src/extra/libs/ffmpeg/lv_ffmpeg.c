@@ -142,6 +142,7 @@ void packet_queue_init(PacketQueue *q) {
     memset(q, 0, sizeof(PacketQueue));
     pthread_mutex_init(&q->mutex, NULL);
     pthread_cond_init(&q->cond, NULL);
+    q->abort_request = 0;
 }
 
 /**
@@ -256,6 +257,11 @@ int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block) {
     pthread_mutex_lock(&q->mutex);
 
     for (;;) {
+        if (q->abort_request) {
+            ret = -1; 
+            break; // 退出循环，释放锁，返回错误
+        }
+
         pkt1 = q->first;
 
         if (pkt1) {
@@ -425,7 +431,7 @@ void *audio_processing_thread(void *arg)
         else if (ret == 0)
         {
             queue_count++;
-            printf("queue_count:%d\n",queue_count);
+            // printf("queue_count:%d\n",queue_count);
             if (queue_count > 10)  // 如果连续多次读取队列都为空，代表读完了，则停止播放。
             {
                 ctx->pause_request = 1;
@@ -630,11 +636,17 @@ void *video_processing_thread(void *arg)
     if(!ctx) return NULL;
     AVPacket pkt;
     AVFrame *frame = av_frame_alloc();
+    int ret = 0;
     while (!ctx->abort_request)
     {
         if (ctx->pause_request) {usleep(20000); continue;}
-        packet_queue_get(&ctx->videoq, &pkt, 1);
-        int ret = avcodec_send_packet(ctx->video_dec_ctx, &pkt);
+        ret = packet_queue_get(&ctx->videoq, &pkt, 1);
+        if (ret < 0)
+        {
+            fprintf(stderr, "An error occurred while reading the video queue.\n");
+            continue;
+        }
+        ret = avcodec_send_packet(ctx->video_dec_ctx, &pkt);
         if (ret == 0)
         {
             // 接收解码后的帧
@@ -654,7 +666,7 @@ void *video_processing_thread(void *arg)
             {
                 packet_queue_put_front(&ctx->videoq, &pkt);
                 usleep((int64_t)(diff * 1000000)); 
-                // continue;
+                continue;
             }
             // 视频比音频慢
             if (diff < -sync_threshold) 
@@ -771,7 +783,6 @@ void lv_ffmpeg_player_seek(lv_obj_t * arg, char* buf)
     ctx->seek_pos = pos * AV_TIME_BASE;
     ctx->seek_req = 1;
 
-    printf("ctx->seek_pos:%lld\n",ctx->seek_pos);
 }
 
 
@@ -990,7 +1001,8 @@ void ffmpeg_context_free(struct ffmpeg_context_s **ctx_ptr) {
 // PacketQueue 中止函数
 void packet_queue_abort(PacketQueue *q) {
     pthread_mutex_lock(&q->mutex);
-    // 这里通常不需要改变队列数据，只需要发信号唤醒正在等待 get 的线程
+    q->abort_request = 1; // 标记请求中止
+    // 发信号唤醒正在等待 get 的线程
     pthread_cond_signal(&q->cond); 
     pthread_mutex_unlock(&q->mutex);
 }
@@ -1033,13 +1045,16 @@ lv_res_t lv_ffmpeg_player_reset_src(lv_obj_t * obj, const char * path)
 
     // 停止旧线程
     // 此时旧的 ctx 还在，线程还在运行旧数据，必须先停下来
+    av_log(NULL, AV_LOG_INFO, "Step 1: Stop all threads.\n");
     player_stop_threads(player);
-
+    
     // 释放旧的 Context
     // 使用上一条回答中生成的释放函数
+    av_log(NULL, AV_LOG_INFO, "Step 2: Release all resources.\n");
     ffmpeg_context_free(&player->ffmpeg_ctx);
 
     // 初始化新的 Context
+    av_log(NULL, AV_LOG_INFO, "Step 3: Initialize the new Context.\n");
     ret = lv_ffmpeg_player_set_src(obj, path);
     // ... 在这里执行 avformat_open_input 等初始化操作，加载 new_url ...
     // 记得初始化 mutex, cond, abort_request = 0 等
@@ -1064,10 +1079,10 @@ void lv_ffmpeg_player_set_cmd(lv_obj_t * obj, lv_ffmpeg_player_cmd_t cmd)
     switch(cmd) {
         case LV_FFMPEG_PLAYER_CMD_START:
             pthread_mutex_lock(&ctx_mutex);
-            pthread_mutex_unlock(&ctx_mutex);
             player->ffmpeg_ctx->pause_request = 0;
             player->ffmpeg_ctx->playback_end = 0;
             queue_count = 0;
+            pthread_mutex_unlock(&ctx_mutex);
             LV_LOG_INFO("ffmpeg player start");
             break;
         case LV_FFMPEG_PLAYER_CMD_STOP:

@@ -50,6 +50,7 @@ typedef struct {
     int size;
     pthread_mutex_t mutex; // 互斥锁保护队列
     pthread_cond_t cond;   // 条件变量（用于唤醒）
+    int abort_request;
 } PacketQueue;
 
 
