@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <fcntl.h>
-#include <libavutil/log.h>
 #include <libavformat/avformat.h>
 #include <libavdevice/avdevice.h>
+#include <libswscale/swscale.h>
 #include <libavutil/time.h>
+#include <libavutil/log.h>
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/mman.h>
@@ -41,6 +42,8 @@ AVPacket *apkt = NULL;
 AVCodec *vcodec = NULL;
 AVCodecContext *vcodec_ctx = NULL;
 AVFrame *frame = NULL;
+
+struct SwsContext * sws_ctx = NULL;
 
 int video_stream_index = -1;
 int audio_stream_index = -1;
@@ -98,72 +101,72 @@ void sig_handler(int sig)
 }
 
 
-/**
- * 将 YUVJ422P (Full Range) 转换为 ARGB8888
- * 
- * 格式说明:
- * YUVJ422P: 
- *   - Y: 全分辨率
- *   - U, V: 宽度减半 (Width/2)，高度不变 (Height)
- *   - Range: 0-255 (Full Range)
- */
-void YUVJ422P_to_ARGB8888(uint8_t *src_data[3], int src_linesize[3], 
-                          int width, int height, uint8_t *dst_buffer) {
+// /**
+//  * 将 YUVJ422P (Full Range) 转换为 ARGB8888
+//  * 
+//  * 格式说明:
+//  * YUVJ422P: 
+//  *   - Y: 全分辨率
+//  *   - U, V: 宽度减半 (Width/2)，高度不变 (Height)
+//  *   - Range: 0-255 (Full Range)
+//  */
+// void YUVJ422P_to_ARGB8888(uint8_t *src_data[3], int src_linesize[3], 
+//                           int width, int height, uint8_t *dst_buffer) {
     
-    // 1. 获取平面指针
-    uint8_t *y_plane = src_data[0];
-    uint8_t *u_plane = src_data[1];
-    uint8_t *v_plane = src_data[2];
+//     // 1. 获取平面指针
+//     uint8_t *y_plane = src_data[0];
+//     uint8_t *u_plane = src_data[1];
+//     uint8_t *v_plane = src_data[2];
 
-    // 2. 获取步长 (Stride)
-    // 务必使用 linesize，不要假设它等于 width，否则图像会倾斜或越界
-    int y_stride = src_linesize[0];
-    int u_stride = src_linesize[1];
-    int v_stride = src_linesize[2];
+//     // 2. 获取步长 (Stride)
+//     // 务必使用 linesize，不要假设它等于 width，否则图像会倾斜或越界
+//     int y_stride = src_linesize[0];
+//     int u_stride = src_linesize[1];
+//     int v_stride = src_linesize[2];
 
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
+//     for (int y = 0; y < height; y++) {
+//         for (int x = 0; x < width; x++) {
             
-            // --- 获取 YUV 数据 ---
+//             // --- 获取 YUV 数据 ---
             
-            // Y 坐标: 1:1
-            int Y_val = y_plane[y * y_stride + x];
+//             // Y 坐标: 1:1
+//             int Y_val = y_plane[y * y_stride + x];
 
-            // UV 坐标: 
-            // 422P 特性: 水平减半 (x/2), 垂直不减 (y 保持不变)
-            int uv_x = x / 2; 
-            int uv_y = y;     // <--- 420P 这里是 y/2，422P 这里是 y
+//             // UV 坐标: 
+//             // 422P 特性: 水平减半 (x/2), 垂直不减 (y 保持不变)
+//             int uv_x = x / 2; 
+//             int uv_y = y;     // <--- 420P 这里是 y/2，422P 这里是 y
             
-            // 计算 UV 在数组中的偏移量
-            int uv_offset = uv_y * u_stride + uv_x;
+//             // 计算 UV 在数组中的偏移量
+//             int uv_offset = uv_y * u_stride + uv_x;
 
-            int U_val = u_plane[uv_offset] - 128;
-            int V_val = v_plane[uv_offset] - 128;
+//             int U_val = u_plane[uv_offset] - 128;
+//             int V_val = v_plane[uv_offset] - 128;
 
-            // --- 转换公式 (JPEG Full Range) ---
-            // 整数运算优化，避免浮点数
-            // R = Y + 1.402 * V
-            // G = Y - 0.344136 * U - 0.714136 * V
-            // B = Y + 1.772 * U
+//             // --- 转换公式 (JPEG Full Range) ---
+//             // 整数运算优化，避免浮点数
+//             // R = Y + 1.402 * V
+//             // G = Y - 0.344136 * U - 0.714136 * V
+//             // B = Y + 1.772 * U
             
-            int R = Y_val + ((359 * V_val) >> 8);
-            int G = Y_val - ((88 * U_val + 183 * V_val) >> 8);
-            int B = Y_val + ((454 * U_val) >> 8);
+//             int R = Y_val + ((359 * V_val) >> 8);
+//             int G = Y_val - ((88 * U_val + 183 * V_val) >> 8);
+//             int B = Y_val + ((454 * U_val) >> 8);
 
-            // --- 写入目标 Buffer (ARGB) ---
+//             // --- 写入目标 Buffer (ARGB) ---
             
-            // 计算目标索引 (每个像素 4 字节)
-            // 再次提醒: 确保 dst_buffer 分配了 width * height * 4 大小
-            long dst_idx = (y * width + x) * 4;
+//             // 计算目标索引 (每个像素 4 字节)
+//             // 再次提醒: 确保 dst_buffer 分配了 width * height * 4 大小
+//             long dst_idx = (y * width + x) * 4;
 
-            // 逐字节写入，完全避免 Bus Error / 内存对齐问题
-            dst_buffer[dst_idx + 0] = CLAMP(B); // Blue
-            dst_buffer[dst_idx + 1] = CLAMP(G); // Green
-            dst_buffer[dst_idx + 2] = CLAMP(R); // Red
-            dst_buffer[dst_idx + 3] = 255;      // Alpha
-        }
-    }
-}
+//             // 逐字节写入，完全避免 Bus Error / 内存对齐问题
+//             dst_buffer[dst_idx + 0] = CLAMP(B); // Blue
+//             dst_buffer[dst_idx + 1] = CLAMP(G); // Green
+//             dst_buffer[dst_idx + 2] = CLAMP(R); // Red
+//             dst_buffer[dst_idx + 3] = 255;      // Alpha
+//         }
+//     }
+// }
 
 void *audio_sample(void *argv)
 {
@@ -423,7 +426,7 @@ int main(int argc, char *argv[])
         return 0;
     }
     char *cmd = argv[1];
-    if (strcmp(cmd, "camera") != 0 && strcmp(cmd, "playback") != 0 && strcmp(cmd, "camera_p2p") != 0 && strcmp(cmd, "camera(c/s)") != 0)
+    if (strcmp(cmd, "camera") != 0 && strcmp(cmd, "camera_p2p") != 0 && strcmp(cmd, "camera(c/s)") != 0)
     {
         perror("Incompatible parameters！");
         return 0;
@@ -465,7 +468,7 @@ int main(int argc, char *argv[])
     //选择摄像输入格式
     input_format = av_find_input_format("v4l2");
     //设置摄像头参数
-    ret = av_dict_set(&input_dic, "input_format", "mjpeg", 0);
+    ret = av_dict_set(&input_dic, "input_format", "yuyv422", 0);
     GOTO_ERR("Failed to set parameter input_format of the camera:%s");
     ret = av_dict_set(&input_dic, "video_size", "320x240", 0);
     GOTO_ERR("Failed to set parameter video_size of the camera:%s");
@@ -531,8 +534,24 @@ int main(int argc, char *argv[])
                     ret = avcodec_receive_frame(vcodec_ctx, frame);
                     if (ret == 0)
                     {
+                        if(!sws_ctx)
+                        {
+                            sws_ctx = sws_getContext(frame->width, frame->height, frame->format, 
+                            frame->width, frame->height, AV_PIX_FMT_BGRA, SWS_POINT, 
+                            NULL, NULL, NULL);
+                        }
+
                         pthread_mutex_lock(&camera_frm->camera_frm_mutex);   //上锁
-                        YUVJ422P_to_ARGB8888(frame->data, frame->linesize, width, height, (uint8_t *)camera_frm->frm);
+                        // YUVJ422P_to_ARGB8888(frame->data, frame->linesize, width, height, (uint8_t *)camera_frm->frm);
+                        
+                        // 定义输出数组的步长 (stride)
+                        int dest_linesize[4] = {width * 4, 0, 0, 0}; 
+                        uint8_t *dest_data[4] = {(uint8_t *)camera_frm->frm, NULL, NULL, NULL};
+
+                        sws_scale(sws_ctx, (const uint8_t *const *)frame->data, frame->linesize, 0, frame->height, dest_data, dest_linesize);
+                        
+                        strcpy((char *)camera_frm->frm, dest_data[0]);
+
                         camera_frm->new_frame_ready = 1;
                         while (camera_frm->new_frame_ready == 1)
                         {
