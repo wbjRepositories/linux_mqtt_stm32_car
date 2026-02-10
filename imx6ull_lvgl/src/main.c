@@ -52,10 +52,16 @@ typedef struct {
 
 struct camera_frm_struct
 {
-    pthread_mutex_t camera_frm_mutex;
-    pthread_cond_t camera_frm_cond;
-    int new_frame_ready; // 0表示空闲，1表示数据已准备好 没有标志位会死锁
-    uint32_t frm[];
+    pthread_mutex_t camera_frm_mutex; // 24 bytes
+    pthread_cond_t camera_frm_cond;   // 48 bytes
+    int new_frame_ready;              // 4 bytes (Total: 76)
+    
+    // === 新增填充代码 ===
+    // 填充 52 字节，使得头部总大小变为 128 字节 (128 是 32 的倍数)
+    // 这样 frm 就会从 128 字节偏移处开始，满足 SIMD 对齐要求
+    char _padding[52];               
+    
+    uint32_t frm[];                   // 柔性数组，从 offset 128 开始
 };
 struct camera_frm_struct *camera_frm;
 
@@ -683,7 +689,7 @@ static void mode_dropdown_set_cb(lv_event_t * e)
                 //杀死其他摄像头进程
                 kill_camera(&camera);
                 kill_camera(&camera_p2p);
-                run_camera("camera(c/s)");
+                run_camera("camera_cs");
                 // char *argv[] = {"ffmpeg", "-f" ,"v4l2", "-video_size", "640x480", "-framerate", "15", "-i", "/dev/video1", "-q", "10" ,"-f" ,"flv" ,"rtmp://192.168.1.19/live/myCamera", NULL};
                 // execvp("ffmpeg", argv);
                 // perror("execvp ffmpeg err");

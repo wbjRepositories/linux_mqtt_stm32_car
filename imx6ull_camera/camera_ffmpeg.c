@@ -3,14 +3,20 @@
 #include <libavformat/avformat.h>
 #include <libavdevice/avdevice.h>
 #include <libswscale/swscale.h>
+#include <libswresample/swresample.h>
 #include <libavutil/time.h>
 #include <libavutil/log.h>
+#include <libavutil/audio_fifo.h>
+
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/signal.h>
 #include <time.h>
+
+#include <sys/resource.h>
+
 // #define FILE_NMAE_OUTPUT    "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
 // #define FILE_NMAE_OUTPUT    "/mnt/sd/video.mov"
 // #define FILE_NMAE_OUTPUT     "/mnt/sd/video_%03d.mov"
@@ -19,6 +25,9 @@
 #define AUDIO_OUT_RATE  44100
 #define SEGMENT_DURATION_SEC 5.0   // 每个分段大概 5 秒
 #define LIST_FILENAME        "/mnt/sd/playlist.ffconcat"
+
+#define SERVER_ADDRESS      "rtmp://192.168.1.15/live/myCamera"
+#define NET_PROTOCOL        "flv"
 
 //#define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s);goto _ERROR;}
 #define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s, av_err2str(ret));goto _ERROR;}                        
@@ -33,17 +42,41 @@ AVInputFormat *input_format = NULL;
 AVDictionary *input_dic = NULL;
 AVDictionary *output_dic = NULL;
 
-AVStream *audio_stream = NULL;
-AVStream *video_stream = NULL;
+AVStream *audio_out_stream = NULL;
+AVStream *video_out_stream = NULL;
 
-AVPacket *vpkt = NULL;
-AVPacket *apkt = NULL;
+AVPacket *vpkt_in = NULL;
+AVPacket *vpkt_out = NULL;
+AVPacket *apkt_in = NULL;
+AVPacket *apkt_out = NULL;
 
-AVCodec *vcodec = NULL;
-AVCodecContext *vcodec_ctx = NULL;
-AVFrame *frame = NULL;
+AVCodec *vdecoder = NULL;
+AVCodecContext *vdecoder_ctx = NULL;
+AVCodec *adecoder = NULL;
+AVCodecContext *adecoder_ctx = NULL;
+AVFrame* vframe_decode = NULL;
+AVFrame *vframe_encode = NULL;
+AVFrame *aframe_decode = NULL;
+AVFrame *aframe_encode = NULL;
+AVFrame *resampled_frame = NULL;
+
+AVCodec *vencoder = NULL;
+AVCodecContext *vencoder_ctx = NULL;
+AVCodec *aencoder = NULL;
+AVCodecContext *aencoder_ctx = NULL;
+struct SwrContext * swr_ctx = NULL;
+
+// AVCodecParameters *vcodecpar;
+// AVCodecParameters *acodecpar;
 
 struct SwsContext * sws_ctx = NULL;
+
+
+// 定义在全局或上下文结构体中
+AVAudioFifo *audio_fifo = NULL;
+
+int64_t audio_next_pts = 0;
+
 
 int video_stream_index = -1;
 int audio_stream_index = -1;
@@ -53,8 +86,6 @@ int64_t video_start_dts = 0;
 int64_t audio_start_pts = 0;
 int64_t audio_start_dts = 0;
 
-int frame_count = 0;
-int max_frames = 300; // 采集300帧后退出
 
 int is_running = 1; // 控制子线程退出的标志
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
@@ -75,15 +106,26 @@ char filename[64]; // 文件名
 int64_t seg_start_pts; // 当前分段的起始 PTS
 int64_t last_pts;      // 记录上一帧的 PTS 用于计算时长
 
-int codec_once = 0;     // 仅初始化一次编码器，提高性能。
+enum CAMERA_STATUS {
+    CAMERA,
+    CAMERA_P2P,
+    CAMERA_CS
+};
+enum CAMERA_STATUS camera_status;
 
 #define SHM_FRM_NAME     "/shm_frm" //摄像头信号量
 struct camera_frm_struct
 {
-    pthread_mutex_t camera_frm_mutex;
-    pthread_cond_t camera_frm_cond;
-    int new_frame_ready; // 0表示空闲，1表示数据已准备好
-    uint32_t frm[];
+    pthread_mutex_t camera_frm_mutex; // 24 bytes
+    pthread_cond_t camera_frm_cond;   // 48 bytes
+    int new_frame_ready;              // 4 bytes (Total: 76)
+    
+    // === 新增填充代码 ===
+    // 填充 52 字节，使得头部总大小变为 128 字节 (128 是 32 的倍数)
+    // 这样 frm 就会从 128 字节偏移处开始，满足 SIMD 对齐要求
+    char _padding[52];               
+    
+    uint32_t frm[];                   // 柔性数组，从 offset 128 开始
 };
 struct camera_frm_struct *camera_frm;
 
@@ -95,7 +137,8 @@ static void close_current_segment(void);
 
 void sig_handler(int sig)
 {
-    close_current_segment();
+    if (camera_status == CAMERA)
+        close_current_segment();
     av_log(NULL, AV_LOG_INFO, "Camera: Received %d signal\n", sig);
     exit(0);
 }
@@ -180,40 +223,139 @@ void *audio_sample(void *argv)
     if (bytes_per_sample == 0) bytes_per_sample = 2; 
     if (channels == 0) channels = 2; 
 
-    while (is_running && frame_count < max_frames)
+
+    if (camera_status == CAMERA_CS)
     {
-        ret = av_read_frame(audio_in_ctx, apkt);
+        // // 在循环外分配临时的重采样输出 frame (大小可以稍微大一点，用于承接重采样后的数据)
+        resampled_frame = av_frame_alloc();
+        resampled_frame->nb_samples = 4096; // 预估最大值
+        resampled_frame->format = aencoder_ctx->sample_fmt;
+        resampled_frame->channel_layout = aencoder_ctx->channel_layout;
+        resampled_frame->sample_rate = aencoder_ctx->sample_rate;
+        av_frame_get_buffer(resampled_frame, 0);
+
+        // 用于送给编码器的固定大小 frame (AAC通常是1024)
+        aframe_encode = av_frame_alloc();
+        aframe_encode->nb_samples = aencoder_ctx->frame_size; // 1024
+        aframe_encode->format = aencoder_ctx->sample_fmt;
+        aframe_encode->channel_layout = aencoder_ctx->channel_layout;
+        aframe_encode->sample_rate = aencoder_ctx->sample_rate;
+        av_frame_get_buffer(aframe_encode, 0);
+    }
+
+    while (is_running)
+    {
+        ret = av_read_frame(audio_in_ctx, apkt_in);
         if (ret < 0) {
             av_log(NULL, AV_LOG_ERROR, "audio sample err");
             return NULL;
         }
-        
         if (ret == 0)
         {
-            if (apkt->stream_index == audio_stream_index)
+            if (apkt_in->stream_index == audio_stream_index)
             {
-                apkt->stream_index = audio_stream->index;
-
-                // ============== 修改开始 ==============
-                // 计算当前包里有多少个样本
-                int samples_in_pkt = apkt->size / (bytes_per_sample * channels);
-
-                // 根据已经采集的总样本数，手动计算 PTS
-                // 公式：PTS = 总样本数 / 采样率
-                // 使用 av_rescale_q 转换到输出流的时间基
-                apkt->pts = av_rescale_q(total_audio_samples, (AVRational){1, AUDIO_OUT_RATE}, audio_stream->time_base);
-                apkt->dts = apkt->pts;
-                apkt->duration = av_rescale_q(samples_in_pkt, (AVRational){1, AUDIO_OUT_RATE}, audio_stream->time_base);
                 
-                // 累加样本数
-                total_audio_samples += samples_in_pkt;
+                if (camera_status == CAMERA_CS)
+                {
+                    ret = avcodec_send_packet(adecoder_ctx, apkt_in);
+                    if (ret < 0)
+                    {
+                        av_log(NULL, AV_LOG_ERROR, "Failed to send audio packet.%s\n", av_err2str(ret));
+                        return NULL;
+                    }
+                    while (ret >= 0)
+                    {
+                        ret = avcodec_receive_frame(adecoder_ctx, aframe_decode);
+                        if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) break;
+                        
+                        // 1. 重采样 (将解码数据 aframe_decode 转为 AAC 需要的格式，存入 resampled_frame)
+                        // 注意：Swr 需要根据输入样本数计算输出样本数
+                        int max_dst_nb_samples = av_rescale_rnd(swr_get_delay(swr_ctx, aencoder_ctx->sample_rate) + aframe_decode->nb_samples,
+                                                                aencoder_ctx->sample_rate, aencoder_ctx->sample_rate, AV_ROUND_UP); // 假设输入输出采样率相同，如果不同要改这里
+                        
+                        // 确保 resampled_frame 空间够大
+                        if (max_dst_nb_samples > resampled_frame->nb_samples) {
+                            av_frame_make_writable(resampled_frame); // 简化的扩容逻辑，实际可能需要重新alloc buffer
+                        }
 
-                pthread_mutex_lock(&lock);
-                av_interleaved_write_frame(out_ctx, apkt);
-                pthread_mutex_unlock(&lock);
+                        int converted_samples = swr_convert(swr_ctx, 
+                                                            resampled_frame->data, max_dst_nb_samples,
+                                                            (const uint8_t **)aframe_decode->data, aframe_decode->nb_samples);
+                        
+                        // 2. 将重采样后的数据写入 FIFO 队列
+                        av_audio_fifo_write(audio_fifo, (void **)resampled_frame->data, converted_samples);
+
+                        // 3. 当 FIFO 中数据足够一帧 (1024 samples) 时，取出编码
+                        while (av_audio_fifo_size(audio_fifo) >= aencoder_ctx->frame_size) 
+                        {
+                            
+                            // 从 FIFO 读取 1024 个样本到 aframe_encode
+                            ret = av_audio_fifo_read(audio_fifo, (void **)aframe_encode->data, aencoder_ctx->frame_size);
+                            
+                            // 设置 PTS (这非常重要，必须连续)
+                            aframe_encode->pts = audio_next_pts;
+                            audio_next_pts += aframe_encode->nb_samples;
+
+                            // 发送给编码器
+                            ret = avcodec_send_frame(aencoder_ctx, aframe_encode);
+                            if (ret < 0) {
+                                av_log(NULL, AV_LOG_ERROR, "Error sending frame to encoder\n");
+                                break;
+                            }
+
+                            // 接收编码后的包
+                            while (ret >= 0) 
+                            {
+                                ret = avcodec_receive_packet(aencoder_ctx, apkt_out);
+                                if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) break;
+
+                                apkt_out->stream_index = audio_out_stream->index;
+
+                                // 时间基转换：从编码器时间基(1/SampleRate) 转为 封装格式时间基(通常FLV是1/1000)
+                                av_packet_rescale_ts(apkt_out, aencoder_ctx->time_base, audio_out_stream->time_base);
+                                
+                                pthread_mutex_lock(&lock);
+                                ret = av_interleaved_write_frame(out_ctx, apkt_out);
+                                pthread_mutex_unlock(&lock);
+                                
+                                av_packet_unref(apkt_out);
+                            }
+                        }   
+                    }
+                }
+
+
+                if (camera_status == CAMERA)
+                {
+                    apkt_in->stream_index = audio_out_stream->index;
+                    // ============== 修改开始 ==============
+                    // 计算当前包里有多少个样本
+                    int samples_in_pkt = apkt_in->size / (bytes_per_sample * channels);
+
+                    // 根据已经采集的总样本数，手动计算 PTS
+                    // 公式：PTS = 总样本数 / 采样率
+                    // 使用 av_rescale_q 转换到输出流的时间基
+                    // printf("转换前：apkt->pts:%lld\n",apkt_in->pts);
+                    apkt_in->pts = av_rescale_q(total_audio_samples, (AVRational){1, AUDIO_OUT_RATE}, audio_out_stream->time_base);
+                    apkt_in->dts = apkt_in->pts;
+                    // printf("转换后：apkt->pts:%lld\n",apkt_in->pts);
+                    apkt_in->duration = av_rescale_q(samples_in_pkt, (AVRational){1, AUDIO_OUT_RATE}, audio_out_stream->time_base);
+                    // printf("apkt_in->duration:%lld\n",apkt_in->duration);
+                    // 累加样本数
+                    total_audio_samples += samples_in_pkt;
+
+                    // printf("samples_in_pkt:%d\n",samples_in_pkt);
+                    // printf("total_audio_samples:%lld\n",total_audio_samples);
+
+
+                    pthread_mutex_lock(&lock);
+                    ret = av_interleaved_write_frame(out_ctx, apkt_in);
+                    // printf("ret:%d\n",ret);
+                    pthread_mutex_unlock(&lock);
+                }
             }
         }
-        av_packet_unref(apkt);
+        av_packet_unref(apkt_in);
     }
     return NULL;
 }
@@ -251,20 +393,22 @@ static int open_new_segment(void)
 
     // snprintf(filename, sizeof(filename), FILE_NMAE_OUTPUT, file_index);
     strftime(filename, sizeof(filename), FILE_NMAE_OUTPUT, &time_info);
-
-    ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, filename);
+    if (camera_status == CAMERA)
+        ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, filename);
+    if (camera_status == CAMERA_CS)
+        ret = avformat_alloc_output_context2(&out_ctx, NULL, NET_PROTOCOL, SERVER_ADDRESS);
     RET_ERR("NO MEMORY!:%s\n");
     //创建视频流
-    video_stream = avformat_new_stream(out_ctx, NULL);
-    if (video_stream == NULL)
+    video_out_stream = avformat_new_stream(out_ctx, NULL);
+    if (video_out_stream == NULL)
     {
         av_log(out_ctx, AV_LOG_ERROR, "Failed to create the video stream.\n");
         ret = -1;
         // goto _ERROR;
     }
     //创建音频流
-    audio_stream = avformat_new_stream(out_ctx, NULL);
-    if (audio_stream == NULL)
+    audio_out_stream = avformat_new_stream(out_ctx, NULL);
+    if (audio_out_stream == NULL)
     {
         av_log(out_ctx, AV_LOG_ERROR, "Failed to create the audio stream.\n");
         ret = -1;
@@ -278,9 +422,10 @@ static int open_new_segment(void)
         ret = -1;
         // goto _ERROR;
     }
-    ret = avcodec_parameters_copy(video_stream->codecpar, video_in_ctx->streams[video_stream_index]->codecpar);
+    // vcodecpar = video_in_ctx->streams[video_stream_index]->codecpar;
+    ret = avcodec_parameters_copy(video_out_stream->codecpar, video_in_ctx->streams[video_stream_index]->codecpar);
     RET_ERR("Video parameters cannot be copied:%s\n");
-    video_stream->codecpar->codec_tag = 0;
+    video_out_stream->codecpar->codec_tag = 0;
 
     //查找音频流并拷贝
     audio_stream_index = av_find_best_stream(audio_in_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);
@@ -290,13 +435,17 @@ static int open_new_segment(void)
         ret = -1;
         // goto _ERROR;
     }
-    ret = avcodec_parameters_copy(audio_stream->codecpar, audio_in_ctx->streams[audio_stream_index]->codecpar);
+    // acodecpar = audio_in_ctx->streams[audio_stream_index]->codecpar;
+    ret = avcodec_parameters_copy(audio_out_stream->codecpar, audio_in_ctx->streams[audio_stream_index]->codecpar);
     RET_ERR("Audio parameters cannot be copied:%s\n");
-    audio_stream->codecpar->codec_tag = 0;
+    audio_out_stream->codecpar->codec_tag = 0;
+
+    printf("audio_in_ctx->streams[audio_stream_index]->codecpar->sample_rate:%d\n",audio_in_ctx->streams[audio_stream_index]->codecpar->sample_rate);
+    printf("audio_out_stream->codecpar->sample_rate:%d\n",audio_out_stream->codecpar->sample_rate);
 
     //设置声道布局掩码。不写会提醒 not writing 'chan' tag due to lack of channel information
-    if (audio_stream->codecpar->channel_layout == 0) {
-        audio_stream->codecpar->channel_layout = AV_CH_LAYOUT_STEREO;
+    if (audio_out_stream->codecpar->channel_layout == 0) {
+        audio_out_stream->codecpar->channel_layout = AV_CH_LAYOUT_STEREO;
     }
 
     // // 使用segment自动生成ffconcat文件
@@ -311,36 +460,35 @@ static int open_new_segment(void)
     // // 设置 segment_list_size 为 0，表示保留所有历史记录，不删除旧的条目
     // av_dict_set(&output_dic, "segment_list_size", "0", 0);
 
-    if (codec_once == 0)
+    if (!vdecoder_ctx)
     {
-        codec_once = 1;
+        // 给视频宽高赋值，只需要赋值一次。
+        width = video_out_stream->codecpar->width; 
+        height = video_out_stream->codecpar->height;
+
         //找解码器
-        vcodec = avcodec_find_decoder(video_stream->codecpar->codec_id);
-        if (vcodec == NULL)
+        printf("vcodecpar->codec_id:%d\n",video_out_stream->codecpar->codec_id);
+        vdecoder = avcodec_find_decoder(video_out_stream->codecpar->codec_id);
+        if (vdecoder == NULL)
         {
             av_log(NULL, AV_LOG_ERROR, "Decoder not found.\n");
             return -1;
         }
-        vcodec_ctx = avcodec_alloc_context3(vcodec);
-        if (vcodec_ctx == NULL)
+        vdecoder_ctx = avcodec_alloc_context3(vdecoder);
+        if (vdecoder_ctx == NULL)
         {
             av_log(NULL, AV_LOG_ERROR, "Decoder failed to allocate memory.\n");
             return -1;
         }
-        ret = avcodec_parameters_to_context(vcodec_ctx, video_stream->codecpar);
-        RET_ERR("Failed to copy parameters to the encoder.\n");
-
-        vcodec_ctx->time_base = (AVRational){1, 1000};
-        vcodec_ctx->framerate = (AVRational){1000, 1};
+        ret = avcodec_parameters_to_context(vdecoder_ctx, video_out_stream->codecpar);
+        RET_ERR("Failed to copy parameters to the decoder.\n");
 
 
-        ret = avcodec_open2(vcodec_ctx, vcodec, NULL);
-        RET_ERR("Failed to open the encoder.\n");
+        ret = avcodec_open2(vdecoder_ctx, vdecoder, NULL);
+        RET_ERR("Failed to open the decoder.\n");
 
 
-        width = video_stream->codecpar->width; 
-        height = video_stream->codecpar->height;
-        //uint8_t *rgb_buffer = (uint8_t*)malloc(video_stream->codecpar->width * video_stream->codecpar->height * 3);
+        //uint8_t *rgb_buffer = (uint8_t*)malloc(video_out_stream->codecpar->width * video_out_stream->codecpar->height * 3);
         int shm_frm_fd;
         if((shm_frm_fd = shm_open(SHM_FRM_NAME, O_RDWR, 0644)) < 0)
         {
@@ -356,6 +504,8 @@ static int open_new_segment(void)
         
         //uint32_t *frm;
         //uint32_t frm[CAM_W * CAM_H * 4];
+        printf("width:%d\n",width);
+        printf("height:%d\n",height);
         if((camera_frm = mmap(NULL, sizeof(struct camera_frm_struct) + width * height * 4 ,PROT_READ | PROT_WRITE, MAP_SHARED, shm_frm_fd, 0)) == MAP_FAILED)
         {
             perror("mmap err");
@@ -374,12 +524,117 @@ static int open_new_segment(void)
         pthread_mutex_init(&camera_frm->camera_frm_mutex, &mutex_attr);
         pthread_cond_init(&camera_frm->camera_frm_cond, &cond_attr);
     }
+
+
+    if (camera_status == CAMERA_CS)
+    {
+        if (!adecoder_ctx)
+        {
+            //找解码器
+            printf("vcodecpar->codec_id:%d\n",audio_out_stream->codecpar->codec_id);
+            adecoder = avcodec_find_decoder(audio_out_stream->codecpar->codec_id);
+            if (adecoder == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Decoder not found.\n");
+                return -1;
+            }
+            adecoder_ctx = avcodec_alloc_context3(adecoder);
+            if (adecoder_ctx == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Decoder failed to allocate memory.\n");
+                return -1;
+            }
+            ret = avcodec_parameters_to_context(adecoder_ctx, audio_out_stream->codecpar);
+            RET_ERR("Failed to copy parameters to the decoder.\n");
+
+
+            ret = avcodec_open2(adecoder_ctx, adecoder, NULL);
+            RET_ERR("Failed to open the decoder.\n");
+        }
+
+
+        if (!vencoder_ctx)
+        {
+            vencoder = avcodec_find_encoder_by_name("libopenh264");
+            if (vencoder == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Encoder not found.\n");
+                return -1;
+            }
+            vencoder_ctx = avcodec_alloc_context3(vencoder);
+            if (vencoder_ctx == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Encoder failed to allocate memory.\n");
+                return -1;
+            }
+            vencoder_ctx->width = video_out_stream->codecpar->width;
+            vencoder_ctx->height = video_out_stream->codecpar->height;
+            vencoder_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
+            vencoder_ctx->time_base = (AVRational){1, 1000};
+            vencoder_ctx->framerate = (AVRational){1000, 1};
+
+            ret = avcodec_open2(vencoder_ctx, vencoder, NULL);
+            RET_ERR("Failed to open the encoder.\n");
+
+            avcodec_parameters_from_context(video_out_stream->codecpar, vencoder_ctx);
+        }
+
+        if (!aencoder_ctx)
+        {
+            aencoder = avcodec_find_encoder_by_name("aac");
+            if (aencoder == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Encoder not found.\n");
+                return -1;
+            }
+            aencoder_ctx = avcodec_alloc_context3(aencoder);
+            if (aencoder_ctx == NULL)
+            {
+                av_log(NULL, AV_LOG_ERROR, "Encoder failed to allocate memory.\n");
+                return -1;
+            }
+
+            aencoder_ctx->sample_rate = AUDIO_OUT_RATE;
+            aencoder_ctx->channel_layout = AV_CH_LAYOUT_STEREO;
+            aencoder_ctx->channels = 2; // 确保设置通道数
+            aencoder_ctx->time_base = (AVRational){1, AUDIO_OUT_RATE};
+            aencoder_ctx->sample_fmt = AV_SAMPLE_FMT_FLTP;
+
+            // 【关键修改】RTMP/FLV 必须设置此标志，否则无法生成 AAC 头部信息
+            if (out_ctx->oformat->flags & AVFMT_GLOBALHEADER) {
+                aencoder_ctx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
+            }
+
+            ret = avcodec_open2(aencoder_ctx, aencoder, NULL);
+            RET_ERR("Failed to open the audio encoder.\n");
+
+            // 在初始化阶段（aencoder_ctx 打开后）
+            audio_fifo = av_audio_fifo_alloc(aencoder_ctx->sample_fmt, aencoder_ctx->channels, 1);
+
+            avcodec_parameters_from_context(audio_out_stream->codecpar, aencoder_ctx);
+        }
+
+        swr_ctx = swr_alloc_set_opts(NULL,
+                                    aencoder_ctx->channel_layout,
+                                    aencoder_ctx->sample_fmt,
+                                    aencoder_ctx->sample_rate,
+                                    aencoder_ctx->channel_layout,
+                                    AV_SAMPLE_FMT_S16,
+                                    aencoder_ctx->sample_rate,
+                                    0, NULL);
+        swr_init(swr_ctx);
+
+        vframe_decode = av_frame_alloc();
+    }
     
-    video_stream->time_base = vcodec_ctx->time_base;
-    audio_stream->time_base = (AVRational){1, AUDIO_OUT_RATE}; 
+    video_out_stream->time_base = vdecoder_ctx->time_base;
+    audio_out_stream->time_base = (AVRational){1, AUDIO_OUT_RATE}; 
 
     //打开输出文件
-    ret = avio_open2(&out_ctx->pb, filename, AVIO_FLAG_READ_WRITE, NULL, NULL);
+    if (camera_status == CAMERA)
+        ret = avio_open2(&out_ctx->pb, filename, AVIO_FLAG_READ_WRITE, NULL, NULL);
+    if (camera_status == CAMERA_CS)
+        ret = avio_open2(&out_ctx->pb, SERVER_ADDRESS, AVIO_FLAG_READ_WRITE, NULL, NULL);
     RET_ERR("Audio parameters cannot be copied:%s\n");
 
     is_running = 1;
@@ -399,7 +654,7 @@ static void close_current_segment(void)
 
     av_write_trailer(out_ctx);
 
-    double seg_duration = (double)(last_pts - seg_start_pts) * av_q2d(video_stream->time_base);
+    double seg_duration = (double)(last_pts - seg_start_pts) * av_q2d(video_out_stream->time_base);
 
     update_ffconcat(filename, seg_duration);
     
@@ -426,13 +681,29 @@ int main(int argc, char *argv[])
         return 0;
     }
     char *cmd = argv[1];
-    if (strcmp(cmd, "camera") != 0 && strcmp(cmd, "camera_p2p") != 0 && strcmp(cmd, "camera(c/s)") != 0)
+    printf("cmd:%s\n",cmd);
+    if (strcmp(cmd, "camera") == 0)
+    {
+        camera_status = CAMERA;
+    }
+    else if (strcmp(cmd, "camera_p2p") == 0)
+    {
+        camera_status = CAMERA_P2P;
+    }
+    else if (strcmp(cmd, "camera_cs") == 0)
+    {
+        camera_status = CAMERA_CS;
+    }
+    else
     {
         perror("Incompatible parameters！");
         return 0;
     }
-    
-    
+    printf("camera_status:%d\n",camera_status);
+
+    // 提高优先级
+    setpriority(PRIO_PROCESS, 0, -10);
+
     avdevice_register_all();
 
     av_log_set_level(AV_LOG_INFO);
@@ -440,35 +711,54 @@ int main(int argc, char *argv[])
     GOTO_ERR("Network flow initialization error:%s\n");
 
     signal(SIGINT, sig_handler);
-    vpkt = av_packet_alloc();
-    if (vpkt == NULL)
+    vpkt_in = av_packet_alloc();
+    if (vpkt_in == NULL)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "video Package allocation failed.\n");
+        ret = -1;
+        goto _ERROR;
+    }
+    vpkt_out = av_packet_alloc();
+    if (vpkt_out == NULL)
     {
         av_log(out_ctx, AV_LOG_ERROR, "video Package allocation failed.\n");
         ret = -1;
         goto _ERROR;
     }
 
-    apkt = av_packet_alloc();
-    if (apkt == NULL)
+    apkt_in = av_packet_alloc();
+    if (apkt_in == NULL)
     {
         av_log(NULL, AV_LOG_ERROR, "Incorrect allocation of package space.");
         goto _ERROR;
     }
 
+    apkt_out = av_packet_alloc();
+    if (apkt_out == NULL)
+    {
+        av_log(out_ctx, AV_LOG_ERROR, "video Package allocation failed.\n");
+        ret = -1;
+        goto _ERROR;
+    }
 
-    frame = av_frame_alloc();
-    if (frame == NULL)
+    vframe_encode = av_frame_alloc();
+    if (vframe_encode == NULL)
     {
         av_log(NULL, AV_LOG_ERROR, "Frame allocation failed.\n");
         goto _ERROR;
     }
 
-
+    aframe_decode = av_frame_alloc();
+    if (aframe_decode == NULL)
+    {
+        av_log(NULL, AV_LOG_ERROR, "Frame allocation failed.\n");
+        goto _ERROR;
+    }
 
     //选择摄像输入格式
     input_format = av_find_input_format("v4l2");
     //设置摄像头参数
-    ret = av_dict_set(&input_dic, "input_format", "yuyv422", 0);
+    ret = av_dict_set(&input_dic, "input_format", "mjpeg", 0);
     GOTO_ERR("Failed to set parameter input_format of the camera:%s");
     ret = av_dict_set(&input_dic, "video_size", "320x240", 0);
     GOTO_ERR("Failed to set parameter video_size of the camera:%s");
@@ -500,90 +790,155 @@ int main(int argc, char *argv[])
         ret = open_new_segment();
         if (ret < 0)
         {
-            av_log(NULL, AV_LOG_ERROR, "Failed to open a new file.");
+            av_log(NULL, AV_LOG_ERROR, "Failed to open a new file.\n");
             goto _ERROR;
         }
-        
+
         while (1)
         {
-            ret = av_read_frame(video_in_ctx, vpkt);
+            ret = av_read_frame(video_in_ctx, vpkt_in);
             GOTO_ERR("Error in reading video packet.\n");
             if(ret == 0)
             {
-                if (vpkt->stream_index == video_stream_index)
+                if (vpkt_in->stream_index == video_stream_index)
                 {
-                    vpkt->stream_index = video_stream->index;
+                    if (camera_status == CAMERA)
+                    {
+                        vpkt_in->stream_index = video_out_stream->index;
 
-                    now_us = av_gettime();
-            
-                    // 2. 计算从开始到现在经过了多少时间
-                    int64_t pts_us = now_us - start_time_us;
+                        now_us = av_gettime();
+        
+                        // 2. 计算从开始到现在经过了多少时间
+                        int64_t pts_us = now_us - start_time_us;
 
-                    // 3. 将微秒(us)转换为输出流的 time_base
-                    // av_gettime() 返回的是微秒 (1/1,000,000 秒)
-                    vpkt->pts = av_rescale_q(pts_us, (AVRational){1, 1000000}, video_stream->time_base);
-                    vpkt->dts = vpkt->pts;
+                        // 3. 将微秒(us)转换为输出流的 time_base
+                        // av_gettime() 返回的是微秒 (1/1,000,000 秒)
+                        vpkt_in->pts = av_rescale_q(pts_us, (AVRational){1, 1000000}, video_out_stream->time_base);
+                        vpkt_in->dts = vpkt_in->pts;
 
-                    //记录当前分段最后一包的pts
-                    last_pts = vpkt->pts;
+                        //记录当前分段最后一包的pts
+                        last_pts = vpkt_in->pts;
 
-                    vpkt->duration = av_rescale_q(1000000 / 10, (AVRational){1, 1000000}, video_stream->time_base);
-                    vpkt->pos = -1;
+                        vpkt_in->duration = av_rescale_q(1000000 / 10, (AVRational){1, 1000000}, video_out_stream->time_base);
+                        vpkt_in->pos = -1;
+                    }
 
-                    avcodec_send_packet(vcodec_ctx, vpkt);
-                    ret = avcodec_receive_frame(vcodec_ctx, frame);
+                    int ret = avcodec_send_packet(vdecoder_ctx, vpkt_in);
+                    GOTO_ERR("Failed to send video package:%s\n");
+                    
+                    ret = avcodec_receive_frame(vdecoder_ctx, vframe_encode);
                     if (ret == 0)
                     {
-                        if(!sws_ctx)
+                        if (camera_status == CAMERA_CS)
                         {
-                            sws_ctx = sws_getContext(frame->width, frame->height, frame->format, 
-                            frame->width, frame->height, AV_PIX_FMT_BGRA, SWS_POINT, 
-                            NULL, NULL, NULL);
+                            if(!sws_ctx)
+                            {
+                                sws_ctx = sws_getContext(vframe_encode->width, vframe_encode->height, vframe_encode->format, 
+                                vframe_encode->width, vframe_encode->height, AV_PIX_FMT_YUV420P, SWS_POINT, 
+                                NULL, NULL, NULL);
+
+                                vframe_decode->width = vframe_encode->width;
+                                vframe_decode->height = vframe_encode->height;
+                                vframe_decode->format = AV_PIX_FMT_YUV420P;
+                                av_frame_get_buffer(vframe_decode, 0);
+                            }
+                            
+                            sws_scale(sws_ctx, (const uint8_t *const *)vframe_encode->data, vframe_encode->linesize,
+                            0, vframe_encode->height, vframe_decode->data, vframe_decode->linesize);
+                            
+                            av_frame_copy_props(vframe_decode, vframe_encode);
+
+                            ret = avcodec_send_frame(vencoder_ctx, vframe_decode);
+                            GOTO_ERR("An error occurred while sending the data vframe_encode.%s");
+                            while (ret >= 0)
+                            {
+                                ret = avcodec_receive_packet(vencoder_ctx, vpkt_out);
+                                if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF) {
+                                    // EAGAIN: 暂时没包了，跳出循环去喂下一帧
+                                    // EOF: 编码结束
+                                    break;
+                                } else if (ret < 0) {
+                                    printf("Error in encoding.\n");
+                                    break;
+                                }
+
+                                vpkt_out->stream_index = video_out_stream->index;
+                                now_us = av_gettime();
+            
+                                // 计算从开始到现在经过了多少时间
+                                int64_t pts_us = now_us - start_time_us;
+
+                                // 将微秒(us)转换为输出流的 time_base
+                                // av_gettime() 返回的是微秒 (1/1,000,000 秒)
+                                vpkt_out->pts = av_rescale_q(pts_us, (AVRational){1, 1000000}, video_out_stream->time_base);
+                                vpkt_out->dts = vpkt_out->pts;
+
+                                //记录当前分段最后一包的pts
+                                last_pts = vpkt_out->pts;
+
+                                vpkt_out->duration = av_rescale_q(1000000 / 10, (AVRational){1, 1000000}, video_out_stream->time_base);
+                                vpkt_out->pos = -1;
+
+                                pthread_mutex_lock(&lock);
+                                av_interleaved_write_frame(out_ctx, vpkt_out);
+                                pthread_mutex_unlock(&lock);   
+                                av_packet_unref(vpkt_out);
+                            }
+                            // av_frame_unref(vframe_decode);
                         }
-
-                        pthread_mutex_lock(&camera_frm->camera_frm_mutex);   //上锁
-                        // YUVJ422P_to_ARGB8888(frame->data, frame->linesize, width, height, (uint8_t *)camera_frm->frm);
                         
-                        // 定义输出数组的步长 (stride)
-                        int dest_linesize[4] = {width * 4, 0, 0, 0}; 
-                        uint8_t *dest_data[4] = {(uint8_t *)camera_frm->frm, NULL, NULL, NULL};
 
-                        sws_scale(sws_ctx, (const uint8_t *const *)frame->data, frame->linesize, 0, frame->height, dest_data, dest_linesize);
-                        
-                        strcpy((char *)camera_frm->frm, dest_data[0]);
-
-                        camera_frm->new_frame_ready = 1;
-                        while (camera_frm->new_frame_ready == 1)
+                        if (camera_status == CAMERA)
                         {
-                            pthread_cond_wait(&camera_frm->camera_frm_cond, &camera_frm->camera_frm_mutex);
+                            if(!sws_ctx)
+                            {
+                                sws_ctx = sws_getContext(vframe_encode->width, vframe_encode->height, vframe_encode->format, 
+                                vframe_encode->width, vframe_encode->height, AV_PIX_FMT_BGRA, SWS_POINT, 
+                                NULL, NULL, NULL);
+
+                            }
+                            pthread_mutex_lock(&camera_frm->camera_frm_mutex);   //上锁
+                            // YUVJ422P_to_ARGB8888(vframe_encode->data, vframe_encode->linesize, width, height, (uint8_t *)camera_frm->frm);
+                            
+                            // 定义输出数组的步长 (stride)
+                            int dest_linesize[4] = {width * 4, 0, 0, 0}; 
+                            uint8_t *dest_data[4] = {(uint8_t *)camera_frm->frm, NULL, NULL, NULL};
+
+                            sws_scale(sws_ctx, (const uint8_t *const *)vframe_encode->data, vframe_encode->linesize, 0, vframe_encode->height, dest_data, dest_linesize);
+
+                            camera_frm->new_frame_ready = 1;
+                            while (camera_frm->new_frame_ready == 1)
+                            {
+                                pthread_cond_wait(&camera_frm->camera_frm_cond, &camera_frm->camera_frm_mutex);
+                            }
+                            pthread_mutex_unlock(&camera_frm->camera_frm_mutex);   //解锁
+
+                            double current_seg_dur = (double)(vpkt_in->pts - seg_start_pts) * av_q2d(video_out_stream->time_base);
+
+                            if (current_seg_dur >= SEGMENT_DURATION_SEC) 
+                            {
+                                
+                                close_current_segment();
+                                seg_start_pts = vpkt_in->pts;
+                                break;
+                            }
+                    
+                            pthread_mutex_lock(&lock);
+                            av_interleaved_write_frame(out_ctx, vpkt_in);
+                            pthread_mutex_unlock(&lock);      
                         }
-                        pthread_mutex_unlock(&camera_frm->camera_frm_mutex);   //解锁
-                    }
-                    
-                    double current_seg_dur = (double)(vpkt->pts - seg_start_pts) * av_q2d(video_stream->time_base);
-                    // printf("current_seg_dur:%lf\n",current_seg_dur);
-                    // printf("vpkt->pts:%lld\n",vpkt->pts);
-                    if (current_seg_dur >= SEGMENT_DURATION_SEC) 
-                    {
-                        close_current_segment();
-                        seg_start_pts = vpkt->pts;
-                        break;
-                    }
-                    
-                    pthread_mutex_lock(&lock);
-                    av_interleaved_write_frame(out_ctx, vpkt);
-                    pthread_mutex_unlock(&lock);                    
+                    }             
                 }
             }
-            av_packet_unref(vpkt);
+            av_packet_unref(vpkt_in);
         }
     }
 
 _ERROR:
-    if (vpkt)
-        av_packet_free(&vpkt);
-    if (apkt)
-        av_packet_free(&apkt);
+    if (vpkt_in)
+        av_packet_free(&vpkt_in);
+    if (apkt_in)
+        av_packet_free(&apkt_in);
     if(video_in_ctx)
         avformat_close_input(&video_in_ctx); 
     if(audio_in_ctx)
