@@ -661,10 +661,20 @@ void *video_processing_thread(void *arg)
             double diff = video_pts - ctx->audio_clock;
             double sync_threshold = 0.03; // 30ms 的同步阈值
 
+            // 如果 diff 异常大（> 1秒），认为是Seek导致的线程同步问题
+            if (fabs(diff) > 1.0) {
+                // 不做同步等待，直接刷新显示或者丢弃
+                // 这里选择直接显示，让画面尽快更新到 Seek 后的位置
+                ffmpeg_output_video_frame(ctx, frame);
+                av_packet_unref(&pkt);
+                continue; 
+            }
+
             // 视频比音频快
             if (diff > sync_threshold)
             {
                 packet_queue_put_front(&ctx->videoq, &pkt);
+                // 拉进度之后，audio_clock在音频线程中被改变了，但是此时已经取到了旧的frame，导致计算出的diff值不对。使用前先检测diff的值
                 usleep((int64_t)(diff * 1000000)); 
                 continue;
             }

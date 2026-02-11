@@ -28,6 +28,8 @@
 
 #define SERVER_ADDRESS      "rtmp://192.168.1.15/live/myCamera"
 #define NET_PROTOCOL        "flv"
+#define UDP_ADDRESS         "udp://192.168.1.15:5000"
+#define UDP_PROTOCOL        "mpegts"
 
 //#define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s);goto _ERROR;}
 #define GOTO_ERR(s)     if(ret < 0){av_log(NULL, AV_LOG_ERROR, s, av_err2str(ret));goto _ERROR;}                        
@@ -224,7 +226,7 @@ void *audio_sample(void *argv)
     if (channels == 0) channels = 2; 
 
 
-    if (camera_status == CAMERA_CS)
+    if (camera_status == CAMERA_CS || camera_status == CAMERA_P2P)
     {
         // // 在循环外分配临时的重采样输出 frame (大小可以稍微大一点，用于承接重采样后的数据)
         resampled_frame = av_frame_alloc();
@@ -255,7 +257,7 @@ void *audio_sample(void *argv)
             if (apkt_in->stream_index == audio_stream_index)
             {
                 
-                if (camera_status == CAMERA_CS)
+                if (camera_status == CAMERA_CS || camera_status == CAMERA_P2P)
                 {
                     ret = avcodec_send_packet(adecoder_ctx, apkt_in);
                     if (ret < 0)
@@ -316,6 +318,10 @@ void *audio_sample(void *argv)
                                 
                                 pthread_mutex_lock(&lock);
                                 ret = av_interleaved_write_frame(out_ctx, apkt_out);
+                                if (ret < 0)
+                                {
+                                    av_log(out_ctx, AV_LOG_ERROR, "write error:%s\n",av_err2str(ret));
+                                }
                                 pthread_mutex_unlock(&lock);
                                 
                                 av_packet_unref(apkt_out);
@@ -350,7 +356,10 @@ void *audio_sample(void *argv)
 
                     pthread_mutex_lock(&lock);
                     ret = av_interleaved_write_frame(out_ctx, apkt_in);
-                    // printf("ret:%d\n",ret);
+                    if (ret < 0)
+                    {
+                        av_log(out_ctx, AV_LOG_ERROR, "write error:%s\n",av_err2str(ret));
+                    }
                     pthread_mutex_unlock(&lock);
                 }
             }
@@ -397,6 +406,8 @@ static int open_new_segment(void)
         ret = avformat_alloc_output_context2(&out_ctx, NULL, NULL, filename);
     if (camera_status == CAMERA_CS)
         ret = avformat_alloc_output_context2(&out_ctx, NULL, NET_PROTOCOL, SERVER_ADDRESS);
+    if (camera_status == CAMERA_P2P)
+        ret = avformat_alloc_output_context2(&out_ctx, NULL, UDP_PROTOCOL, UDP_ADDRESS);
     RET_ERR("NO MEMORY!:%s\n");
     //创建视频流
     video_out_stream = avformat_new_stream(out_ctx, NULL);
@@ -526,7 +537,7 @@ static int open_new_segment(void)
     }
 
 
-    if (camera_status == CAMERA_CS)
+    if (camera_status == CAMERA_CS || camera_status == CAMERA_P2P)
     {
         if (!adecoder_ctx)
         {
@@ -635,13 +646,16 @@ static int open_new_segment(void)
         ret = avio_open2(&out_ctx->pb, filename, AVIO_FLAG_READ_WRITE, NULL, NULL);
     if (camera_status == CAMERA_CS)
         ret = avio_open2(&out_ctx->pb, SERVER_ADDRESS, AVIO_FLAG_READ_WRITE, NULL, NULL);
+    if (camera_status == CAMERA_P2P)
+        ret = avio_open2(&out_ctx->pb, UDP_ADDRESS, AVIO_FLAG_WRITE, NULL, NULL);
     RET_ERR("Audio parameters cannot be copied:%s\n");
+    
+    ret = avformat_write_header(out_ctx, NULL);
+    RET_ERR("Header writing error.\n");
 
     is_running = 1;
     pthread_create(&audio_thread_id, NULL, audio_sample, NULL);
 
-    ret = avformat_write_header(out_ctx, NULL);
-    RET_ERR("Header writing error.\n");
 
     printf("[Segment] Opened %s\n", filename);
 }
@@ -829,7 +843,7 @@ int main(int argc, char *argv[])
                     ret = avcodec_receive_frame(vdecoder_ctx, vframe_encode);
                     if (ret == 0)
                     {
-                        if (camera_status == CAMERA_CS)
+                        if (camera_status == CAMERA_CS || camera_status == CAMERA_P2P)
                         {
                             if(!sws_ctx)
                             {
@@ -881,6 +895,10 @@ int main(int argc, char *argv[])
 
                                 pthread_mutex_lock(&lock);
                                 av_interleaved_write_frame(out_ctx, vpkt_out);
+                                if (ret < 0)
+                                {
+                                    av_log(out_ctx, AV_LOG_ERROR, "write error:%s\n",av_err2str(ret));
+                                }
                                 pthread_mutex_unlock(&lock);   
                                 av_packet_unref(vpkt_out);
                             }
@@ -925,6 +943,10 @@ int main(int argc, char *argv[])
                     
                             pthread_mutex_lock(&lock);
                             av_interleaved_write_frame(out_ctx, vpkt_in);
+                            if (ret < 0)
+                            {
+                                av_log(out_ctx, AV_LOG_ERROR, "write error:%s\n",av_err2str(ret));
+                            }
                             pthread_mutex_unlock(&lock);      
                         }
                     }             
