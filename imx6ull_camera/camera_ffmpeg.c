@@ -23,7 +23,7 @@
 #define FILE_NMAE_OUTPUT     "/mnt/sd/video_%Y%m%d_%H%M%S.mov"
 // #define FILE_FORMAT_OUTPUT  "mov"
 #define AUDIO_OUT_RATE  44100
-#define SEGMENT_DURATION_SEC 5.0   // 每个分段大概 5 秒
+#define SEGMENT_DURATION_SEC 20.0   // 每个分段大概 20 秒
 #define LIST_FILENAME        "/mnt/sd/playlist.ffconcat"
 
 #define SERVER_ADDRESS      "rtmp://192.168.1.15/live/myCamera"
@@ -583,6 +583,12 @@ static int open_new_segment(void)
             vencoder_ctx->pix_fmt = AV_PIX_FMT_YUV420P;
             vencoder_ctx->time_base = (AVRational){1, 1000};
             vencoder_ctx->framerate = (AVRational){1000, 1};
+            
+            vencoder_ctx->bit_rate = 200000;
+            vencoder_ctx->rc_max_rate = 200000;
+            vencoder_ctx->rc_buffer_size = 400000;
+            vencoder_ctx->max_b_frames = 0;
+            vencoder_ctx->gop_size = 20; // 每2秒一个I帧
 
             ret = avcodec_open2(vencoder_ctx, vencoder, NULL);
             RET_ERR("Failed to open the encoder.\n");

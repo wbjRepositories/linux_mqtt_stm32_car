@@ -446,7 +446,7 @@ void *audio_processing_thread(void *arg)
         if (ret == 0) {
             while (avcodec_receive_frame(ctx->audio_dec_ctx, frame) >= 0) {
                 // 倍速控制逻辑，使用滤镜
-                if (filter_init_flag == 0 || abs(playback_speed_old - ctx->playback_speed) > 0.01)
+                if (filter_init_flag == 0 || fabs(playback_speed_old - ctx->playback_speed) > 0.01)
                 {
                     filter_init_flag = 1;
                     
