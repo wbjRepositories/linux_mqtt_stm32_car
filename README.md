@@ -13,7 +13,7 @@
 
 <!-- 建议在此处放置一张项目整体实物图（小车+上位机屏幕） -->
 
-<img title="" src="file:///C:/Users/wbj15/xwechat_files/wxid_b39cwyknpwkq22_06c6/temp/RWTemp/2026-02/9e20f478899dc29eb19741386f9343c8/52b763e39c77f957a160fb73e0fae2cd.jpg" alt="52b763e39c77f957a160fb73e0fae2cd.jpg" width="840">
+<img title="" src="images/lvgl.jpg" alt="52b763e39c77f957a160fb73e0fae2cd.jpg" width="840">
 
 <img title="" src="images/car.jpg" alt="" width="841" data-align="inline">
 
@@ -94,9 +94,7 @@
 
 支持暂停、拉进度、倍速播放
 
-<img src="file:///C:/Users/wbj15/xwechat_files/wxid_b39cwyknpwkq22_06c6/temp/RWTemp/2026-02/9e20f478899dc29eb19741386f9343c8/38b5b5e95119e17eb74293d301839385.jpg" title="" alt="38b5b5e95119e17eb74293d301839385.jpg" width="875">
-
-
+<img title="" src="images/player.jpg" alt="38b5b5e95119e17eb74293d301839385.jpg" width="875">
 
 ### 小车控制与交互
 
